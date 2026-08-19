@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결과 화면 업그레이드 시안 v4 — dashboard_v4 디자인 적용</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+:root{
+  --bg: #F5F6F8;
+  --surface: #FFFFFF;
+  --surface-2: #FBFBFC;
+  --border: rgba(16,24,40,0.07);
+  --border-strong: rgba(16,24,40,0.12);
+
+  --text-1: #1A1D23;
+  --text-2: #4B5160;
+  --text-3: #8A8F9C;
+
+  --blue: #3B66E0;
+  --blue-bg: #EFF3FF;
+  --blue-border: #C6D4FA;
+
+  --red: #DC2626;
+  --red-bg: #FFF1F1;
+  --red-border: #FBCACA;
+
+  --amber: #EA580C;
+  --amber-bg: #FFF3EA;
+  --amber-border: #FED7AA;
+
+  --green: #16794C;
+  --green-bg: #EEFBF3;
+  --green-border: #C3ECD6;
+
+  --cat-similarity: #0369A1;
+  --cat-similarity-bg: #F0F9FF;
+  --cat-similarity-border: #BAE6FD;
+
+  --cat-achievement: #7C3AED;
+  --cat-achievement-bg: #F5F3FF;
+  --cat-achievement-border: #DDD6FE;
+
+  --cat-activity: #0F766E;
+  --cat-activity-bg: #F0FDFA;
+  --cat-activity-border: #99F6E4;
+
+  --cat-expression: #475569;
+  --cat-expression-bg: #F1F5F9;
+  --cat-expression-border: #CBD5E1;
+
+  --selected-border: #8B93A3;
+  --selected-bg: #F3F4F6;
+
+  --shadow-sm: 0 1px 2px rgba(16,24,40,0.05);
+  --shadow-md: 0 1px 3px rgba(16,24,40,0.07), 0 1px 2px rgba(16,24,40,0.04);
+  --shadow-lg: 0 6px 16px rgba(16,24,40,0.09), 0 2px 4px rgba(16,24,40,0.05);
+  --shadow-hover: 0 10px 24px rgba(16,24,40,0.12), 0 3px 6px rgba(16,24,40,0.06);
+
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+*{box-sizing:border-box;}
+html,body{
+  margin:0; padding:0;
+  background: var(--bg);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-1);
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+.shell{
+  max-width: 1520px;
+  margin: 28px auto;
+  background: linear-gradient(180deg, #FAFBFC 0%, #F5F6F8 140px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* ===== Top bar ===== */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 16px 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.brand{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:15.5px; letter-spacing:-0.02em;}
+.brand .logo-dot{
+  width:22px;height:22px;border-radius:6px;
+  background: linear-gradient(145deg,#4F7DF9,#3B66E0);
+  box-shadow: 0 2px 5px rgba(59,102,224,0.35);
+}
+.env-pill{
+  font-size:12.5px; color:var(--text-3);
+  background:var(--surface-2); border:1px solid var(--border);
+  padding:5px 12px; border-radius:999px;
+}
+
+/* ===== Header row ===== */
+.header{
+  padding: 22px 28px 20px;
+}
+.breadcrumb{ font-size:13.5px; color:var(--text-3); margin-bottom:6px;}
+.title-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+.title-left{ display:flex; align-items:center; gap:10px;}
+.title-left h1{ font-size:21.5px; font-weight:800; letter-spacing:-0.02em; margin:0;}
+.badge-version{
+  font-size:12.5px; font-weight:700; color:var(--blue);
+  background: var(--blue-bg); border:1px solid var(--blue-border);
+  padding: 3px 10px; border-radius:999px;
+}
+.title-right{ display:flex; align-items:center; gap:10px;}
+.meta-text{ font-size:13px; color:var(--text-3); margin-right:6px;}
+
+.btn{
+  font-family:inherit; font-size:14px; font-weight:600;
+  padding: 9px 16px; border-radius: 10px; cursor:pointer;
+  border:1px solid var(--border-strong);
+  transition: box-shadow .15s ease, transform .15s ease, background .15s ease;
+  display:inline-flex; align-items:center; gap:6px;
+  white-space:nowrap;
+}
+.btn-ghost{
+  background: var(--surface);
+  color: var(--text-2);
+  box-shadow: var(--shadow-sm);
+}
+.btn-ghost:hover{ box-shadow: var(--shadow-md); }
+.btn-primary{
+  background: linear-gradient(180deg, #4F7DF9, #3B66E0);
+  border: 1px solid #3358C9;
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.08), 0 4px 10px rgba(59,102,224,0.30);
+}
+.btn-primary:hover{ box-shadow: 0 1px 2px rgba(16,24,40,0.08), 0 6px 16px rgba(59,102,224,0.38); transform: translateY(-1px); }
+.btn-primary:active{ transform: translateY(0); box-shadow: inset 0 1px 2px rgba(0,0,0,0.15); }
+
+/* ===== Summary cards ===== */
+.summary-grid{
+  display:grid; grid-template-columns: repeat(4, 1fr); gap:16px;
+  padding: 0 28px 22px;
+}
+.metric-card{
+  background: var(--surface);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 13px 18px;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow .15s ease;
+  position:relative;
+}
+.metric-card:hover{ box-shadow: var(--shadow-hover); }
+.metric-label{
+  display:flex; align-items:center; gap:6px;
+  font-size:13px; color:var(--text-2); font-weight:600; margin-bottom:7px;
+}
+.dot{ width:7px;height:7px;border-radius:50%; }
+.dot-blue{ background:var(--blue); }
+.dot-red{ background:var(--red); }
+.dot-neutral{ background:var(--text-3); }
+
+.metric-value, .metric-number{ font-size:24.5px; font-weight:800; letter-spacing:-0.02em; line-height:1.1; font-variant-numeric:tabular-nums;}
+.metric-sub{ font-size:12.5px; color:var(--text-3); margin-top:5px; line-height:1.4;}
+
+.progress-track{
+  height:5px; background:#EDEEF2; border-radius:999px; margin-top:7px; overflow:hidden;
+}
+.progress-fill{
+  height:100%; border-radius:999px;
+  background: linear-gradient(90deg, #6E97FF, #3B66E0);
+}
+
+.metric-card.alert{
+  background: linear-gradient(180deg, #FFF6F6 0%, #FFFFFF 55%);
+  border: 1px solid var(--red-border);
+}
+.metric-card.alert::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+  background: linear-gradient(180deg, #EF4444, #B91C1C);
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.metric-card.alert .metric-value{ color: var(--red); }
+
+/* ===== Main 3-column layout ===== */
+.main-grid{
+  display:grid;
+  grid-template-columns: 354px 1fr 380px;
+  gap:16px;
+  padding: 0 28px 28px;
+  align-items:start;
+}
+
+.panel{
+  background: var(--surface);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  min-width: 0;
+}
+.panel-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 14px 18px; border-bottom:1px solid var(--border);
+}
+.panel-title{ font-size:14.5px; font-weight:700; }
+.panel-title-sub{ font-size:12.5px; color:var(--text-3); font-weight:500;}
+
+/* ---- Left: preview ---- */
+.left-panel-body{ padding: 16px 18px 18px; }
+.preview-thumb{
+  border:1px solid var(--border); border-radius: 10px;
+  overflow:hidden; box-shadow: var(--shadow-sm);
+  aspect-ratio: 3/4; background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.preview-thumb img{ width:100%; height:100%; object-fit:contain; display:block; }
+.marker{
+  position:absolute; top:38%; left:20%;
+  width:26px;height:26px;border-radius:50%;
+  background: var(--red); color:#fff; font-weight:800; font-size:13.5px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow: 0 3px 8px rgba(220,38,38,0.4);
+  border: 2px solid #fff;
+}
+.preview-nav{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:10px; font-size:13.5px; color:var(--text-2);
+}
+.nav-btn{
+  width:28px;height:28px;border-radius:8px; border:1px solid var(--border);
+  background:var(--surface); box-shadow:var(--shadow-sm); cursor:pointer;
+  display:flex;align-items:center;justify-content:center; color:var(--text-2);
+}
+.file-meta{ margin-top:14px; }
+.file-name{ font-size:13.5px; font-weight:700; }
+.file-sub{ font-size:12.5px; color:var(--text-3); margin-top:3px; }
+
+/* ---- Middle: checklist ---- */
+.checklist-toolbar{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  padding: 14px 18px 12px; border-bottom:1px solid var(--border);
+}
+.status-counts{ display:flex; gap:14px; font-size:13.5px; }
+.status-counts span{ display:inline-flex; align-items:center; gap:6px; font-weight:600; color:var(--text-2);}
+.sort-select{
+  font-family:inherit; font-size:13px; border:1px solid var(--border-strong);
+  border-radius:8px; padding:6px 10px; color:var(--text-2); background:var(--surface-2);
+}
+
+.checklist-body{ padding: 8px 14px 14px; max-height: 480px; overflow-y:auto; scrollbar-gutter: stable; }
+.checklist-body::-webkit-scrollbar{ width:6px; }
+.checklist-body::-webkit-scrollbar-track{ background:transparent; }
+.checklist-body::-webkit-scrollbar-thumb{ background:var(--border-strong); border-radius:999px; }
+.checklist-body::-webkit-scrollbar-thumb:hover{ background:var(--text-3); }
+.section-label{
+  display:flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:700; color:var(--text-2);
+  padding: 12px 8px 8px;
+}
+.section-label .count{ color:var(--text-3); font-weight:600; }
+.section-toggle{
+  margin-left:auto; font-size:13px; color:var(--blue); font-weight:600; cursor:pointer;
+}
+
+.item-card{
+  border:1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 10px 13px;
+  margin-bottom: 9px;
+  background: var(--surface);
+  cursor:pointer;
+  transition: box-shadow .15s ease, border-color .15s ease, transform .1s ease;
+  position:relative;
+}
+.item-card:hover{ box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+.item-card.selected{
+  border: 1.5px solid var(--selected-border);
+  background: var(--selected-bg);
+  box-shadow: 0 0 0 3px rgba(16,24,40,0.08), var(--shadow-md);
+}
+
+.item-card.severity-high{ border-left: 3px solid var(--red); }
+.item-card.severity-med{ border-left: 3px solid var(--amber); }
+.item-card.severity-pass{ border-left: 3px solid var(--green); }
+
+.item-row1{ display:flex; align-items:center; gap:8px; margin-bottom:3px; }
+.item-tag{
+  font-size:12px; font-weight:700; padding:3px 9px; border-radius:999px;
+  display:inline-flex; align-items:center; gap:5px; flex:none;
+}
+.tag-similarity{ background:var(--cat-similarity-bg); color:var(--cat-similarity); border:1px solid var(--cat-similarity-border); }
+.tag-achievement{ background:var(--cat-achievement-bg); color:var(--cat-achievement); border:1px solid var(--cat-achievement-border); }
+.tag-activity{ background:var(--cat-activity-bg); color:var(--cat-activity); border:1px solid var(--cat-activity-border); }
+.tag-expression{ background:var(--cat-expression-bg); color:var(--cat-expression); border:1px solid var(--cat-expression-border); }
+
+.item-title{ font-size:14.5px; font-weight:700; color:var(--text-1); letter-spacing:-0.01em; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.item-loc{ font-size:12px; color:var(--text-3); font-weight:600; white-space:nowrap; flex:none; }
+
+.item-row2{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.item-desc{ font-size:13px; color:var(--text-2); font-weight:400; letter-spacing:-0.01em; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.description-text{ font-size:13.5px; color:var(--text-2); line-height:1.6; font-weight:400; letter-spacing:-0.01em; }
+.item-actions{ flex:none; }
+.mini-btn{
+  font-family:inherit; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px;
+  background:var(--surface); border:1px solid var(--border-strong); color:var(--text-2);
+  box-shadow: var(--shadow-sm); cursor:pointer;
+}
+.mini-btn:hover{ box-shadow: var(--shadow-md); }
+.mini-btn.copied{ background:var(--green); color:#fff; border-color:transparent; }
+.mini-link{
+  font-family:inherit; font-size:13px; font-weight:600; color: var(--blue);
+  background:none; border:none; padding:2px 0; cursor:pointer;
+  display:inline-flex; align-items:center; gap:4px;
+}
+.mini-link:hover{ text-decoration: underline; }
+.mini-link svg{ transition: transform .15s ease; }
+.mini-link:hover svg{ transform: translateX(2px); }
+
+.collapsed-section{
+  border:1px dashed var(--border-strong); border-radius:12px;
+  padding: 12px 16px; margin-bottom:10px; font-size:13.5px; color:var(--text-3);
+  display:flex; align-items:center; justify-content:space-between;
+  cursor:pointer;
+}
+
+/* ---- Right: issue detail ---- */
+.right-panel-body{ padding: 18px 20px 20px; }
+.issue-status-pill{
+  font-size:12.5px; font-weight:700; padding:4px 11px; border-radius:999px;
+  background:var(--red-bg); color:var(--red); border:1px solid var(--red-border);
+}
+.issue-status-pill.review{ background:var(--amber-bg); color:var(--amber); border-color:var(--amber-border); }
+.issue-status-pill.ok{ background:var(--green-bg); color:var(--green); border-color:var(--green-border); }
+.issue-title{ font-size:17px; font-weight:800; letter-spacing:-0.02em; margin: 12px 0 16px; line-height:1.4;}
+
+.block{ margin-bottom:18px; }
+.block-label{ font-size:13px; font-weight:700; color:var(--text-2); margin-bottom:8px; }
+.block-text{ font-size:14px; color:var(--text-1); line-height:1.6; font-weight:400; letter-spacing:-0.01em; }
+
+.quote-box{
+  background: var(--amber-bg); border:1px solid var(--amber-border);
+  border-radius:10px; padding:12px 14px; font-size:13.5px; line-height:1.6; color:#5C4113;
+  margin-top:6px; font-weight:400; letter-spacing:-0.01em;
+}
+.quote-box .quote-label{ font-size:12px; font-weight:700; color:var(--amber); margin-bottom:4px; }
+.quote-box + .quote-box{ margin-top:8px; }
+mark{ background:#FDE68A; padding:0 2px; border-radius:3px; }
+
+.recommend-box{
+  background: var(--blue-bg); border:1px solid var(--blue-border);
+  border-radius:10px; padding:12px 14px; font-size:14px; font-weight:600; color:#1E3A8A; line-height:1.6;
+  display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+}
+
+.confidence-box{
+  background: var(--green-bg); border:1px solid var(--green-border);
+  border-radius:10px; padding:11px 14px; font-size:13px; color:#0F5132; line-height:1.55;
+}
+
+.divider{ height:1px; background:var(--border); margin: 18px 0; }
+
+@media (max-width: 1100px){
+  .summary-grid{ grid-template-columns: repeat(2,1fr); }
+  .main-grid{ grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="brand"><span class="logo-dot"></span> 와이비엠 · 교과서 원고 점검</div>
+    <div class="env-pill">team-audit.local · 결과 보기</div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="breadcrumb">교과서 원고 점검 / 원고_임이_오시는지.pdf</div>
+    <div class="title-row">
+      <div class="title-left">
+        <h1>1쪽 교육과정 점검</h1>
+        <span class="badge-version">개선안 v4</span>
+      </div>
+      <div class="title-right">
+        <span class="meta-text">분석 완료 · 2026.08.18 14:32</span>
+        <button class="btn btn-ghost" id="subjectConfigBtn">⚙ 교과별 판정 기준</button>
+        <button class="btn btn-ghost">내보내기</button>
+        <button class="btn btn-primary">재분석</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary cards -->
+  <div class="summary-grid">
+    <div class="metric-card">
+      <div class="metric-label"><span class="dot dot-blue"></span> 전체 완성도</div>
+      <div class="metric-value">70%</div>
+      <div class="progress-track"><div class="progress-fill" style="width:70%"></div></div>
+      <div class="metric-sub">성취기준·참고 사진 미충족 · 6개 항목 중 4개 충족</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-label"><span class="dot dot-blue"></span> 교과 성취기준 연계</div>
+      <div class="metric-value">49.9%</div>
+      <div class="metric-sub">해당 · [12감비01-03] 최근접</div>
+    </div>
+
+    <div class="metric-card alert">
+      <div class="metric-label"><span class="dot dot-red"></span> 교과서 유사도</div>
+      <div class="metric-value">72% · 매우 유사</div>
+      <div class="metric-sub">본문 1문장이 참고 교과서와 표현·배열까지 겹침 — 출처 확인 필요</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-label"><span class="dot dot-neutral"></span> 조치 필요 항목</div>
+      <div class="metric-value">4건</div>
+      <div class="metric-sub">유사도 검토 1건 · 추천 문구 검토 1건 · 미충족 구성요소 2건</div>
+    </div>
+  </div>
+
+  <!-- Main 3-column -->
+  <div class="main-grid">
+
+    <!-- LEFT: preview -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">원고 미리보기</div>
+        <div class="panel-title-sub">p. 1 / 2</div>
+      </div>
+      <div class="left-panel-body">
+        <div class="preview-thumb">
+          <img src="assets/sample_page_1.png" alt="원고 1쪽 미리보기">
+          <div class="marker">3</div>
+        </div>
+
+        <div class="preview-nav">
+          <div class="nav-btn">←</div>
+          <div>1 / 2쪽</div>
+          <div class="nav-btn">→</div>
+        </div>
+
+        <div class="file-meta">
+          <div class="file-name">원고_임이_오시는지.pdf</div>
+          <div class="file-sub">1119자 추출 · 악보·이미지 중심 A4 레이아웃</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE: checklist -->
+    <div class="panel">
+      <div class="checklist-toolbar">
+        <div style="font-weight:700; font-size:14.5px;">점검 항목 <span style="color:var(--text-3); font-weight:600;">12건</span></div>
+        <div class="status-counts">
+          <span><span class="dot dot-red"></span>수정 필요 3</span>
+          <span><span class="dot" style="background:var(--amber)"></span>검토 필요 5</span>
+          <span><span class="dot" style="background:var(--green)"></span>통과 4</span>
+        </div>
+        <select class="sort-select"><option>정렬: 영향도 높은 순</option><option>정렬: 페이지 순</option></select>
+      </div>
+
+      <div class="checklist-body" id="checklistBody">
+
+        <div class="section-label">수정 필요 <span class="count">· 3건</span></div>
+
+        <div class="item-card severity-high" data-id="similarity">
+          <div class="item-row1">
+            <span class="item-tag tag-similarity">유사도</span>
+            <span class="item-title">본문 표현이 참고 교과서와 매우 유사함</span>
+            <span class="item-loc">p.1 · 본문</span>
+          </div>
+          <div class="item-row2">
+            <span class="item-desc">겹치는 표현 3곳(서정적인·아름다운·담은) 확인</span>
+            <button type="button" class="mini-link">수정안 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="item-card severity-high" data-id="achievement">
+          <div class="item-row1">
+            <span class="item-tag tag-achievement">성취기준</span>
+            <span class="item-title">성취기준을 찾지 못함</span>
+            <span class="item-loc">p.1</span>
+          </div>
+          <div class="item-row2">
+            <span class="item-desc">성취기준 코드와 문장을 단원 정보에 명시</span>
+            <button type="button" class="mini-link">수정안 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="item-card severity-high" data-id="photo">
+          <div class="item-row1">
+            <span class="item-tag tag-activity">활동 구성</span>
+            <span class="item-title">참고 사진·삽화 없음</span>
+            <span class="item-loc">p.1</span>
+          </div>
+          <div class="item-row2">
+            <span class="item-desc">본문 이해를 돕는 사진 또는 삽화 추가</span>
+            <button type="button" class="mini-link">수정안 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="section-label">검토 필요 <span class="count">· 5건</span> <span class="section-toggle" data-toggle="review-rest">전체 펼치기</span></div>
+
+        <div class="item-card severity-med" data-id="goal-suggest">
+          <div class="item-row1">
+            <span class="item-tag tag-expression">표현</span>
+            <span class="item-title">학습 목표 추천 문구 검토</span>
+            <span class="item-loc">p.1 · 학습 목표</span>
+          </div>
+          <div class="item-row2">
+            <span class="item-desc">교육과정 핵심 개념을 더 반영한 대체 문구 확인</span>
+            <button type="button" class="mini-link">수정안 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="collapsed-section" data-collapsed-for="review-rest" data-toggle="review-rest">
+          <span>검토 필요 항목 4건 더 보기</span>
+          <span class="section-toggle" data-toggle="review-rest">펼치기</span>
+        </div>
+
+        <div data-group-body="review-rest" style="display:none">
+          <div class="item-card severity-med" data-id="activity1">
+            <div class="item-row1">
+              <span class="item-tag tag-activity">활동 구성 · 1</span>
+              <span class="item-title">활동 1 추천 문구 검토</span>
+              <span class="item-loc">p.1 · 활동 1</span>
+            </div>
+            <div class="item-row2">
+              <span class="item-desc">임을 기다리는 마음이 드러난 구절 찾기로 구체화</span>
+              <button type="button" class="mini-link">수정안 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+
+          <div class="item-card severity-med" data-id="activity2">
+            <div class="item-row1">
+              <span class="item-tag tag-activity">활동 구성 · 2</span>
+              <span class="item-title">활동 2 추천 문구 검토</span>
+              <span class="item-loc">p.1 · 활동 2</span>
+            </div>
+            <div class="item-row2">
+              <span class="item-desc">모호했던 지시문을 다듬은 문구 확인</span>
+              <button type="button" class="mini-link">수정안 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+
+          <div class="item-card severity-med" data-id="activity3">
+            <div class="item-row1">
+              <span class="item-tag tag-activity">활동 구성 · 3</span>
+              <span class="item-title">활동 3 추천 문구 검토</span>
+              <span class="item-loc">p.1 · 활동 3</span>
+            </div>
+            <div class="item-row2">
+              <span class="item-desc">라벨과 실제 활동 성격이 달라 다듬은 문구 확인</span>
+              <button type="button" class="mini-link">수정안 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+
+          <div class="item-card severity-med" data-id="ai-review">
+            <div class="item-row1">
+              <span class="item-tag tag-expression">표현</span>
+              <span class="item-title">AI 검토 요약 확인</span>
+              <span class="item-loc">p.1</span>
+            </div>
+            <div class="item-row2">
+              <span class="item-desc">성취기준 부합도·의도 파악 결과 확인</span>
+              <button type="button" class="mini-link">자세히 보기<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapsed-section" data-collapsed-for="ok-all" data-toggle="ok-all">
+          <span>통과 항목 4건</span>
+          <span class="section-toggle" data-toggle="ok-all">펼치기</span>
+        </div>
+
+        <div data-group-body="ok-all" style="display:none">
+          <div class="item-card severity-pass" data-id="goal-ok">
+            <div class="item-row1"><span class="item-tag tag-expression">표현</span><span class="item-title">학습 목표 확인됨</span><span class="item-loc">p.1</span></div>
+            <div class="item-row2"><span class="item-desc">'학습 목표' 표제 감지 · 완성도 반영</span></div>
+          </div>
+
+          <div class="item-card severity-pass" data-id="activity-ok">
+            <div class="item-row1"><span class="item-tag tag-activity">활동 구성</span><span class="item-title">활동 구성 확인됨</span><span class="item-loc">p.1</span></div>
+            <div class="item-row2"><span class="item-desc">학생 수행 활동 문장 감지 · 완성도 반영</span></div>
+          </div>
+
+          <div class="item-card severity-pass" data-id="body-ok">
+            <div class="item-row1"><span class="item-tag tag-expression">표현</span><span class="item-title">본문 맞춤법 검사 완료</span><span class="item-loc">p.1 · 본문</span></div>
+            <div class="item-row2"><span class="item-desc">수정 제안 없음</span></div>
+          </div>
+
+          <div class="item-card severity-pass" data-id="curriculum-ok">
+            <div class="item-row1"><span class="item-tag tag-achievement">성취기준</span><span class="item-title">교육과정 연계 확인됨</span><span class="item-loc">p.1</span></div>
+            <div class="item-row2"><span class="item-desc">[12감비01-03] 해당 · 49.9%</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: issue detail -->
+    <div class="panel" id="detailPanel"></div>
+
+  </div>
+</div>
+
+<script>
+  const TIER_LABEL = {fix:'수정 필요', review:'검토 필요', ok:'통과'};
+
+  const DETAIL = {
+    similarity: {
+      tier: 'fix',
+      title: '본문 표현이 참고 교과서와 매우 유사함',
+      reasonLabel: '왜 수정이 필요한가',
+      reason: '핵심어뿐 아니라 문장 표현과 배열도 참고 교과서와 많이 겹쳐, 출처 표기 없이 그대로 쓰면 표절로 오인될 수 있습니다.',
+      quotes: [
+        {label:'원고', text:'“&lt;이 곡은&gt; 사랑하는 임이 오시기를 밤새도록 기다리는 시인의 애틋한 마음을 담은 <mark>서정적인</mark> 가사와 <mark>아름다운</mark> 가락이 잘 어우러진 1960년대 예술가곡이다.”'},
+        {label:'참고 교과서 — 아침나라 음감비 1단원 8쪽', text:'“강물처럼 흐르듯이 연주되는 셋잇단음표의 리듬 위에 <mark>서정적인</mark> 느낌을 <mark>담은</mark> 노랫말과 <mark>아름다운</mark>”'},
+      ],
+      suggestLabel: '권장 수정안',
+      suggest: '겹치는 표현(서정적인·아름다운·담은)을 다른 어휘로 바꿔 쓰거나, 인용이라면 출처를 명시하세요.',
+      basis: '핵심어 3개 이상(서정적인·아름다운·담은)이 겹치고 문장 배열도 유사해 "매우 유사"로 판정했습니다. 최종 판단은 사람이 확인해야 합니다.',
+      confidence: '측정 근거 · 공유 핵심어 3개 일치 · 유사도 점수 72% — 실제 문자열 비교 결과입니다.',
+      copy: null,
+    },
+    achievement: {
+      tier: 'fix',
+      title: '성취기준을 찾지 못함',
+      reasonLabel: '왜 수정이 필요한가',
+      reason: '원고에서 성취기준 코드([12감비01-01] 등) 또는 명시 문구를 찾지 못했습니다.',
+      quotes: [],
+      suggestLabel: '권장 조치',
+      suggest: '연계할 성취기준 코드와 문장을 원고의 단원 정보에 명시하고, 사람이 최종 확인하세요.',
+      basis: '완성도 배점 15점 중 0점만 반영되었습니다.',
+      confidence: null,
+      copy: null,
+    },
+    photo: {
+      tier: 'fix',
+      title: '참고 사진·삽화 없음',
+      reasonLabel: '왜 수정이 필요한가',
+      reason: '본문 이해를 돕는 참고 사진이나 삽화가 이 페이지에서 확인되지 않았습니다.',
+      quotes: [],
+      suggestLabel: '권장 조치',
+      suggest: '본문 이해를 돕는 사진 또는 삽화를 출처와 함께 추가하세요.',
+      basis: '완성도 배점 15점 중 0점만 반영되었습니다.',
+      confidence: null,
+      copy: null,
+    },
+    'goal-suggest': {
+      tier: 'review',
+      title: '학습 목표 추천 문구 검토',
+      reasonLabel: '왜 검토가 필요한가',
+      reason: '현재 문구가 교육과정 핵심 개념(미적·느낌·수용·공감) 중 일부만 담고 있어, 더 가깝게 연계된 대체 문구를 추천했습니다.',
+      quotes: [{label:'현재 문구', text:'“시와 음악이 만나 탄생한 아름다운 노래를 다양한 방법으로 표현하고 감상할 수 있다.”'}],
+      suggestLabel: '권장 수정안 · [12감비01-03] 근거',
+      suggest: '임이 오시는지의 미적 특성을 감상하고 느낀 점을 다양한 방법으로 표현할 수 있다.',
+      basis: '등록된 기존 교과서 학습 목표 40개의 문장 구조·수행 동사와 교육과정 핵심 개념(미적·느낌·수용·공감)을 참고해 생성했습니다.',
+      confidence: '측정 근거 · 현재 문구와 일치 키워드 2개(표현·감상) · 참고한 기존 교과서 학습 목표 3건 — 근거 문장 5개 중 최근접 일치도 49.9%.',
+      copy: '임이 오시는지의 미적 특성을 감상하고 느낀 점을 다양한 방법으로 표현할 수 있다.',
+    },
+    activity1: {
+      tier: 'review',
+      title: '활동 1 추천 문구 검토',
+      reasonLabel: '왜 검토가 필요한가',
+      reason: '현재 문구: “1. (감상) 가곡을 감상하고 가사를 시처럼 낭송해 보자.” — 정서를 느끼는 지점을 더 구체적으로 짚도록 다듬었습니다.',
+      quotes: [],
+      suggestLabel: '권장 수정안',
+      suggest: '가곡을 감상하고, 임을 기다리는 마음이 가장 잘 드러난 구절을 찾아 가사를 시처럼 낭송해 보자.',
+      basis: '[12감비01-03] 음악을 듣고 음악에 내재된 미적 특성을 수용·공감하며 다양한 방법으로 표현한다.',
+      confidence: null,
+      copy: '가곡을 감상하고, 임을 기다리는 마음이 가장 잘 드러난 구절을 찾아 가사를 시처럼 낭송해 보자.',
+    },
+    activity2: {
+      tier: 'review',
+      title: '활동 2 추천 문구 검토',
+      reasonLabel: '왜 검토가 필요한가',
+      reason: '현재 문구: “2. (감상) 셈여림 변화에 유의하여 감상해 보고 곡의 순서에 맞게 적어 보자.” — ‘곡의 순서에 맞게 적어 보자’라는 표현이 무엇을 적는지 모호해 다듬었습니다.',
+      quotes: [],
+      suggestLabel: '권장 수정안',
+      suggest: '셈여림의 변화를 느끼며 감상하고, 변화가 나타나는 순서를 간단히 적어 보자.',
+      basis: '[12감비01-03] 음악을 듣고 음악에 내재된 미적 특성을 수용·공감하며 다양한 방법으로 표현한다.',
+      confidence: null,
+      copy: '셈여림의 변화를 느끼며 감상하고, 변화가 나타나는 순서를 간단히 적어 보자.',
+    },
+    activity3: {
+      tier: 'review',
+      title: '활동 3 추천 문구 검토',
+      reasonLabel: '왜 검토가 필요한가',
+      reason: '현재 문구: “3. (비평) 악곡을 감상하며 특징을 마인드맵으로 정리해 보자.” — ‘비평’이라 표기되어 있지만 시대적 맥락 없이 특징을 정리하는 감상 활동이라 라벨을 바로잡았습니다.',
+      quotes: [],
+      suggestLabel: '권장 수정안',
+      suggest: '음악을 감상하며 느껴지는 특징을 마인드맵으로 정리해 보자.',
+      basis: '[12감비01-03] 음악을 듣고 음악에 내재된 미적 특성을 수용·공감하며 다양한 방법으로 표현한다.',
+      confidence: null,
+      copy: '음악을 감상하며 느껴지는 특징을 마인드맵으로 정리해 보자.',
+    },
+    'ai-review': {
+      tier: 'review',
+      title: 'AI 검토 요약 확인',
+      reasonLabel: '확인 내용',
+      reason: '의도 파악: 시적 정서를 음악으로 느끼고 표현하는 감상 중심 단원입니다.<br>성취기준 부합도: 보통 — 표현·감상 키워드는 일치하나 미적·수용·공감 개념이 문구에 더 드러나면 좋습니다.',
+      quotes: [],
+      suggestLabel: '권장 조치',
+      suggest: '학습 목표·활동 추천 문구를 함께 검토해 교육과정 핵심 개념을 보완하세요.',
+      basis: 'AI(Claude) 기반 기존 활동 검토·재구성 결과입니다.',
+      confidence: null,
+      copy: null,
+    },
+    'goal-ok': {
+      tier: 'ok',
+      title: '학습 목표 확인됨',
+      reasonLabel: '확인 내용',
+      reason: '“시와 음악이 만나 탄생한 아름다운 노래를 다양한 방법으로 표현하고 감상할 수 있다.”',
+      quotes: [],
+      suggestLabel: '판정 방식',
+      suggest: "'학습 목표' 표제가 있으면 그 문장만 사용하고, 표제가 없을 때만 페이지 상단의 학생 행동 문장을 제한적으로 검사했습니다.",
+      basis: '완성도 배점 15점 중 15점 반영되었습니다.',
+      confidence: null,
+      copy: null,
+    },
+    'activity-ok': {
+      tier: 'ok',
+      title: '활동 구성 확인됨',
+      reasonLabel: '확인 내용',
+      reason: '1. (감상) 가곡을 감상하고 가사를 시처럼 낭송해 보자.<br>2. (감상) 셈여림 변화에 유의하여 감상해 보고 곡의 순서에 맞게 적어 보자.',
+      quotes: [],
+      suggestLabel: '판정 방식',
+      suggest: '[활동 n] 표제부터 지시형 종결어미까지 블록으로 읽고, 표제가 없는 경우에만 번호·지시형 문장을 보완 검사했습니다.',
+      basis: '완성도 배점 15점 중 15점 반영되었습니다.',
+      confidence: null,
+      copy: null,
+    },
+    'body-ok': {
+      tier: 'ok',
+      title: '본문 맞춤법 검사 완료',
+      reasonLabel: '확인 내용',
+      reason: '이 페이지의 설명형 본문 문장 2개를 검사했고, 수정이 필요한 문장은 없었습니다.',
+      quotes: [],
+      suggestLabel: '판정 방식',
+      suggest: 'PDF 줄바꿈 복원 · 주요 띄어쓰기 · 문장 호응·중복 표현 · 긴 연결 문장 · 기존 교과서 용어 표기를 검사했습니다.',
+      basis: '전문 맞춤법 검사기의 전체 문맥·사전 규칙을 재현하지 않으므로 결과가 다를 수 있습니다.',
+      confidence: null,
+      copy: null,
+    },
+    'curriculum-ok': {
+      tier: 'ok',
+      title: '교육과정 연계 확인됨',
+      reasonLabel: '확인 내용',
+      reason: '비교 근거 문장 5개 중 가장 가까운 성취기준의 일치도가 49.9%여서 "해당"으로 분류했습니다.',
+      quotes: [],
+      suggestLabel: '판정 방식',
+      suggest: '[12감비01-03] 음악을 듣고 음악에 내재된 미적 특성을 수용·공감하며 다양한 방법으로 표현한다.',
+      basis: '성취기준 원문·해설·적용 시 고려 사항의 문자 유사도, 핵심 수행 동사·개념과 명시 코드를 비교했습니다.',
+      confidence: null,
+      copy: null,
+    },
+  };
+
+  function renderDetail(id){
+    const d = DETAIL[id];
+    const copyBtn = d.copy ? `<button type="button" class="mini-btn" data-copy="${d.copy}">복사</button>` : '';
+    const quoteBlocks = (d.quotes||[]).map(q=>`<div class="quote-box"><div class="quote-label">${q.label}</div>${q.text}</div>`).join('');
+    const confidenceBlock = d.confidence ? `<div class="block"><div class="block-label">AI 판정 신뢰도</div><div class="confidence-box">${d.confidence}</div></div>` : '';
+    document.getElementById('detailPanel').innerHTML = `
+      <div class="panel-header"><div class="panel-title">선택한 이슈</div><span class="issue-status-pill ${d.tier}">${TIER_LABEL[d.tier]}</span></div>
+      <div class="right-panel-body">
+        <div class="issue-title">${d.title}</div>
+        <div class="block">
+          <div class="block-label">${d.reasonLabel}</div>
+          <div class="block-text">${d.reason}</div>
+          ${quoteBlocks}
+        </div>
+        <div class="block">
+          <div class="block-label">${d.suggestLabel}</div>
+          <div class="recommend-box"><span>${d.suggest}</span>${copyBtn}</div>
+        </div>
+        ${confidenceBlock}
+        <div class="divider"></div>
+        <div class="block" style="margin-bottom:0;">
+          <div class="block-label">판정 근거</div>
+          <div class="block-text" style="color:var(--text-2);">${d.basis}</div>
+        </div>
+      </div>`;
+  }
+
+  function selectItem(el){
+    document.querySelector('.item-card.selected')?.classList.remove('selected');
+    el.classList.add('selected');
+    renderDetail(el.dataset.id);
+  }
+
+  document.querySelectorAll('.item-card').forEach(el=>{
+    el.addEventListener('click', ()=>selectItem(el));
+  });
+
+  function toggleGroup(key){
+    const body = document.querySelector(`[data-group-body="${key}"]`);
+    const placeholder = document.querySelector(`[data-collapsed-for="${key}"]`);
+    const willShow = body.style.display === 'none';
+    body.style.display = willShow ? '' : 'none';
+    if(placeholder) placeholder.style.display = willShow ? 'none' : '';
+    document.querySelectorAll(`.section-toggle[data-toggle="${key}"]`).forEach(el=>{
+      el.textContent = willShow ? '접기' : (el.closest('.collapsed-section') ? '펼치기' : '전체 펼치기');
+    });
+  }
+  document.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', event=>{
+      event.stopPropagation();
+      toggleGroup(el.dataset.toggle);
+    });
+  });
+
+  document.addEventListener('click', event=>{
+    const btn = event.target.closest('.mini-btn[data-copy]');
+    if(!btn) return;
+    if(navigator.clipboard){ navigator.clipboard.writeText(btn.dataset.copy).catch(()=>{}); }
+    const original = btn.textContent;
+    btn.textContent = '복사됨';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = original; btn.classList.remove('copied'); }, 1400);
+  });
+
+  document.getElementById('subjectConfigBtn').addEventListener('click', function(){
+    const original = this.textContent;
+    this.textContent = '설정 화면 준비 중';
+    setTimeout(()=>{ this.textContent = original; }, 1600);
+  });
+
+  selectItem(document.querySelector('.item-card[data-id="similarity"]'));
+</script>
+</body>
+</html>

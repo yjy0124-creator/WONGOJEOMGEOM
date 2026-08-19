@@ -1,0 +1,3 @@
+-r requirements.txt
+pywebview>=4,<6
+pyinstaller>=6,<7

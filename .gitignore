@@ -7,3 +7,5 @@ output/
 out.txt
 page1_raw.txt
 임이_오시는지_분석결과.pdf
+build/
+dist/

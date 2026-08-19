@@ -571,31 +571,72 @@ class ActivitiesAdapterTests(unittest.TestCase):
         self.ai_response = {
             "intent_analysis": "학생이 곡을 감상하고 비교한다.",
             "standard_fit": {"fit_level": "부분 충족", "reason": "비교는 있으나 설명이 약함"},
-            "recommended_activities": [
-                {"activity_type": "감상형", "text": "곡을 감상하며 느낌을 나누어 보자.", "rationale": "정서 파악 보완"},
-                {"activity_type": "비평·맥락형", "text": "시대적 배경을 살펴보고 생각을 써 보자.", "rationale": "맥락 이해 보완"},
+            "activity_variants": [
+                {"label": "감상 중심안", "recommended_activities": [
+                    {"activity_type": "감상형", "text": "곡을 감상하며 느낌을 나누어 보자.", "rationale": "정서 파악 보완"},
+                    {"activity_type": "비평·맥락형", "text": "시대적 배경을 살펴보고 생각을 써 보자.", "rationale": "맥락 이해 보완"},
+                ]},
             ],
         }
 
     def test_uses_ai_adapter_result_when_valid(self):
         adapter = _FakeActivitiesAdapter(result=self.ai_response)
         result = _recommendations(self.components, self.alignment, ["제재곡"], activities_adapter=adapter)
-        self.assertEqual(result["generation_method"], "AI(Claude) 기반 3단계 활동 재구성")
+        self.assertEqual(result["generation_method"], "AI(Claude) 기반 기존 활동 검토·재구성 (3안)")
+        self.assertEqual(len(result["activity_variants"]), 1)
+        self.assertEqual(result["activities"], result["activity_variants"][0]["activities"])
         self.assertEqual(len(result["activities"]), 2)
         self.assertEqual(result["activities"][0]["suggestion"], "곡을 감상하며 느낌을 나누어 보자.")
         self.assertEqual(result["activities"][0]["activity_type"], "감상형")
         self.assertEqual(result["ai_activity_review"]["intent_analysis"], self.ai_response["intent_analysis"])
 
+    def test_ai_adapter_result_maps_source_indices_to_current_text(self):
+        response = dict(self.ai_response)
+        response["activity_variants"] = [{"label": "다듬기 중심안", "recommended_activities": [
+            {"activity_type": "감상형", "edit_type": "trim", "source_indices": [1],
+             "text": "곡을 감상해 보자.", "rationale": "군더더기 구절만 제거"},
+            {"activity_type": "표현·창작형", "edit_type": "add", "source_indices": [],
+             "text": "감상 후 느낀 점을 글로 표현해 보자.", "rationale": "표현 활동 보완"},
+        ]}]
+        adapter = _FakeActivitiesAdapter(result=response)
+        components = detect_manuscript_components(["1. 곡을 감상하고 특징을 비교해 보자.\n2. 시대적 배경을 알아보자."])
+        result = _recommendations(components, self.alignment, ["제재곡"], activities_adapter=adapter)
+        self.assertEqual(result["activities"][0]["current_text"], "1. 곡을 감상하고 특징을 비교해 보자.")
+        self.assertTrue(result["activities"][0]["reason"].startswith("[다듬기]"))
+        self.assertIsNone(result["activities"][1]["current_text"])
+        self.assertTrue(result["activities"][1]["reason"].startswith("[신규]"))
+
+    def test_ai_adapter_result_keeps_multiple_variants_independent(self):
+        response = dict(self.ai_response)
+        response["activity_variants"] = [
+            {"label": "감상 중심안", "recommended_activities": [
+                {"activity_type": "감상형", "text": "곡을 감상하며 느낌을 나누어 보자.", "rationale": "정서 파악 보완"},
+            ]},
+            {"label": "비평 중심안", "recommended_activities": [
+                {"activity_type": "비평·맥락형", "text": "시대적 배경을 살펴보고 생각을 써 보자.", "rationale": "맥락 이해 보완"},
+            ]},
+        ]
+        adapter = _FakeActivitiesAdapter(result=response)
+        result = _recommendations(self.components, self.alignment, ["제재곡"], activities_adapter=adapter)
+        self.assertEqual(len(result["activity_variants"]), 2)
+        self.assertEqual(result["activity_variants"][0]["label"], "감상 중심안")
+        self.assertEqual(result["activity_variants"][1]["label"], "비평 중심안")
+        self.assertEqual(result["activities"], result["activity_variants"][0]["activities"])
+        self.assertNotEqual(
+            result["activity_variants"][0]["activities"][0]["suggestion"],
+            result["activity_variants"][1]["activities"][0]["suggestion"],
+        )
+
     def test_falls_back_to_rule_based_when_adapter_raises(self):
         adapter = _FakeActivitiesAdapter(raise_error=True)
         result = _recommendations(self.components, self.alignment, ["제재곡"], activities_adapter=adapter)
-        self.assertNotEqual(result.get("generation_method"), "AI(Claude) 기반 3단계 활동 재구성")
+        self.assertNotEqual(result.get("generation_method"), "AI(Claude) 기반 기존 활동 검토·재구성")
         self.assertNotIn("ai_activity_review", result)
 
     def test_falls_back_to_rule_based_when_adapter_returns_none(self):
         adapter = _FakeActivitiesAdapter(result=None)
         result = _recommendations(self.components, self.alignment, ["제재곡"], activities_adapter=adapter)
-        self.assertNotEqual(result.get("generation_method"), "AI(Claude) 기반 3단계 활동 재구성")
+        self.assertNotEqual(result.get("generation_method"), "AI(Claude) 기반 기존 활동 검토·재구성")
         self.assertNotIn("ai_activity_review", result)
 
 

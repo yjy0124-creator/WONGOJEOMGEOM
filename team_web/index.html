@@ -4,77 +4,253 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>교과서 원고 점검</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
   <style>
-    :root{--bg:#f5f3ee;--panel:#fff;--text:#171717;--muted:#67645f;--line:#d8d4cc;--brand:#563fc9;--brand-soft:#ece8ff;--lime:#dfff70;--peach:#ff9b7a;--warn:#9a5b00;--danger:#b42318}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;font-size:15px}.shell{max-width:1240px;margin:auto;padding:34px 24px 72px}header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:8px 0 30px;border-bottom:2px solid var(--text);margin-bottom:26px}.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}h1{font-size:clamp(34px,5vw,62px);line-height:.98;letter-spacing:-.055em;margin:0 0 14px;max-width:720px}h2{font-size:clamp(24px,3vw,36px);letter-spacing:-.035em;margin:0 0 10px}h3{font-size:20px;margin:0 0 7px;letter-spacing:-.025em}.sub,.note{color:var(--muted);line-height:1.6}.tag{display:inline-block;background:var(--lime);color:var(--text);border:1px solid var(--text);border-radius:99px;padding:8px 13px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.panel{background:var(--panel);border:1px solid var(--text);border-radius:4px;padding:22px}.reference{display:flex;flex-direction:column;min-height:340px}.reference:nth-child(2){background:#f0edff}.reference:nth-child(3){background:#fff1eb}.reference .state{margin:18px 0;flex:1;max-height:620px;overflow-y:auto}.jobs-wrap{max-height:320px;overflow-y:auto}.reference>.note{font-size:14px;font-weight:650}.file-row{display:grid;grid-template-columns:minmax(0,1fr) 28px;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.file-info b,.file-info span{display:block}.file-info b{font-size:14px;line-height:1.45}.file-info span{font-size:12px;color:var(--muted);margin-top:4px}.file-delete{width:26px;height:26px;padding:0;border:1px solid var(--text);border-radius:50%;background:transparent;color:var(--text);font-size:18px;line-height:1;cursor:pointer}.file-delete:hover,.file-delete:focus{background:var(--text);color:#fff}.empty{padding:16px 0;color:var(--muted);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}label{display:block;font-size:12px;color:var(--text);font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin:10px 0 6px}input[type=text],input[type=file],select{width:100%;height:46px;font:inherit;background:#fff;border:1px solid var(--text);border-radius:2px;padding:11px}input[type=file]{font-size:12px;padding:10px 11px}.btn{border:1px solid var(--text);border-radius:99px;padding:11px 17px;font:inherit;font-weight:800;cursor:pointer;background:var(--text);color:#fff}.btn:hover{background:var(--brand);border-color:var(--brand)}.btn:disabled{opacity:.5;cursor:wait}.btn.secondary{background:var(--brand);border-color:var(--brand)}.btn.danger{background:transparent;color:var(--text)}.btn.danger:hover{background:var(--peach);border-color:var(--text)}.reference-form .btn{margin-top:10px;width:100%}.upload-zone{margin-top:30px;padding:30px;background:var(--lime);border:1px solid var(--text);border-radius:4px;display:grid;grid-template-columns:1fr minmax(500px,620px);gap:34px;align-items:center}.actions{display:grid;grid-template-columns:1fr 1.15fr auto;gap:12px;align-items:end}.actions label{margin:0}.message{display:none;margin-top:14px;padding:12px 14px;border:1px solid var(--brand);background:var(--brand-soft);color:var(--text);line-height:1.5}.message.error{border-color:var(--danger);background:#fff0ee;color:var(--danger)}.history{margin-top:30px}.jobs{width:100%;border-collapse:collapse}.jobs th,.jobs td{text-align:left;padding:14px 8px;border-bottom:1px solid var(--line);vertical-align:top}.jobs th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.status{font-weight:800}.status.completed,a.result{color:var(--brand)}.status.failed{color:var(--danger)}.status.running,.status.queued{color:var(--warn)}a.result{font-weight:800;text-underline-offset:3px}.small{font-size:12px}.footer-note{margin-top:18px;color:var(--muted);font-size:13px}.limit-banner{margin:0 0 28px;padding:13px 16px;border:1px solid var(--text);background:var(--panel);line-height:1.6}.upload-progress{margin:0 0 14px;padding:20px 22px;background:var(--text);color:#fff;border-radius:4px}.progress-track{height:12px;margin:13px 0 8px;background:#777;border-radius:99px;overflow:hidden}.progress-bar{display:block;width:0;height:100%;background:var(--lime);transition:width .15s}.progress-percent{display:block;text-align:right;font-size:28px;line-height:1;margin-top:5px}.progress-detail{text-align:right;font-size:12px;color:#d4d1cb;margin-top:7px}
-    @media(max-width:900px){.grid{grid-template-columns:1fr}.reference{min-height:0}.upload-zone{grid-template-columns:1fr}.jobs thead{display:none}.jobs,.jobs tbody,.jobs tr,.jobs td{display:block}.jobs tr{padding:10px 0;border-bottom:1px solid var(--line)}.jobs td{border:0;padding:4px 0}.jobs td:before{content:attr(data-label);display:inline-block;min-width:100px;color:var(--muted);font-size:12px}}@media(max-width:620px){header{display:block}.header-actions{justify-content:flex-start;margin-top:20px}.actions{display:block}.actions .btn{width:100%;margin-top:12px}.actions label{margin-top:12px}.shell{padding:22px 14px 46px}.upload-zone{padding:22px}}
+    :root{
+      --cloud:#f2efe8; --cloud-2:#e9e3d7;
+      --sky:#5b8fd1; --lavender:#8a76c9; --peach:#e2896a; --coral:#dd6a5c; --gold:#cd9a44;
+      --ink:#23262d; --muted:#6c7078;
+      --glass:rgba(255,255,255,.55); --glass-2:rgba(255,255,255,.72);
+      --border:rgba(255,255,255,.8); --line:rgba(35,38,45,.1);
+      --ease:cubic-bezier(.2,.8,.2,1);
+      --h-size:13.5px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      background:linear-gradient(135deg,#f5f2ec 0%,var(--cloud) 45%,var(--cloud-2) 100%);
+      font-family:'Wanted Sans Variable','Wanted Sans','Malgun Gothic',sans-serif;
+      color:var(--ink);font-size:14px;height:100vh;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;padding:24px;
+    }
+    .window{
+      width:min(1400px,100%);height:min(880px,94vh);background:var(--glass);
+      backdrop-filter:blur(28px) saturate(160%);-webkit-backdrop-filter:blur(28px) saturate(160%);
+      border:1px solid var(--border);border-radius:28px;
+      box-shadow:0 30px 80px rgba(60,50,40,.16), inset 0 1px 0 rgba(255,255,255,.8);
+      display:flex;flex-direction:column;overflow:hidden;
+    }
+    .chrome{
+      height:40px;flex:none;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 18px;
+      border-bottom:1px solid var(--line);
+    }
+    .logo{height:16px;width:auto;display:block;grid-column:2;justify-self:center}
+    .chrome .addr{
+      grid-column:3;justify-self:end;font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.6);
+      padding:4px 16px;border-radius:99px;border:1px solid var(--line);
+    }
+    .menubar{
+      flex:none;display:flex;align-items:center;gap:10px;padding:14px 22px;flex-wrap:wrap;
+      border-bottom:1px solid var(--line);
+    }
+    .brand-group{display:flex;align-items:baseline;gap:10px;overflow:hidden;flex-wrap:wrap}
+    .brand{font-weight:800;font-size:21px;letter-spacing:-.02em;white-space:nowrap;color:var(--ink)}
+    .brand-desc{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .right-group{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+    .reset-all{
+      border:1px solid var(--line);border-radius:99px;padding:9px 16px;font-family:inherit;font-size:11.5px;font-weight:700;
+      background:rgba(255,255,255,.4);color:var(--muted);cursor:pointer;white-space:nowrap;
+      transition:background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease),transform .15s var(--ease);
+    }
+    .reset-all:hover{background:rgba(221,106,92,.14);border-color:rgba(221,106,92,.45);color:#b7392c;transform:translateY(-1px)}
+    .reset-all:active{transform:translateY(0) scale(.96)}
+    .widget{
+      display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.5);border-radius:14px;
+      padding:8px 14px;flex:none;border:1px solid var(--line);
+    }
+    .widget .ring{
+      width:30px;height:30px;border-radius:50%;flex:none;
+      background:conic-gradient(var(--sky) 0 0%, rgba(35,38,45,.1) 0% 100%);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .widget .ring::after{content:'';width:20px;height:20px;border-radius:50%;background:#fbf9f4}
+    .widget-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .widget-text b{font-size:11px;color:var(--ink);font-weight:800;white-space:nowrap}
+    .widget-line{font-size:10.5px;color:var(--muted);display:flex;gap:5px;align-items:baseline;white-space:nowrap;overflow:hidden}
+    .widget-line b{font-size:11.5px;color:var(--ink);font-weight:800}
+
+    .content{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:16px;padding:18px 22px 6px}
+    .col{display:flex;flex-direction:column;min-height:0}
+    .row-title{display:flex;align-items:center;gap:8px;margin:0 0 10px;flex:none}
+    .row-title .n2{
+      width:20px;height:20px;border-radius:6px;background:rgba(35,38,45,.08);color:var(--ink);
+      display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex:none;
+      border:1px solid var(--line);
+    }
+    .row-title h2{font-size:var(--h-size);font-weight:800;margin:0;letter-spacing:-.01em;color:var(--ink)}
+
+    .card{
+      background:var(--glass-2);border:1px solid var(--border);border-radius:18px;
+      box-shadow:0 8px 24px rgba(60,50,40,.08), inset 0 1px 0 rgba(255,255,255,.6);
+    }
+    .note{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 8px;flex:none}
+    .refs{flex:1;display:flex;flex-direction:column;gap:10px;min-height:0;overflow:auto}
+    .ref-card{padding:13px 15px;flex:none}
+    .ref-card h3{font-size:var(--h-size);font-weight:800;margin:0 0 2px;color:var(--ink)}
+    .state{max-height:120px;overflow-y:auto;overflow-x:hidden}
+    .file-row{
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      padding:7px 10px;margin-bottom:6px;background:rgba(255,255,255,.55);border-radius:10px;
+      border:1px solid var(--line);overflow-wrap:anywhere;
+    }
+    .file-info b{font-size:11.5px;font-weight:650;line-height:1.3;color:var(--ink);display:block}
+    .file-info span{font-size:10px;color:var(--muted);display:block;margin-top:2px}
+    .file-delete{
+      width:22px;height:22px;padding:0;flex:none;border-radius:50%;border:none;background:rgba(35,38,45,.06);
+      color:var(--muted);font-size:14px;line-height:1;cursor:pointer;
+      transition:background .15s var(--ease),color .15s var(--ease),transform .15s var(--ease);
+    }
+    .file-delete:hover,.file-delete:focus{background:rgba(221,106,92,.16);color:var(--coral);transform:scale(1.1)}
+    .file-delete:active{transform:scale(.92)}
+    .empty{padding:10px 0;color:var(--muted);font-size:11.5px}
+
+    input[type=text]{
+      width:100%;height:38px;font:inherit;font-size:12.5px;background:rgba(255,255,255,.55);
+      border:1px solid var(--line);border-radius:9px;padding:0 11px;color:var(--ink);
+    }
+    input[type=file]{
+      width:100%;margin-top:8px;font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.4);
+      border:1px solid var(--line);border-radius:9px;padding:6px;
+    }
+    input[type=file]::file-selector-button{
+      border:none;border-radius:8px;padding:6px 12px;margin-right:8px;font-family:inherit;font-size:11px;font-weight:700;
+      background:rgba(35,38,45,.06);color:var(--ink);cursor:pointer;
+      transition:background .15s var(--ease),color .15s var(--ease);
+    }
+    input[type=file]::file-selector-button:hover{background:rgba(91,143,209,.14);color:var(--sky)}
+    .btn{
+      border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-size:12px;font-weight:800;
+      background:linear-gradient(135deg,var(--sky),var(--lavender));color:#fff;cursor:pointer;width:100%;margin-top:8px;
+      box-shadow:0 3px 10px rgba(91,143,209,.28);
+      transition:transform .16s var(--ease),box-shadow .16s var(--ease),filter .16s var(--ease);
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(91,143,209,.4);filter:brightness(1.06)}
+    .btn:active{transform:translateY(0) scale(.97)}
+    .btn:disabled{opacity:.5;cursor:wait;transform:none}
+    .btn.secondary{background:linear-gradient(135deg,var(--peach),var(--coral));box-shadow:0 6px 18px rgba(221,106,92,.32)}
+    .btn.secondary:hover{box-shadow:0 10px 24px rgba(221,106,92,.45)}
+
+    .upload{padding:16px 18px;flex:none}
+    .upload>p{font-size:11px;color:var(--muted);line-height:1.55;margin:0}
+    .limit-banner{font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:8px}
+    .limit-banner b{color:var(--ink)}
+    #manuscript-form{margin-top:6px}
+
+    .message{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:11.5px;line-height:1.5;
+      background:rgba(91,143,209,.12);border:1px solid rgba(91,143,209,.3);color:var(--ink)}
+    .message.error{background:rgba(221,106,92,.12);border-color:rgba(221,106,92,.35);color:#b7392c}
+
+    .history{min-height:0;flex:1}
+    .history .card{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:0}
+    .jobs-wrap{flex:1;min-height:0;overflow-y:auto}
+    .job-list{padding:4px 6px}
+    .job{padding:11px 10px;border-bottom:1px solid var(--line);transition:background .15s var(--ease)}
+    .job:hover{background:rgba(255,255,255,.5)}
+    .job:last-child{border-bottom:none}
+    .job-main{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .job-main b{font-size:12.5px;font-weight:700;overflow-wrap:anywhere;color:var(--ink);flex:1;min-width:0}
+    .job-actions{display:flex;align-items:center;gap:6px;flex:none}
+    .job-meta{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+    .job-links{font-size:11px;margin-top:4px}
+    .status{display:inline-flex;align-items:center;padding:3px 10px;border-radius:99px;font-size:10.5px;font-weight:800;flex:none;white-space:nowrap}
+    .status.completed{background:rgba(34,150,94,.13);color:#1f7a4d}
+    .status.running,.status.queued{background:rgba(205,154,68,.18);color:#8a6011}
+    .status.failed{background:rgba(221,106,92,.14);color:#b7392c}
+    a.result{color:var(--sky);font-weight:800;text-decoration:none;font-size:11px}
+    a.result:hover{color:var(--lavender);text-decoration:underline}
+    .job-empty{padding:40px 10px;text-align:center;color:var(--muted);font-size:12px}
+
+    .footer-note{flex:none;padding:4px 22px 10px;color:var(--muted);font-size:10.5px}
+
+    @media(max-width:1000px){.content{grid-template-columns:1fr}.history{min-height:320px}}
+    @media(max-width:620px){body{padding:0}.window{border-radius:0}.menubar{padding:12px 16px}.content{padding:14px 16px 6px}}
   </style>
 </head>
 <body>
-<main class="shell">
-  <header>
-    <div><h1>교과서 원고 점검</h1><div class="sub">기준 자료는 한 번 등록하고, 원고만 매번 올려 점검합니다.</div></div>
-    <div class="header-actions"><span class="tag">사내 팀용</span><button id="reset-all" class="btn danger" type="button">전체 자료 초기화</button></div>
-  </header>
-  <div id="upload-progress" class="upload-progress" role="status"><b id="upload-progress-title">서버 PDF 저장 공간</b><div class="progress-track"><i id="upload-progress-bar" class="progress-bar"></i></div><strong id="upload-progress-percent" class="progress-percent">0%</strong><div id="upload-progress-detail" class="progress-detail">저장 용량을 확인하고 있습니다.</div></div>
-  <div id="upload-limit-banner" class="limit-banner"><b>PDF 업로드 제한</b><br>파일 1개당 최대 200MB · 한 번에 전송 가능한 전체 용량 최대 800MB · 원고 최대 300쪽 · PDF 파일만 등록할 수 있습니다.</div>
+<div class="window">
+  <div class="chrome">
+    <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ4AAAAeCAYAAADdNaejAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABK9JREFUeNrsnDFy4jAUQEUm/brdKt4b0G0JnhwgMOMqzZoTLJwAOIGTEwQaV5kJOcAOpNwqzgnirbZlT5DVtwXY31+2jB1bJP4zCmAL2f56+vr/S6Tz9/vlGyPk6+9fHXjl59f8pU9UmfM6M34ezq0V2gj45xFVj9ketOHyMmT314GkDtzniJ9fSM7P+N8rXixeZ8ta0VrOaryWwwG8yzjf5eWZA9TNqHPHzzs5bax5HaPt2ha8IvAZApw8+O5a+FrwmoDPUYAvz3q28snAqws+U6GNVhqS8wavDfC98IDjJgM+NwwWsuFb8mBiU6KNaiQKbuKykAZKx7XfR0FeIA203vP+o4F8cGMo3Ud+uBmrM8PHzhsGX08/LPIPB7z0YsqCTnjiZSWJmqfo80Z8R3YNB7Xvh+3fX68k3+ija2xCOA73m7TsGAjbMxMwMLbldXzl+4+Ac1MZDtsDXcx5W3ED8gPVm+Fj56wVDMQgDGDoQeGEyre9ydHWJurABwTBDqwxPw+dPURQ5EkUUCWlQ9w7BtdSvGdTtG9IZxXbYwg+LX08XaFzBBRGjpXOS+tkQbcmoKN8U1MjzUwVZie3yD2fhSa3OfE1gm7nD6qKe0TK5oGpuReGsLq6CB5k4A5Q1m1QBLxvDQAAsFs8sFhpplyD8HOGYkraEHA4BcAeEJbOF+0PiT7oa2H1oqCGoaAGXIFJ6NulB+Mbo1e6klEt7/wtjy4tMQV0a4TOZ3pJj1CwlYDQ9l4RPD3JyFdpP9TDPlCxPdDHK2FBbjTT0woNzOnR6ZQa4dMVOirCXhJ1lkjRRabaLpGu2Mai0IDDt0LTVe9o8NKW6kKnTMQ+uAD4xJTif0Lo6hAM3gtR56XCTl6j4lT0HH3J++PAQ/DNK1b68gSh+6J4LCv4WIvSJSAKTkIL6QSxKZ7JJaZZSDN1CH84P50C8MF2p09okYJUsBGPWqP3TgF4usIi9JmuiXJ1WRBWb0zMaItCPl4NAllrF/xIja3eEwILYHkOl+QOz2AQ39FV0pYqO3+YJXPhe2YNoEmRfZB1JpDDhX8On56L9tFKREB01lQUk4h6F9piBxF5vNDBkmpbAaNTSjtLNyqqi7qXzHbw6Wr5hky+NISVPcypYyX8I1hSOmWJlvCs1JovvUHDzzvWxFqtvvCBcm3PYtRieHIKmxRcS323tEQDOgoSie102gbkUZR4ncSxpjYJ6A3fYWTjhO6oxPS6QTCDy4FXbi5OBL912Qaa3CSw23qk78jOj3yLCHa8r4g6/RMKXkpJuy0qmgpUI76r2NRyIb7ji3VLlah5kLB4tjfebyWKdlObCr6S6jPN0JFeC55+4jC1NcdxCV9twdLbiyDJ/FMcM1IWUr4pVEWmNeoPnu1PkftpwSsvaukhyHHZ3i0BhMzSjk5IB1k/P9hZ4GkVPh5MAWV3TVTRRlVST4ADvz1Qy+7flLR2H9LHC6M+sa5bxjRPSrZRpQRMYX1RPPu/2Ptt4YDj/nrER/+jsHzYWgJst7nWQ9InJYOdMuKK3168G3iVQCf9VxZNp1Dqu96KpVMpZdrbKg6cZt2NI6fazYeErhWtp9oqgGmha2Uv/wUYACEAx8+d16uvAAAAAElFTkSuQmCC" alt="YBM 로고">
+    <span class="addr">team-audit.local</span>
+  </div>
 
-  <section aria-labelledby="reference-title">
-    <h2 id="reference-title">1. 기준 자료 설정</h2>
-    <p class="sub">교육과정과 평가리스트는 새 파일을 등록하면 이전 파일을 보관하고 최신 버전을 사용합니다. 교과서는 여러 PDF를 함께 등록할 수 있습니다.</p>
-    <div class="grid">
-      <article class="panel reference">
-        <h3>교육과정 PDF</h3><div class="note">개정 연도·과목별 기준 문서</div>
-        <div class="state" id="curriculum-state"></div>
-        <form class="reference-form" data-kind="curriculum">
-          <label>PDF 선택</label><input type="file" name="files" accept="application/pdf,.pdf" required>
-          <button class="btn" type="submit">등록</button>
-        </form>
-      </article>
-
-      <article class="panel reference">
-        <h3>이전 개정 교과서 PDF</h3><div class="note">같은 과목의 비교·레이아웃 참고 자료</div>
-        <div class="state" id="textbook-state"></div>
-        <form class="reference-form" data-kind="textbook">
-          <label>PDF 선택</label><input type="file" name="files" accept="application/pdf,.pdf" multiple required>
-          <button class="btn" type="submit">등록</button>
-        </form>
-      </article>
-
-      <article class="panel reference">
-        <h3>평가리스트 PDF</h3><div class="note">검정 기준과 편집 점검 항목</div>
-        <div class="state" id="evaluation-state"></div>
-        <form class="reference-form" data-kind="evaluation">
-          <label>PDF 선택</label><input type="file" name="files" accept="application/pdf,.pdf" required>
-          <button class="btn" type="submit">등록</button>
-        </form>
-      </article>
+  <div class="menubar">
+    <div class="brand-group">
+      <span class="brand">교과서 원고 점검</span>
+      <span class="brand-desc">기준 자료는 한 번 등록하고, 원고만 매번 올려 점검합니다.</span>
     </div>
-    <div id="reference-message" class="message" role="status"></div>
-  </section>
-
-  <section class="upload-zone" aria-labelledby="manuscript-title">
-    <div>
-      <h2 id="manuscript-title">2. 새 원고 점검</h2>
-      <p class="sub">원고 PDF를 올리면 등록된 교육과정·교과서와 비교하고, 페이지별 점검 화면을 만듭니다.</p>
-      <div id="limit-note" class="note"></div>
-    </div>
-    <form id="manuscript-form">
-      <div class="actions">
-        <label>곡명 선택 입력<input type="text" name="work_titles" maxlength="200" placeholder="소녀, 두 바퀴로 가는 자동차"></label>
-        <label>원고 PDF<input type="file" name="file" accept="application/pdf,.pdf" required></label>
-        <button class="btn secondary" type="submit">분석 시작</button>
+    <div class="right-group">
+      <button id="reset-all" class="reset-all" type="button">전체 초기화</button>
+      <div class="widget" role="status">
+        <div class="ring" id="upload-progress-bar"></div>
+        <div class="widget-text">
+          <b id="upload-progress-title">서버 PDF 저장 공간</b>
+          <div class="widget-line"><b id="upload-progress-percent">0%</b><span id="upload-progress-detail">저장 용량을 확인하고 있습니다.</span></div>
+        </div>
       </div>
-      <div id="manuscript-message" class="message" role="status"></div>
-    </form>
-  </section>
+    </div>
+  </div>
 
-  <section class="panel history" aria-labelledby="history-title">
-    <h2 id="history-title">3. 원고 분석 이력</h2>
-    <div class="jobs-wrap"><table class="jobs"><thead><tr><th>원고</th><th>상태</th><th>등록 시각</th><th>결과</th><th>삭제</th></tr></thead><tbody id="jobs"></tbody></table></div>
-    <div class="footer-note">현재 버전은 로그인 없는 사내망용입니다. 인터넷에 직접 공개하지 마세요.</div>
-  </section>
-</main>
+  <div class="content">
+    <div class="col">
+      <div class="row-title"><span class="n2">1</span><h2 id="reference-title">기준 자료 설정</h2></div>
+      <p class="note">교육과정과 평가리스트는 새 파일을 등록하면 이전 파일을 보관하고 최신 버전을 사용합니다. 교과서는 여러 PDF를 함께 등록할 수 있습니다.</p>
+      <div class="refs">
+        <div class="card ref-card">
+          <h3>교육과정 PDF</h3><div class="note">개정 연도·과목별 기준 문서</div>
+          <div class="state" id="curriculum-state"></div>
+          <form class="reference-form" data-kind="curriculum">
+            <input type="file" name="files" accept="application/pdf,.pdf" required>
+            <button class="btn" type="submit">등록</button>
+          </form>
+        </div>
+
+        <div class="card ref-card">
+          <h3>이전 개정 교과서 PDF</h3><div class="note">같은 과목의 비교·레이아웃 참고 자료 · 여러 PDF 함께 선택 가능</div>
+          <div class="state" id="textbook-state"></div>
+          <form class="reference-form" data-kind="textbook">
+            <input type="file" name="files" accept="application/pdf,.pdf" multiple required>
+            <button class="btn" type="submit">등록</button>
+          </form>
+        </div>
+
+        <div class="card ref-card">
+          <h3>평가리스트 PDF</h3><div class="note">검정 기준과 편집 점검 항목</div>
+          <div class="state" id="evaluation-state"></div>
+          <form class="reference-form" data-kind="evaluation">
+            <input type="file" name="files" accept="application/pdf,.pdf" required>
+            <button class="btn" type="submit">등록</button>
+          </form>
+        </div>
+      </div>
+      <div id="reference-message" class="message" role="status"></div>
+    </div>
+
+    <div class="col">
+      <div class="row-title"><span class="n2">2</span><h2 id="manuscript-title">새 원고 점검</h2></div>
+      <div class="card upload">
+        <p>원고 PDF를 올리면 등록된 교육과정·교과서와 비교하고, 페이지별 점검 화면을 만듭니다.</p>
+        <div id="limit-note" class="note" style="margin-top:6px"></div>
+        <div id="upload-limit-banner" class="limit-banner"></div>
+        <form id="manuscript-form">
+          <input type="file" name="file" accept="application/pdf,.pdf" required>
+          <button class="btn secondary" type="submit">분석 시작</button>
+          <div id="manuscript-message" class="message" role="status"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col history">
+      <div class="row-title"><span class="n2">3</span><h2 id="history-title">원고 분석 이력</h2></div>
+      <p class="note">파일명을 이전과 동일하게 올리면 자동으로 이전 버전과 비교됩니다.</p>
+      <div class="card">
+        <div class="jobs-wrap"><div id="jobs" class="job-list"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">현재 버전은 로그인 없는 사내망용입니다. 인터넷에 직접 공개하지 마세요.</div>
+</div>
 <script>
 const labels={curriculum:'교육과정',textbook:'교과서',evaluation:'평가리스트'};
 const statusLabels={queued:'대기 중',running:'분석 중',completed:'완료',failed:'실패'};
@@ -85,14 +261,14 @@ const size=value=>value>1048576?(value/1048576).toFixed(1)+' MB':Math.ceil(value
 const date=value=>value?new Date(value).toLocaleString('ko-KR'):'-';
 function message(id,text,error=false){const node=document.getElementById(id);node.textContent=text;node.className='message'+(error?' error':'');node.style.display='block'}
 function referenceHtml(items){if(!items.length)return '<div class="empty">아직 등록되지 않았습니다.</div>';return items.map(x=>`<div class="file-row"><div class="file-info"><b>${esc(x.original_name)}</b><span>${size(x.size_bytes)}</span></div><button class="file-delete" type="button" data-reference-id="${esc(x.id)}" data-reference-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 삭제" title="이 파일 삭제">×</button></div>`).join('')}
-async function load(){const response=await fetch('/api/dashboard',{cache:'no-store'});const data=await response.json();dashboardLimits={...dashboardLimits,...(data.limits||{})};serverStorage={...serverStorage,...(data.storage||{})};renderStorage(serverStorage.used_bytes,serverStorage.capacity_bytes,'서버 PDF 저장 공간');for(const kind of Object.keys(labels))document.getElementById(kind+'-state').innerHTML=referenceHtml(data.references[kind]||[]);document.getElementById('limit-note').textContent=`원고 1개당 최대 ${dashboardLimits.manuscript_mb}MB · ${dashboardLimits.manuscript_pages}쪽 · 곡명은 쉼표로 구분해 선택 입력`;document.getElementById('upload-limit-banner').innerHTML=`<b>PDF 업로드 제한</b><br>서버 전체 저장 용량 ${size(serverStorage.capacity_bytes)} · 파일 1개당 최대 ${dashboardLimits.reference_file_mb}MB · 원고 최대 ${dashboardLimits.manuscript_pages}쪽 · PDF 파일만 등록할 수 있습니다.`;const rows=data.jobs.map(x=>`<tr><td data-label="원고"><b>${esc(x.original_name)}</b><div class="small note">${size(x.size_bytes)}${x.work_titles?`<br>곡명: ${esc(x.work_titles)}`:''}</div></td><td data-label="상태"><span class="status ${esc(x.status)}">${esc(statusLabels[x.status]||x.status)}</span>${x.error?`<div class="small" style="color:var(--danger)">${esc(x.error)}</div>`:''}</td><td data-label="등록 시각">${date(x.created_at)}</td><td data-label="결과">${x.status==='completed'?`<a class="result" href="/results/${x.id}" target="_blank" rel="noopener">결과 보기</a>${x.diff_path?`<br><a class="result" href="/diff/${x.id}" target="_blank" rel="noopener">이전 버전과 비교</a>`:''}`:'-'}</td><td data-label="삭제">${(x.status==='completed'||x.status==='failed')?`<button class="file-delete job-delete" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 분석 이력 삭제" title="이 분석 이력 삭제">×</button>`:''}</td></tr>`).join('');document.getElementById('jobs').innerHTML=rows||'<tr><td colspan="5" class="empty">분석한 원고가 없습니다.</td></tr>'}
+async function load(){const response=await fetch('/api/dashboard',{cache:'no-store'});const data=await response.json();dashboardLimits={...dashboardLimits,...(data.limits||{})};serverStorage={...serverStorage,...(data.storage||{})};renderStorage(serverStorage.used_bytes,serverStorage.capacity_bytes,'서버 PDF 저장 공간');for(const kind of Object.keys(labels))document.getElementById(kind+'-state').innerHTML=referenceHtml(data.references[kind]||[]);document.getElementById('limit-note').textContent=`원고 1개당 최대 ${dashboardLimits.manuscript_mb}MB · ${dashboardLimits.manuscript_pages}쪽`;document.getElementById('upload-limit-banner').innerHTML=`<b>PDF 업로드 제한</b><br>서버 전체 저장 용량 ${size(serverStorage.capacity_bytes)} · 파일 1개당 최대 ${dashboardLimits.reference_file_mb}MB · 원고 최대 ${dashboardLimits.manuscript_pages}쪽 · PDF 파일만 등록할 수 있습니다.`;const rows=data.jobs.map(x=>`<div class="job"><div class="job-main"><b>${esc(x.original_name)}</b><div class="job-actions"><span class="status ${esc(x.status)}">${esc(statusLabels[x.status]||x.status)}</span>${(x.status==='completed'||x.status==='failed')?`<button class="file-delete job-delete" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 분석 이력 삭제" title="이 분석 이력 삭제">×</button>`:''}</div></div><div class="job-meta">${size(x.size_bytes)}${x.work_titles?` · 곡명: ${esc(x.work_titles)}`:''} · ${date(x.created_at)}${x.error?`<br><span style="color:var(--coral)">${esc(x.error)}</span>`:''}</div>${x.status==='completed'?`<div class="job-links"><a class="result" href="/results/${x.id}" target="_blank" rel="noopener">결과 보기</a>${x.diff_path?` · <a class="result" href="/diff/${x.id}" target="_blank" rel="noopener">이전 버전과 비교</a>`:''}</div>`:''}</div>`).join('');document.getElementById('jobs').innerHTML=rows||'<div class="job-empty">분석한 원고가 없습니다.</div>'}
 function validateFiles(files,totalLimitMb){if(!files.length)throw new Error('PDF 파일을 선택해 주세요.');const oneLimit=dashboardLimits.reference_file_mb*1048576;for(const file of files){if(file.size>oneLimit)throw new Error(`${file.name}: 파일 1개 제한 ${dashboardLimits.reference_file_mb}MB를 초과했습니다.`);if(!file.name.toLowerCase().endsWith('.pdf'))throw new Error(`${file.name}: PDF 파일만 등록할 수 있습니다.`)}const total=files.reduce((sum,file)=>sum+file.size,0);if(total>totalLimitMb*1048576)throw new Error(`선택한 파일의 전체 용량이 ${totalLimitMb}MB를 초과했습니다.`);if(total>serverStorage.remaining_bytes)throw new Error(`서버 저장 공간이 부족합니다. 현재 남은 용량은 ${size(serverStorage.remaining_bytes)}입니다.`);return total}
-function renderStorage(used,capacity,title){const percent=capacity?Math.min(100,Math.round(used/capacity*100)):0,remaining=Math.max(0,capacity-used);document.getElementById('upload-progress-bar').style.width=percent+'%';document.getElementById('upload-progress-percent').textContent=percent+'%';document.getElementById('upload-progress-title').textContent=title;document.getElementById('upload-progress-detail').textContent=`업로드된 용량 ${size(used)} / 총 ${size(capacity)} · 남은 용량 ${size(remaining)}`}
+function renderStorage(used,capacity,title){const percent=capacity?Math.min(100,Math.round(used/capacity*100)):0,remaining=Math.max(0,capacity-used);document.getElementById('upload-progress-bar').style.background=`conic-gradient(var(--sky) 0 ${percent}%, rgba(35,38,45,.1) ${percent}% 100%)`;document.getElementById('upload-progress-percent').textContent=percent+'%';document.getElementById('upload-progress-title').textContent=title;document.getElementById('upload-progress-detail').textContent=`업로드된 용량 ${size(used)} / 총 ${size(capacity)} · 남은 용량 ${size(remaining)}`}
 function showUploadProgress(loaded,total){renderStorage(Math.min(serverStorage.capacity_bytes,serverStorage.used_bytes+loaded),serverStorage.capacity_bytes,'서버 PDF 저장 공간 · 업로드 반영 중')}
 function showSelectedFiles(input){const files=[...input.files];if(!files.length)return;const total=files.reduce((sum,file)=>sum+file.size,0);renderStorage(Math.min(serverStorage.capacity_bytes,serverStorage.used_bytes+total),serverStorage.capacity_bytes,`서버 PDF 저장 공간 · ${files.length}개 업로드 후 예상`)}
 function upload(url,body,totalBytes){return new Promise((resolve,reject)=>{const xhr=new XMLHttpRequest();xhr.open('POST',url);xhr.responseType='json';xhr.upload.onprogress=event=>showUploadProgress(event.loaded,event.lengthComputable?event.total:totalBytes);xhr.onerror=()=>reject(new Error('업로드 중 네트워크 오류가 발생했습니다.'));xhr.onload=()=>{const data=xhr.response||{};if(xhr.status<200||xhr.status>=300)reject(new Error(data.error||'업로드 실패'));else{showUploadProgress(totalBytes,totalBytes);resolve(data)}};showUploadProgress(0,totalBytes);xhr.send(body)})}
-document.querySelectorAll('.reference-form').forEach(form=>form.addEventListener('submit',async event=>{event.preventDefault();const button=form.querySelector('button'),files=[...form.elements.files.files];button.disabled=true;try{const total=validateFiles(files,dashboardLimits.request_mb),body=new FormData(form);body.set('kind',form.dataset.kind);const data=await upload('/api/references',body,total);message('reference-message',data.message);form.reset();await load()}catch(error){message('reference-message',error.message,true)}finally{button.disabled=false}}));
-document.getElementById('manuscript-form').addEventListener('submit',async event=>{event.preventDefault();const form=event.currentTarget,button=form.querySelector('button'),files=[form.elements.file.files[0]].filter(Boolean);button.disabled=true;message('manuscript-message','파일을 올리고 분석 준비 중입니다.');try{const total=validateFiles(files,dashboardLimits.manuscript_mb),data=await upload('/api/manuscripts',new FormData(form),total);message('manuscript-message',`${data.pages}쪽 원고 분석을 시작했습니다. 완료되면 아래에 결과 보기가 나타납니다.`);form.reset();await load()}catch(error){message('manuscript-message',error.message,true)}finally{button.disabled=false}});
+document.querySelectorAll('.reference-form').forEach(form=>form.addEventListener('submit',async event=>{event.preventDefault();const button=form.querySelector('button'),files=[...form.elements.files.files];button.disabled=true;try{const total=validateFiles(files,dashboardLimits.request_mb),body=new FormData(form);body.set('kind',form.dataset.kind);await upload('/api/references',body,total);form.reset();await load()}catch(error){message('reference-message',error.message,true)}finally{button.disabled=false}}));
+document.getElementById('manuscript-form').addEventListener('submit',async event=>{event.preventDefault();const form=event.currentTarget,button=form.querySelector('button'),files=[form.elements.file.files[0]].filter(Boolean);button.disabled=true;message('manuscript-message','파일을 올리고 분석 준비 중입니다.');try{const total=validateFiles(files,dashboardLimits.manuscript_mb),data=await upload('/api/manuscripts',new FormData(form),total);message('manuscript-message',`${data.pages}쪽 원고 분석을 시작했습니다. 완료되면 오른쪽에 결과 보기가 나타납니다.`);form.reset();await load()}catch(error){message('manuscript-message',error.message,true)}finally{button.disabled=false}});
 document.querySelectorAll('input[type=file]').forEach(input=>input.addEventListener('change',()=>showSelectedFiles(input)));
 document.addEventListener('click',async event=>{const button=event.target.closest('.file-delete:not(.job-delete)');if(!button)return;const name=button.dataset.referenceName;if(!confirm(`${name} 파일만 삭제할까요? 컴퓨터의 원본 PDF는 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/references/${encodeURIComponent(button.dataset.referenceId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'파일 삭제 실패');message('reference-message',data.message);await load()}catch(error){message('reference-message',error.message,true);button.disabled=false}});
 document.addEventListener('click',async event=>{const button=event.target.closest('.job-delete');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 분석 이력을 삭제할까요? 업로드한 원고 사본과 분석 결과 파일이 함께 삭제됩니다. 컴퓨터의 원본 파일은 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 이력 삭제 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false}});
