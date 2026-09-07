@@ -196,24 +196,21 @@ class CurriculumAuditTests(unittest.TestCase):
     def test_body_review_includes_activity_and_improves_explanation(self):
         pages = [
             "두 악곡의 특징을 비교하여 설명할 수 있다.\n"
-            "취타는 악기편성을 비교하는 데 알맞은 관현 합주곡이다.\n"
+            "이 곡은 악기편성을 비교하는 데 알맞은 교향곡이다.\n"
             "1. 두 악곡의 악기편성을 비교해 보자."
         ]
         components = detect_manuscript_components(pages)
-        reference = {
-            "counts": {"취타": 4, "관현 합주곡": 2},
-            "sources": {"취타": ["교과서.pdf"], "관현 합주곡": ["교과서.pdf"]},
-        }
-        result = _review_body_text(pages, components, reference)
+        result = _review_body_text(pages, components)
         items = result["pages"][1]
         # 활동 문장도 맞춤법 검사 대상에 포함되어 본문 설명 문장과 함께 2건이 나온다.
         self.assertEqual(len(items), 2)
-        explanation = next(x for x in items if "관현 합주곡" in x["current_text"])
+        explanation = next(x for x in items if "교향곡" in x["current_text"])
         activity = next(x for x in items if x["current_text"].startswith("1."))
         self.assertIn("악기 편성", explanation["suggested_text"])
         self.assertIn("악기 편성", activity["suggested_text"])
         self.assertNotIn("비교해 보자", items[0]["current_text"])
-        self.assertTrue(all(term["status"] == "표기 확인" for term in items[0]["terminology"]))
+        # '교향곡'은 편수자료 공식 용어집에 등재된 표준 용어라 인식돼야 한다.
+        self.assertTrue(any(term["term"] == "교향곡" for term in explanation["terminology"]))
 
     def test_completion_score_uses_declared_weights(self):
         page = ("[12감비01-01] 음악 특징 비교\n학습 목표: 두 악곡을 비교하여 설명할 수 있다.\n"
@@ -263,7 +260,7 @@ class CurriculumAuditTests(unittest.TestCase):
     def test_body_review_adds_comma_to_long_connective_clause(self):
         sentence = "우리나라에서는 70년대 서양의 새로운 장르로 받아들여졌고 팝송을 커버하며 자연스럽게 포크송이 정착하였다."
         components = detect_manuscript_components([sentence])
-        result = _review_body_text([sentence], components, {"counts": {}, "sources": {}})
+        result = _review_body_text([sentence], components)
         suggestion = result["pages"][1][0]["suggested_text"]
         self.assertIn("받아들여졌고, 팝송", suggestion)
 
@@ -423,7 +420,7 @@ class CurriculumAuditTests(unittest.TestCase):
         pages = ["두 악곡의 음악적 특징을 비교하여 설명한다."]
         components = detect_manuscript_components(pages)
         fingerprint = _fingerprint("body_text", pages[0])
-        result = _review_body_text(pages, components, {"counts": {}, "sources": {}}, {fingerprint})
+        result = _review_body_text(pages, components, {fingerprint})
         item = result["pages"][1][0]
         self.assertEqual(item["fingerprint"], fingerprint)
         self.assertTrue(item["is_false_positive"])

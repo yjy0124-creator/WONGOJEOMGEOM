@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import functools
 import hashlib
 import html
 import importlib
 import json
 import math
 import re
+import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -36,12 +38,31 @@ STANDARD_SIGNATURES = {
 # 교육과정 원문은 비교 근거로만 사용하며 수정·재작성하지 않는다.
 CURRICULUM_TEXT_POLICY = "교육과정의 성취기준 문구는 수정하지 않고 원문 그대로 참조합니다."
 
-# 정확한 표기 여부를 기존 교과서와 대조할 음악 용어. 새 교과서 분야를 추가할 때 확장한다.
-MUSIC_TERMS = (
-    "대취타", "취타", "태평소", "관현 합주곡", "연례", "궁중 음악", "취타장단",
-    "만파정식지곡", "등채", "집박", "용고", "나발", "나각", "징", "자바라",
-    "가야금", "거문고", "대금", "향피리", "해금", "아쟁", "소금", "장구", "좌고", "꽹과리",
-)
+MUSIC_EDITING_TERMS_SOURCE = "2022 개정 교육과정 교과서 편수자료 Ⅱ - 음악 일반·서양 음악 용어"
+
+
+def _resource_path(name: str) -> Path:
+    """PyInstaller로 묶었을 때(_MEIPASS)와 스크립트로 바로 실행할 때 모두 동작하는 리소스 경로."""
+    base = Path(getattr(sys, "_MEIPASS", None) or Path(__file__).resolve().parent)
+    return base / name
+
+
+@functools.lru_cache(maxsize=1)
+def _official_music_terms() -> tuple[str, ...]:
+    """교육부 편수자료(Ⅱ)의 음악 일반·서양 음악 용어집에서 뽑은 공식 표준 용어.
+
+    PDF 표를 추출하는 과정에서 한자·외국어·비고 칸이 이따금 옆 칸과 섞여 신뢰도가
+    낮아, 검사에는 정확도가 높은 '용어' 칼럼만 쓴다. 리소스를 못 찾으면(개발 환경
+    설정 오류 등) 빈 목록을 반환해 이 검사만 조용히 건너뛴다.
+    """
+    try:
+        raw = json.loads(_resource_path("music_editing_terms.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ()
+    terms = {str(item.get("term", "")).strip() for item in raw if item.get("term")}
+    return tuple(sorted(terms, key=lambda value: (-len(value), value)))
+
+
 KNOWN_WORK_TITLES = ("대취타", "취타", "만파정식지곡")
 
 TARGET_LEVELS = {
@@ -211,49 +232,6 @@ def detect_manuscript_components(pages: list[str]) -> dict[str, Any]:
     }
 
 
-def _reference_term_counts(textbook_dir: Path | None, cache_path: Path,
-                           sample_texts: list[str] | None = None) -> dict[str, Any]:
-    """등록된 음악 용어가 기존 교과서에서 같은 표기로 쓰였는지 확인한다."""
-    files = sorted(textbook_dir.glob("*.pdf")) if textbook_dir and textbook_dir.exists() else []
-    file_fingerprint = [
-        {"name": path.name, "size": path.stat().st_size, "mtime_ns": path.stat().st_mtime_ns}
-        for path in files
-    ]
-    sample_texts = sample_texts or []
-    sample_digest = hashlib.sha256("\n".join(sample_texts).encode("utf-8")).hexdigest()
-    fingerprint = {"files": file_fingerprint, "sample_digest": sample_digest}
-    if cache_path.exists():
-        try:
-            cached = json.loads(cache_path.read_text(encoding="utf-8"))
-            if cached.get("version") == 3 and cached.get("fingerprint") == fingerprint:
-                return cached["analysis"]
-        except (OSError, ValueError, KeyError):
-            pass
-
-    counts = Counter({term: 0 for term in MUSIC_TERMS})
-    sources: dict[str, list[str]] = {term: [] for term in MUSIC_TERMS}
-    text = "\n".join(sample_texts)
-    for term in MUSIC_TERMS:
-        counts[term] = (
-            len(re.findall(rf"(?<![가-힣]){re.escape(term)}(?![가-힣])", text))
-            if len(term) == 1 else text.count(term)
-        )
-
-    analysis = {
-        "file_count": len(files),
-        "counts": dict(counts),
-        "sources": {term: names[:3] for term, names in sources.items() if names},
-        "sample_count": len(sample_texts),
-        "note": "정확성의 최종 판정이 아니라 기존 교과서 활동 표본에서 동일한 표기가 사용됐는지 확인한 결과입니다.",
-    }
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    cache_path.write_text(
-        json.dumps({"version": 3, "fingerprint": fingerprint, "analysis": analysis}, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    return analysis
-
-
 def _body_sentences(pages: list[str], components: dict[str, Any]) -> list[dict[str, Any]]:
     """목표·활동·표제·대화문을 제외하고 설명형 본문 문장만 고른다."""
     excluded = []
@@ -290,7 +268,6 @@ def _body_sentences(pages: list[str], components: dict[str, Any]) -> list[dict[s
 
 
 def _review_body_text(pages: list[str], components: dict[str, Any],
-                      term_reference: dict[str, Any],
                       suppressed_fingerprints: set[str] | None = None) -> dict[str, Any]:
     """설명형 본문과 활동 문장의 맞춤법·문법·용어 표기·문장 난이도를 보조 점검한다.
 
@@ -299,8 +276,7 @@ def _review_body_text(pages: list[str], components: dict[str, Any],
     """
     suppressed_fingerprints = suppressed_fingerprints or set()
     page_items: dict[int, list[dict[str, Any]]] = {page_no: [] for page_no in range(1, len(pages) + 1)}
-    counts = term_reference.get("counts", {})
-    sources = term_reference.get("sources", {})
+    official_terms = _official_music_terms()
     activity_sentences = [
         {"page": activity["page"], "text": activity["text"]}
         for activity in components["activities"]["items"]
@@ -388,22 +364,21 @@ def _review_body_text(pages: list[str], components: dict[str, Any],
                         shift += len(candidate) - (end - start)
 
         terminology = []
-        for term in MUSIC_TERMS:
+        matched_terms: set[str] = set()
+        for term in official_terms:
+            if term in matched_terms or any(term in longer for longer in matched_terms):
+                continue
             term_found = (
                 bool(re.search(rf"(?<![가-힣]){re.escape(term)}(?![가-힣])", current))
                 if len(term) == 1 else term in current
             )
             if not term_found:
                 continue
-            count = int(counts.get(term, 0))
+            matched_terms.add(term)
             terminology.append({
                 "term": term,
-                "status": "표기 확인" if count else "확인 필요",
-                "reason": (
-                    f"기존 교과서에서 같은 표기를 {count}회 확인했습니다."
-                    if count else "등록된 기존 교과서에서 같은 표기를 찾지 못했습니다. 원자료 확인이 필요합니다."
-                ),
-                "sources": sources.get(term, []),
+                "status": "표준 용어 확인",
+                "reason": f"{MUSIC_EDITING_TERMS_SOURCE}에 등재된 표준 용어입니다.",
             })
 
         fingerprint = _fingerprint("body_text", current)
@@ -2225,12 +2200,8 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
         textbook_dir, output_root.resolve() / "layout_reference.json"
     )
     checkpoint()
-    term_reference = _reference_term_counts(
-        textbook_dir, output_root.resolve() / "term_reference.json",
-        [item["text"] for item in layout_reference.get("activity_readability", {}).get("examples", [])],
-    )
     body_text_review = _review_body_text(
-        manuscript_pages, components, term_reference, suppressed_fingerprints
+        manuscript_pages, components, suppressed_fingerprints
     )
     textbook_content = _load_textbook_content(
         textbook_dir, output_root.resolve() / "textbook_content_cache.json"
@@ -2352,9 +2323,6 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
             "policy": body_text_review["policy"],
             "basis": body_text_review["basis"],
             "note": body_text_review["note"],
-            "term_reference": {
-                "file_count": term_reference["file_count"], "note": term_reference["note"],
-            },
         },
         "textbook_similarity": {
             "summary": textbook_similarity["summary"],

@@ -1,0 +1,8336 @@
+[
+ {
+  "term": "11화음",
+  "hanja": "十一和音",
+  "foreign": "eleventh chord twelve-note scale/",
+  "note": ""
+ },
+ {
+  "term": "12음 음계",
+  "hanja": "十二音音階",
+  "foreign": "twelve-tone scale",
+  "note": "(십이음 음계"
+ },
+ {
+  "term": "16분음표",
+  "hanja": "十六分音標",
+  "foreign": "sixteenth-note",
+  "note": "(십육분음표)"
+ },
+ {
+  "term": "2분쉼표",
+  "hanja": "",
+  "foreign": "half-rest",
+  "note": "(이분쉼표)"
+ },
+ {
+  "term": "2분음표",
+  "hanja": "二分音標",
+  "foreign": "half-note changing tones/",
+  "note": "(이분음표)"
+ },
+ {
+  "term": "2중 도움음/2중 보조음",
+  "hanja": "",
+  "foreign": "double neighboring tones",
+  "note": "(전과음)"
+ },
+ {
+  "term": "2중 카논",
+  "hanja": "",
+  "foreign": "double canon",
+  "note": "(이중 카논)"
+ },
+ {
+  "term": "2중주",
+  "hanja": "二重奏",
+  "foreign": "duet",
+  "note": "(이중주)"
+ },
+ {
+  "term": "2중창",
+  "hanja": "二重唱",
+  "foreign": "vocal duet",
+  "note": "(이중창)"
+ },
+ {
+  "term": "3화음",
+  "hanja": "三和音",
+  "foreign": "triad",
+  "note": "(삼화음)"
+ },
+ {
+  "term": "4·6화음",
+  "hanja": "四‧六和音",
+  "foreign": "sixth-four chord",
+  "note": "(사륙화음)"
+ },
+ {
+  "term": "4분쉼표",
+  "hanja": "",
+  "foreign": "quarter-rest",
+  "note": "(사분쉼표)"
+ },
+ {
+  "term": "4분음표",
+  "hanja": "四分音標",
+  "foreign": "quarter-note",
+  "note": "(사분음표)"
+ },
+ {
+  "term": "4분의4 박자",
+  "hanja": "四分의四拍子",
+  "foreign": "four-four time",
+  "note": "(사분의사 박"
+ },
+ {
+  "term": "4음 음계",
+  "hanja": "四音音階",
+  "foreign": "tetrachord",
+  "note": "(사음 음계)"
+ },
+ {
+  "term": "4중주",
+  "hanja": "四重奏",
+  "foreign": "quartet",
+  "note": "(사중주)"
+ },
+ {
+  "term": "4중창",
+  "hanja": "四重唱",
+  "foreign": "vocal quartet",
+  "note": "(사중창)"
+ },
+ {
+  "term": "5음 음계",
+  "hanja": "五音音階",
+  "foreign": "pentatonic scale",
+  "note": "(오음 음계)"
+ },
+ {
+  "term": "5중주",
+  "hanja": "五重奏",
+  "foreign": "quintet",
+  "note": "(오중주)"
+ },
+ {
+  "term": "5중창",
+  "hanja": "五重唱",
+  "foreign": "vocal quintet",
+  "note": "(오중창)"
+ },
+ {
+  "term": "6음 음계",
+  "hanja": "六音音階",
+  "foreign": "hexachord",
+  "note": "(육음 음계)"
+ },
+ {
+  "term": "6중주",
+  "hanja": "六重奏",
+  "foreign": "sextet",
+  "note": "(육중주)"
+ },
+ {
+  "term": "6중창",
+  "hanja": "六重唱",
+  "foreign": "vocal sextet",
+  "note": "(육중창)"
+ },
+ {
+  "term": "6화음",
+  "hanja": "六和音",
+  "foreign": "sixth chord",
+  "note": "(육화음)"
+ },
+ {
+  "term": "7중주",
+  "hanja": "七重奏",
+  "foreign": "septet",
+  "note": "(칠중주)"
+ },
+ {
+  "term": "7중창",
+  "hanja": "七重唱",
+  "foreign": "vocal septet",
+  "note": "(칠중창)"
+ },
+ {
+  "term": "7화음",
+  "hanja": "七和音",
+  "foreign": "seventh chord",
+  "note": "(칠화음)"
+ },
+ {
+  "term": "8분음표",
+  "hanja": "八分音標",
+  "foreign": "eighth-note",
+  "note": "(팔분음표)(팔분의십이 박자,"
+ },
+ {
+  "term": "8분의12 박자",
+  "hanja": "八分의十二拍子",
+  "foreign": "twelve-eight time",
+  "note": "12/8 박자)"
+ },
+ {
+  "term": "8분의6 박자",
+  "hanja": "八分의六拍子",
+  "foreign": "six-eight time",
+  "note": "(팔분의육 박자, 6/8"
+ },
+ {
+  "term": "8분의9 박자",
+  "hanja": "八分의九拍子",
+  "foreign": "nine-eight time",
+  "note": "(팔분의구 박자, 9/8"
+ },
+ {
+  "term": "8중주",
+  "hanja": "八重奏",
+  "foreign": "octet",
+  "note": "(팔중주)"
+ },
+ {
+  "term": "8중창",
+  "hanja": "八重唱",
+  "foreign": "vocal octet",
+  "note": "(팔중창)"
+ },
+ {
+  "term": "9화음",
+  "hanja": "九和音",
+  "foreign": "ninth chord",
+  "note": "(구화음)"
+ },
+ {
+  "term": "가극/오페라",
+  "hanja": "歌劇",
+  "foreign": "Opera",
+  "note": ""
+ },
+ {
+  "term": "가락/선율",
+  "hanja": "-/旋律",
+  "foreign": "melody",
+  "note": ""
+ },
+ {
+  "term": "가락단음계/선율단음계",
+  "hanja": "",
+  "foreign": "melodic minor scale",
+  "note": ""
+ },
+ {
+  "term": "가락윤곽/선율윤곽",
+  "hanja": "",
+  "foreign": "melodic contour",
+  "note": "(가락선)"
+ },
+ {
+  "term": "가락음정/선율음정",
+  "hanja": "-/旋律音程",
+  "foreign": "melodic interval",
+  "note": ""
+ },
+ {
+  "term": "가보트",
+  "hanja": "",
+  "foreign": "Gavotte",
+  "note": ""
+ },
+ {
+  "term": "가성",
+  "hanja": "假聲",
+  "foreign": "falsetto/Falsett",
+  "note": "(팔세토)"
+ },
+ {
+  "term": "가온음",
+  "hanja": "",
+  "foreign": "mediant",
+  "note": ""
+ },
+ {
+  "term": "가온음자리표",
+  "hanja": "",
+  "foreign": "C-clef",
+  "note": ""
+ },
+ {
+  "term": "가온화음",
+  "hanja": "",
+  "foreign": "mediant chord",
+  "note": ""
+ },
+ {
+  "term": "가창",
+  "hanja": "歌唱",
+  "foreign": "singing",
+  "note": "(노래부르기)"
+ },
+ {
+  "term": "간주곡",
+  "hanja": "間奏曲",
+  "foreign": "Intermezzo opposite motion/",
+  "note": ""
+ },
+ {
+  "term": "갈려가기/반진행",
+  "hanja": "反進行",
+  "foreign": "contrary motion",
+  "note": ""
+ },
+ {
+  "term": "감3화음",
+  "hanja": "減三和音",
+  "foreign": "diminished triad diminished seventh",
+  "note": "(감삼화음)"
+ },
+ {
+  "term": "감7화음",
+  "hanja": "減七和音",
+  "foreign": "chord",
+  "note": "(감칠화음)"
+ },
+ {
+  "term": "감음정",
+  "hanja": "減音程",
+  "foreign": "diminished interval",
+  "note": ""
+ },
+ {
+  "term": "감화음",
+  "hanja": "減和音",
+  "foreign": "diminished chord",
+  "note": ""
+ },
+ {
+  "term": "갖춘마디",
+  "hanja": "",
+  "foreign": "complete bar parallel key/",
+  "note": ""
+ },
+ {
+  "term": "같은 으뜸음조/동주조",
+  "hanja": "-/同主調",
+  "foreign": "gleichnamige Tonarten",
+  "note": ""
+ },
+ {
+  "term": "같이가기/병진행/병행",
+  "hanja": "-/竝進行/竝行",
+  "foreign": "parallel motion",
+  "note": ""
+ },
+ {
+  "term": "개방현",
+  "hanja": "開放絃",
+  "foreign": "open string",
+  "note": ""
+ },
+ {
+  "term": "거꾸로 가기/역행",
+  "hanja": "-/逆行",
+  "foreign": "retrograde/Krebsgang",
+  "note": ""
+ },
+ {
+  "term": "거짓마침/허위종지",
+  "hanja": "-/虛僞終止",
+  "foreign": "deceptive cadence",
+  "note": ""
+ },
+ {
+  "term": "걸림음/계류음",
+  "hanja": "繫留音",
+  "foreign": "suspension",
+  "note": ""
+ },
+ {
+  "term": "겹내림표",
+  "hanja": "",
+  "foreign": "double flat",
+  "note": ""
+ },
+ {
+  "term": "겹두도막 형식/",
+  "hanja": "",
+  "foreign": "compound binary form",
+  "note": "(복합 이부"
+ },
+ {
+  "term": "복합 2부 형식",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "겹리드",
+  "hanja": "",
+  "foreign": "double reed",
+  "note": ""
+ },
+ {
+  "term": "겹박자",
+  "hanja": "",
+  "foreign": "compound time",
+  "note": ""
+ },
+ {
+  "term": "겹세도막 형식/",
+  "hanja": "",
+  "foreign": "compound ternary form",
+  "note": "(복합 삼부"
+ },
+ {
+  "term": "복합 3부 형식",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "겹세로줄",
+  "hanja": "",
+  "foreign": "double bar",
+  "note": ""
+ },
+ {
+  "term": "겹올림표",
+  "hanja": "",
+  "foreign": "double-sharp",
+  "note": ""
+ },
+ {
+  "term": "경과구",
+  "hanja": "經過句",
+  "foreign": "bridge passage",
+  "note": ""
+ },
+ {
+  "term": "경과음",
+  "hanja": "經過音",
+  "foreign": "passing tone",
+  "note": ""
+ },
+ {
+  "term": "경음악",
+  "hanja": "輕音樂",
+  "foreign": "light music solmization/solfege/",
+  "note": ""
+ },
+ {
+  "term": "계이름부르기",
+  "hanja": "",
+  "foreign": "Solmisation",
+  "note": "(계명창,"
+ },
+ {
+  "term": "고른음",
+  "hanja": "古典派音樂/",
+  "foreign": "musical tone classic music/",
+  "note": "(악음)"
+ },
+ {
+  "term": "고전파 음악/고전주의 음악",
+  "hanja": "古典主義音樂固定旋律/",
+  "foreign": "classical music",
+  "note": "(고전 음악"
+ },
+ {
+  "term": "고정 선율/정선율",
+  "hanja": "定旋律",
+  "foreign": "cantus firmus",
+  "note": ""
+ },
+ {
+  "term": "고정도법",
+  "hanja": "固定do法",
+  "foreign": "fixed Do method",
+  "note": "(고정도 창"
+ },
+ {
+  "term": "관계 단조",
+  "hanja": "關係短調",
+  "foreign": "relative minor key",
+  "note": ""
+ },
+ {
+  "term": "관계 장조",
+  "hanja": "關係長調",
+  "foreign": "relative major key",
+  "note": ""
+ },
+ {
+  "term": "관계조",
+  "hanja": "關係調",
+  "foreign": "related keys",
+  "note": ""
+ },
+ {
+  "term": "관악대",
+  "hanja": "管樂隊",
+  "foreign": "brass band",
+  "note": ""
+ },
+ {
+  "term": "관현악/교향악/",
+  "hanja": "管絃樂/交響樂",
+  "foreign": "orchestra music",
+  "note": "(관현악곡)"
+ },
+ {
+  "term": "오케스트라 음악",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "관현악단/교향악단/",
+  "hanja": "管絃樂團/",
+  "foreign": "orchestra",
+  "note": ""
+ },
+ {
+  "term": "오케스트라",
+  "hanja": "交響樂團",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "관현악법",
+  "hanja": "管絃樂法",
+  "foreign": "orchestration",
+  "note": ""
+ },
+ {
+  "term": "광시곡/랩소디",
+  "hanja": "狂詩曲",
+  "foreign": "Rhapsody/Rhapsodie",
+  "note": ""
+ },
+ {
+  "term": "교향곡",
+  "hanja": "交響曲",
+  "foreign": "Symphony",
+  "note": ""
+ },
+ {
+  "term": "교향시",
+  "hanja": "交響詩",
+  "foreign": "Symphonic poem",
+  "note": ""
+ },
+ {
+  "term": "교회 선법",
+  "hanja": "敎會旋法",
+  "foreign": "church modes",
+  "note": ""
+ },
+ {
+  "term": "교회 음악",
+  "hanja": "敎會音樂",
+  "foreign": "church music",
+  "note": ""
+ },
+ {
+  "term": "구예술",
+  "hanja": "舊藝術",
+  "foreign": "ars antiqua",
+  "note": ""
+ },
+ {
+  "term": "구체 음악",
+  "hanja": "具體音樂國民樂派/",
+  "foreign": "musique concrete musical nationalism",
+  "note": ""
+ },
+ {
+  "term": "국민악파/민족주의 음악",
+  "hanja": "民族主義音樂",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "군악대",
+  "hanja": "軍樂隊",
+  "foreign": "military band",
+  "note": ""
+ },
+ {
+  "term": "그라베",
+  "hanja": "",
+  "foreign": "grave",
+  "note": "장중하고, 엄"
+ },
+ {
+  "term": "그라치오소",
+  "hanja": "",
+  "foreign": "grazioso",
+  "note": "우아하고 장"
+ },
+ {
+  "term": "그레고리오 성가",
+  "hanja": "",
+  "foreign": "Gregorian chant",
+  "note": ""
+ },
+ {
+  "term": "그리스 선법",
+  "hanja": "",
+  "foreign": "Greek modes dramatic music/",
+  "note": ""
+ },
+ {
+  "term": "극음악",
+  "hanja": "劇音樂",
+  "foreign": "incidental music",
+  "note": ""
+ },
+ {
+  "term": "근대 음악",
+  "hanja": "近代音樂",
+  "foreign": "modern music",
+  "note": ""
+ },
+ {
+  "term": "근대 화성",
+  "hanja": "近代和聲",
+  "foreign": "modern harmony",
+  "note": "(근대 화성학"
+ },
+ {
+  "term": "글리산도",
+  "hanja": "",
+  "foreign": "glissando",
+  "note": "미끄러지듯이"
+ },
+ {
+  "term": "기능 화성",
+  "hanja": "機能和聲",
+  "foreign": "functional harmony",
+  "note": ""
+ },
+ {
+  "term": "기보법",
+  "hanja": "記譜法",
+  "foreign": "notation",
+  "note": ""
+ },
+ {
+  "term": "기상곡/카프리치오",
+  "hanja": "綺想曲/奇想曲",
+  "foreign": "Capriccio ornament grace/",
+  "note": "(카프리스)"
+ },
+ {
+  "term": "꾸밈음",
+  "hanja": "",
+  "foreign": "agrément/Verzierung",
+  "note": "(장식음)"
+ },
+ {
+  "term": "나란한조",
+  "hanja": "",
+  "foreign": "relative keys",
+  "note": "관계장조, 관"
+ },
+ {
+  "term": "나폴리 6화음",
+  "hanja": "",
+  "foreign": "Neapolitan sixth chord",
+  "note": ""
+ },
+ {
+  "term": "나폴리악파",
+  "hanja": "",
+  "foreign": "Neapolitan School",
+  "note": ""
+ },
+ {
+  "term": "낭만주의",
+  "hanja": "浪漫主義浪漫派音樂/",
+  "foreign": "romanticism",
+  "note": ""
+ },
+ {
+  "term": "낭만파 음악/낭만주의 음악",
+  "hanja": "浪漫主義音樂",
+  "foreign": "romantic music",
+  "note": "(낭만 음악)"
+ },
+ {
+  "term": "낮은음자리표",
+  "hanja": "",
+  "foreign": "F-clef/bass staff",
+  "note": ""
+ },
+ {
+  "term": "내림박",
+  "hanja": "",
+  "foreign": "downbeat",
+  "note": ""
+ },
+ {
+  "term": "내림표",
+  "hanja": "",
+  "foreign": "flat",
+  "note": ""
+ },
+ {
+  "term": "내림활",
+  "hanja": "",
+  "foreign": "down bow",
+  "note": ""
+ },
+ {
+  "term": "네덜란드악파",
+  "hanja": "",
+  "foreign": "Netherlands School",
+  "note": ""
+ },
+ {
+  "term": "네우마",
+  "hanja": "",
+  "foreign": "neuma song form/lied form/",
+  "note": "(가요 형식/"
+ },
+ {
+  "term": "노래 형식",
+  "hanja": "",
+  "foreign": "Liedform",
+  "note": "리트 형식)"
+ },
+ {
+  "term": "노랫말/가사",
+  "hanja": "-/歌詞",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "논 레가토",
+  "hanja": "",
+  "foreign": "non legato",
+  "note": "음 사이를 끊"
+ },
+ {
+  "term": "논 몰토",
+  "hanja": "",
+  "foreign": "non molto",
+  "note": "지나치지 않너무 심하지"
+ },
+ {
+  "term": "논 트로포",
+  "hanja": "",
+  "foreign": "non troppo",
+  "note": "너무 화려하"
+ },
+ {
+  "term": "높은음자리표",
+  "hanja": "",
+  "foreign": "G clef",
+  "note": ""
+ },
+ {
+  "term": "늘임표/페르마타",
+  "hanja": "",
+  "foreign": "fermata",
+  "note": ""
+ },
+ {
+  "term": "다카포(D.C.)",
+  "hanja": "",
+  "foreign": "da capo",
+  "note": "처음부터"
+ },
+ {
+  "term": "다 카포 알 세뇨",
+  "hanja": "",
+  "foreign": "da capo al segno",
+  "note": "곡 처음부터곡 처음부터"
+ },
+ {
+  "term": "다 카포 알 피네",
+  "hanja": "",
+  "foreign": "da capo al fine",
+  "note": "까지"
+ },
+ {
+  "term": "다성 음악/폴리포니",
+  "hanja": "多聲音樂",
+  "foreign": "polyphony",
+  "note": ""
+ },
+ {
+  "term": "단성 음악/모노포니",
+  "hanja": "單聲音樂",
+  "foreign": "monophony minor scale/",
+  "note": ""
+ },
+ {
+  "term": "단음계",
+  "hanja": "短音階",
+  "foreign": "Molltonleiter",
+  "note": ""
+ },
+ {
+  "term": "단음정",
+  "hanja": "短音程",
+  "foreign": "minor interval",
+  "note": ""
+ },
+ {
+  "term": "단조",
+  "hanja": "短調",
+  "foreign": "minor/Moll",
+  "note": ""
+ },
+ {
+  "term": "달 세뇨(D.S.)",
+  "hanja": "",
+  "foreign": "dal segno",
+  "note": "세뇨표부터"
+ },
+ {
+  "term": "당김음",
+  "hanja": "",
+  "foreign": "syncopation counterpoint/",
+  "note": "(싱커페이션)"
+ },
+ {
+  "term": "대선율",
+  "hanja": "對旋律",
+  "foreign": "Gegen-stimme counterpoint/",
+  "note": "(대위 선율)"
+ },
+ {
+  "term": "대위법",
+  "hanja": "對位法",
+  "foreign": "Kontrapunkt",
+  "note": ""
+ },
+ {
+  "term": "덧줄",
+  "hanja": "",
+  "foreign": "leger line/added line",
+  "note": ""
+ },
+ {
+  "term": "데스캔트",
+  "hanja": "",
+  "foreign": "Descant",
+  "note": ""
+ },
+ {
+  "term": "데크레셴도",
+  "hanja": "",
+  "foreign": "decrescendo",
+  "note": "점점 여리게"
+ },
+ {
+  "term": "도돌이표",
+  "hanja": "",
+  "foreign": "repeat mark/repeat sign",
+  "note": "(되돌이표)"
+ },
+ {
+  "term": "도리아 선법",
+  "hanja": "",
+  "foreign": "Dorian mode",
+  "note": "(레 선법)"
+ },
+ {
+  "term": "도움음/보조음",
+  "hanja": "",
+  "foreign": "auxiliary note",
+  "note": ""
+ },
+ {
+  "term": "독일 6화음",
+  "hanja": "獨逸六和音",
+  "foreign": "German sixth chord",
+  "note": "(독일 육화음)"
+ },
+ {
+  "term": "독주",
+  "hanja": "獨奏",
+  "foreign": "solo",
+  "note": ""
+ },
+ {
+  "term": "독주회",
+  "hanja": "獨奏會",
+  "foreign": "recital",
+  "note": ""
+ },
+ {
+  "term": "독창",
+  "hanja": "獨唱",
+  "foreign": "vocal solo",
+  "note": ""
+ },
+ {
+  "term": "독창회",
+  "hanja": "獨唱會",
+  "foreign": "vocal recital",
+  "note": ""
+ },
+ {
+  "term": "돈꾸밈음",
+  "hanja": "",
+  "foreign": "turn/giro",
+  "note": "∾"
+ },
+ {
+  "term": "돌림 노래",
+  "hanja": "",
+  "foreign": "round song/circle canon",
+  "note": ""
+ },
+ {
+  "term": "돌림 춤",
+  "hanja": "",
+  "foreign": "round dance",
+  "note": ""
+ },
+ {
+  "term": "돌체",
+  "hanja": "",
+  "foreign": "dolce motive/motif/motivo/",
+  "note": "우아하고 아름"
+ },
+ {
+  "term": "동기",
+  "hanja": "動機",
+  "foreign": "Motiv",
+  "note": "(모티브)"
+ },
+ {
+  "term": "동형 진행",
+  "hanja": "同形進行",
+  "foreign": "sequence binary form/",
+  "note": "(이동 반복)"
+ },
+ {
+  "term": "두도막 형식/2부분 형식",
+  "hanja": "",
+  "foreign": "two-part form",
+  "note": ""
+ },
+ {
+  "term": "두성",
+  "hanja": "頭聲",
+  "foreign": "head voice",
+  "note": ""
+ },
+ {
+  "term": "둘잇단음표",
+  "hanja": "",
+  "foreign": "duplet",
+  "note": "(이연음부)"
+ },
+ {
+  "term": "둘째자리바꿈/제2전위",
+  "hanja": "",
+  "foreign": "second inversion",
+  "note": ""
+ },
+ {
+  "term": "뒤꾸밈음",
+  "hanja": "",
+  "foreign": "after note",
+  "note": ""
+ },
+ {
+  "term": "뒤작은악절/후속구/",
+  "hanja": "-/後屬句/",
+  "foreign": "consequent phrase/",
+  "note": "(후행구)"
+ },
+ {
+  "term": "후행악구",
+  "hanja": "後行樂句",
+  "foreign": "Nachsatz",
+  "note": ""
+ },
+ {
+  "term": "듀오",
+  "hanja": "",
+  "foreign": "duo",
+  "note": "(2중주, 2중창)"
+ },
+ {
+  "term": "디 몰토",
+  "hanja": "",
+  "foreign": "di molto",
+  "note": "매우, 대단히"
+ },
+ {
+  "term": "디미누엔도(dim.)",
+  "hanja": "",
+  "foreign": "diminuendo",
+  "note": "점점 여리게,"
+ },
+ {
+  "term": "딴이름 한소리/이명동음",
+  "hanja": "-/異名同音",
+  "foreign": "enharmonic",
+  "note": ""
+ },
+ {
+  "term": "딸림 7화음",
+  "hanja": "",
+  "foreign": "dominant seventh chord",
+  "note": "(딸림 칠화음,"
+ },
+ {
+  "term": "딸림 9화음",
+  "hanja": "",
+  "foreign": "dominant ninth chord",
+  "note": "(딸림 구화음,"
+ },
+ {
+  "term": "딸림음",
+  "hanja": "",
+  "foreign": "dominant/Dominante",
+  "note": "(속음)"
+ },
+ {
+  "term": "딸림화음",
+  "hanja": "",
+  "foreign": "dominant chord",
+  "note": "(속화음)"
+ },
+ {
+  "term": "라르간도",
+  "hanja": "",
+  "foreign": "largando",
+  "note": "점점 느리고 폭"
+ },
+ {
+  "term": "라르게토",
+  "hanja": "",
+  "foreign": "larghetto",
+  "note": "라르고보다 조"
+ },
+ {
+  "term": "라르고",
+  "hanja": "largo",
+  "foreign": "아주 느리게, 느",
+  "note": "리고 넓게"
+ },
+ {
+  "term": "랄렌탄도(rall.)",
+  "hanja": "rallentando",
+  "foreign": "점점 느리게",
+  "note": ""
+ },
+ {
+  "term": "레가토",
+  "hanja": "legato",
+  "foreign": "음을 부드럽게",
+  "note": "이어서"
+ },
+ {
+  "term": "레가티시모",
+  "hanja": "legatissimo",
+  "foreign": "매우 부드럽게",
+  "note": ""
+ },
+ {
+  "term": "레솔루토",
+  "hanja": "resoluto",
+  "foreign": "단호하게",
+  "note": ""
+ },
+ {
+  "term": "레지에로",
+  "hanja": "leggiero",
+  "foreign": "경쾌하게, 가볍",
+  "note": "게"
+ },
+ {
+  "term": "렌토",
+  "hanja": "lento",
+  "foreign": "아주 느리게, 느",
+  "note": "리고 무겁게"
+ },
+ {
+  "term": "로마네스크 음악",
+  "hanja": "Romanesque music",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "로마악파",
+  "hanja": "Roman School",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "론도",
+  "hanja": "rondo",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "론도 소나타 형식",
+  "hanja": "rondo-sonata form",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "론도 형식",
+  "hanja": "rondo form",
+  "foreign": "박자에 얽매이지",
+  "note": "아니하고,"
+ },
+ {
+  "term": "루바토",
+  "hanja": "rubato",
+  "foreign": "자유롭게 하는 창법",
+  "note": "연주법이나"
+ },
+ {
+  "term": "룸바",
+  "hanja": "Rumbareed pipe",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "리드 파이프",
+  "hanja": "(reed instrument)",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "리듬",
+  "hanja": "rhythm",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "리듬 악대",
+  "hanja": "rhythm band",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "리디아 선법",
+  "hanja": "Lydian mode",
+  "foreign": "(파 선법)",
+  "note": ""
+ },
+ {
+  "term": "리비툼",
+  "hanja": "libitum",
+  "foreign": "구속되지 않고",
+  "note": "자유롭게"
+ },
+ {
+  "term": "리타르단도(rit.)",
+  "hanja": "ritardando",
+  "foreign": "점점 느리게",
+  "note": ""
+ },
+ {
+  "term": "리테누토(riten.)",
+  "hanja": "ritenuto",
+  "foreign": "그 부분에서 좀",
+  "note": "느리게"
+ },
+ {
+  "term": "마 논 트로포",
+  "hanja": "ma non troppo",
+  "foreign": "그러나 지나치지",
+  "note": "않게"
+ },
+ {
+  "term": "마드리갈",
+  "hanja": "Madrigal",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "마디",
+  "hanja": "measure/bar",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "마르카토",
+  "hanja": "marcato",
+  "foreign": "음 하나하나를",
+  "note": "똑똑하게"
+ },
+ {
+  "term": "마에스타",
+  "hanja": "maesta",
+  "foreign": "장엄, 위엄",
+  "note": ""
+ },
+ {
+  "term": "마에스토소",
+  "hanja": "maestoso",
+  "foreign": "장엄하게",
+  "note": ""
+ },
+ {
+  "term": "마주르카",
+  "hanja": "Mazurka",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "마침꼴",
+  "hanja": "cadential pattern",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "마침법/마침/종지",
+  "hanja": "",
+  "foreign": "cadence/Kadenz",
+  "note": "(종지법)"
+ },
+ {
+  "term": "마침줄",
+  "hanja": "",
+  "foreign": "fine double bar",
+  "note": ""
+ },
+ {
+  "term": "만하임악파",
+  "hanja": "",
+  "foreign": "Mannheim School",
+  "note": ""
+ },
+ {
+  "term": "말라게냐",
+  "hanja": "",
+  "foreign": "malagueña",
+  "note": "에스파냐 말라가 지"
+ },
+ {
+  "term": "매우 매우 세게/",
+  "hanja": "",
+  "foreign": "fortississimo",
+  "note": "(포르티시시모)"
+ },
+ {
+  "term": "매우 매우 크게(fff)",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "매우 매우 여리게/",
+  "hanja": "",
+  "foreign": "pianississimo",
+  "note": "(피아니시시모)"
+ },
+ {
+  "term": "매우 매우 작게(ppp)",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "매우 세게/매우 크게(ff)",
+  "hanja": "",
+  "foreign": "fortissimo",
+  "note": "(포르티시모)"
+ },
+ {
+  "term": "매우 여리게/매우 작게(pp)",
+  "hanja": "",
+  "foreign": "pianissimo",
+  "note": "(피아니시모)"
+ },
+ {
+  "term": "메노",
+  "hanja": "",
+  "foreign": "meno",
+  "note": "보다 덜, 좀 덜"
+ },
+ {
+  "term": "메노 모소",
+  "hanja": "",
+  "foreign": "meno mosso",
+  "note": "너무 빠르지 않게음을 점점 크게 하"
+ },
+ {
+  "term": "메사 디 보체",
+  "hanja": "",
+  "foreign": "messa di voce",
+  "note": "하게"
+ },
+ {
+  "term": "메조소프라노",
+  "hanja": "",
+  "foreign": "mezzo soprano",
+  "note": ""
+ },
+ {
+  "term": "모노디",
+  "hanja": "",
+  "foreign": "Monody/Monodie",
+  "note": ""
+ },
+ {
+  "term": "모렌도",
+  "hanja": "",
+  "foreign": "morendo",
+  "note": "점점 여리고 느리"
+ },
+ {
+  "term": "모방",
+  "hanja": "模倣",
+  "foreign": "imitation",
+  "note": ""
+ },
+ {
+  "term": "모소",
+  "hanja": "",
+  "foreign": "mosso",
+  "note": "약동하여, 빠르게,"
+ },
+ {
+  "term": "모음 악보",
+  "hanja": "",
+  "foreign": "full score(score)/sparte",
+  "note": "(총보, 총악보)"
+ },
+ {
+  "term": "모음곡/조곡",
+  "hanja": "-/組曲",
+  "foreign": "Suite/Partita",
+  "note": ""
+ },
+ {
+  "term": "모테트",
+  "hanja": "",
+  "foreign": "Motet",
+  "note": "(모테토)"
+ },
+ {
+  "term": "몰토",
+  "hanja": "",
+  "foreign": "molto",
+  "note": "크게, 대단히, 매우"
+ },
+ {
+  "term": "못갖춘마디",
+  "hanja": "",
+  "foreign": "incomplete bar",
+  "note": "(여린내기)"
+ },
+ {
+  "term": "못갖춘마침",
+  "hanja": "",
+  "foreign": "imperfect cadence",
+  "note": ""
+ },
+ {
+  "term": "무조 음악",
+  "hanja": "無調音樂",
+  "foreign": "atonal music",
+  "note": ""
+ },
+ {
+  "term": "무조성",
+  "hanja": "無調性",
+  "foreign": "atonality",
+  "note": ""
+ },
+ {
+  "term": "뮤지컬",
+  "hanja": "",
+  "foreign": "Musical",
+  "note": ""
+ },
+ {
+  "term": "미뉴에트",
+  "hanja": "",
+  "foreign": "Minuet/Menuet",
+  "note": ""
+ },
+ {
+  "term": "미디 음악",
+  "hanja": "",
+  "foreign": "MIDI music",
+  "note": ""
+ },
+ {
+  "term": "미분음",
+  "hanja": "微分音",
+  "foreign": "microtone",
+  "note": ""
+ },
+ {
+  "term": "미분음 음계",
+  "hanja": "微分音音階",
+  "foreign": "microtone scale",
+  "note": ""
+ },
+ {
+  "term": "미사",
+  "hanja": "",
+  "foreign": "Mass/Missa",
+  "note": ""
+ },
+ {
+  "term": "미스테리오소",
+  "hanja": "",
+  "foreign": "misterioso",
+  "note": "신비스럽게"
+ },
+ {
+  "term": "믹솔리디아 선법",
+  "hanja": "",
+  "foreign": "Mixolydian mode",
+  "note": "(솔 선법)"
+ },
+ {
+  "term": "민속춤",
+  "hanja": "",
+  "foreign": "folk dance",
+  "note": ""
+ },
+ {
+  "term": "민요",
+  "hanja": "民謠",
+  "foreign": "Folksong/Volkslied",
+  "note": ""
+ },
+ {
+  "term": "밑음/근음",
+  "hanja": "-/根音",
+  "foreign": "root/generator",
+  "note": ""
+ },
+ {
+  "term": "밑자리/근음위치",
+  "hanja": "-/根音位置",
+  "foreign": "root position",
+  "note": "(기본위치)"
+ },
+ {
+  "term": "바깥성부",
+  "hanja": "",
+  "foreign": "outer part",
+  "note": "(외성부)파이프오르간의"
+ },
+ {
+  "term": "바람통",
+  "hanja": "",
+  "foreign": "windchest",
+  "note": "양을 조정하는"
+ },
+ {
+  "term": "바로크 음악",
+  "hanja": "",
+  "foreign": "Baroque music",
+  "note": ""
+ },
+ {
+  "term": "바로크식",
+  "hanja": "",
+  "foreign": "Baroque style",
+  "note": ""
+ },
+ {
+  "term": "바른마침/정격 종지",
+  "hanja": "-/正格終止",
+  "foreign": "authentic cadence",
+  "note": ""
+ },
+ {
+  "term": "박자",
+  "hanja": "拍子",
+  "foreign": "time/meter",
+  "note": ""
+ },
+ {
+  "term": "박자기/메트로놈",
+  "hanja": "拍子器",
+  "foreign": "metronome time signature/",
+  "note": ""
+ },
+ {
+  "term": "박자표",
+  "hanja": "拍子標",
+  "foreign": "meter signature",
+  "note": ""
+ },
+ {
+  "term": "반마침/반종지",
+  "hanja": "-/半終止",
+  "foreign": "half cadence",
+  "note": ""
+ },
+ {
+  "term": "반음",
+  "hanja": "半音",
+  "foreign": "semitone",
+  "note": ""
+ },
+ {
+  "term": "반음계",
+  "hanja": "半音階",
+  "foreign": "chromatic scale",
+  "note": ""
+ },
+ {
+  "term": "반주",
+  "hanja": "伴奏",
+  "foreign": "accompaniment",
+  "note": ""
+ },
+ {
+  "term": "발라드",
+  "hanja": "",
+  "foreign": "Ballade",
+  "note": ""
+ },
+ {
+  "term": "발레",
+  "hanja": "",
+  "foreign": "ballet",
+  "note": ""
+ },
+ {
+  "term": "발레모음곡",
+  "hanja": "",
+  "foreign": "Ballet suite",
+  "note": ""
+ },
+ {
+  "term": "발췌곡",
+  "hanja": "拔萃曲",
+  "foreign": "selection/quodlibet",
+  "note": ""
+ },
+ {
+  "term": "밭은자리",
+  "hanja": "",
+  "foreign": "closed position",
+  "note": "(밀집위치)"
+ },
+ {
+  "term": "배음",
+  "hanja": "倍音",
+  "foreign": "harmonics/overtones",
+  "note": ""
+ },
+ {
+  "term": "배음렬",
+  "hanja": "倍音列",
+  "foreign": "overtone series",
+  "note": ""
+ },
+ {
+  "term": "버금 3화음",
+  "hanja": "",
+  "foreign": "secondary triads secondary seventh",
+  "note": "(부3화음, 버금"
+ },
+ {
+  "term": "버금 7화음",
+  "hanja": "",
+  "foreign": "chord",
+  "note": "(부7화음, 버금"
+ },
+ {
+  "term": "버금가온음",
+  "hanja": "",
+  "foreign": "submediant",
+  "note": ""
+ },
+ {
+  "term": "버금딸림음",
+  "hanja": "",
+  "foreign": "subdominant",
+  "note": ""
+ },
+ {
+  "term": "버금딸림조",
+  "hanja": "",
+  "foreign": "subdominant key",
+  "note": ""
+ },
+ {
+  "term": "버금딸림화음",
+  "hanja": "",
+  "foreign": "subdominant chord",
+  "note": ""
+ },
+ {
+  "term": "벌린자리",
+  "hanja": "",
+  "foreign": "open position plagal cadence/",
+  "note": "(개리위치)"
+ },
+ {
+  "term": "벗어난마침/변격 종지",
+  "hanja": "-/變格終止",
+  "foreign": "amen cadence",
+  "note": ""
+ },
+ {
+  "term": "베네치아악파",
+  "hanja": "",
+  "foreign": "Venetian School",
+  "note": ""
+ },
+ {
+  "term": "베를린악파",
+  "hanja": "",
+  "foreign": "Berlin School",
+  "note": ""
+ },
+ {
+  "term": "벨칸토",
+  "hanja": "",
+  "foreign": "bel canto",
+  "note": ""
+ },
+ {
+  "term": "변주곡",
+  "hanja": "變奏曲",
+  "foreign": "variation altered chord/",
+  "note": ""
+ },
+ {
+  "term": "변화 화음",
+  "hanja": "變化和音",
+  "foreign": "accordo alterato",
+  "note": ""
+ },
+ {
+  "term": "보고 연주하기",
+  "hanja": "",
+  "foreign": "sight-playing",
+  "note": ""
+ },
+ {
+  "term": "보고부르기/시창",
+  "hanja": "-/視唱",
+  "foreign": "sight-singing",
+  "note": ""
+ },
+ {
+  "term": "보르둔",
+  "hanja": "",
+  "foreign": "bordun",
+  "note": ""
+ },
+ {
+  "term": "보통 빠르게",
+  "hanja": "",
+  "foreign": "moderato",
+  "note": ""
+ },
+ {
+  "term": "보표",
+  "hanja": "譜表",
+  "foreign": "staff",
+  "note": ""
+ },
+ {
+  "term": "보헤미아 음악",
+  "hanja": "",
+  "foreign": "Bohemian music",
+  "note": ""
+ },
+ {
+  "term": "본디음",
+  "hanja": "",
+  "foreign": "natural tone/Stammton",
+  "note": "(원음)"
+ },
+ {
+  "term": "붙임줄",
+  "hanja": "",
+  "foreign": "tie",
+  "note": ""
+ },
+ {
+  "term": "브리오소",
+  "hanja": "",
+  "foreign": "brioso",
+  "note": "싱싱하게,"
+ },
+ {
+  "term": "브릴란테",
+  "hanja": "",
+  "foreign": "brillante",
+  "note": "화려하게,"
+ },
+ {
+  "term": "비껴가기/사진행",
+  "hanja": "-/斜進行",
+  "foreign": "oblique motion",
+  "note": ""
+ },
+ {
+  "term": "비바체",
+  "hanja": "",
+  "foreign": "vivace",
+  "note": "아주 빠르"
+ },
+ {
+  "term": "비바치시모",
+  "hanja": "",
+  "foreign": "vivacissimo",
+  "note": "비바체보다"
+ },
+ {
+  "term": "비보",
+  "hanja": "",
+  "foreign": "vivo",
+  "note": "힘차고 빠"
+ },
+ {
+  "term": "비브라토",
+  "hanja": "",
+  "foreign": "vibration/vibrato",
+  "note": "떨림"
+ },
+ {
+  "term": "빈 고전파/빈 고전주의",
+  "hanja": "",
+  "foreign": "Viennese classics",
+  "note": ""
+ },
+ {
+  "term": "빈악파/비엔나악파",
+  "hanja": "",
+  "foreign": "Viennese School",
+  "note": ""
+ },
+ {
+  "term": "빠르기",
+  "hanja": "",
+  "foreign": "tempo",
+  "note": "(템포)"
+ },
+ {
+  "term": "사라반드",
+  "hanja": "",
+  "foreign": "Saraband",
+  "note": ""
+ },
+ {
+  "term": "상투스",
+  "hanja": "",
+  "foreign": "Sanctus",
+  "note": ""
+ },
+ {
+  "term": "샤콘",
+  "hanja": "",
+  "foreign": "Chaconne",
+  "note": ""
+ },
+ {
+  "term": "샹송",
+  "hanja": "",
+  "foreign": "Chanson",
+  "note": ""
+ },
+ {
+  "term": "서곡",
+  "hanja": "序曲",
+  "foreign": "Overture",
+  "note": ""
+ },
+ {
+  "term": "서주부",
+  "hanja": "序奏部",
+  "foreign": "introduction",
+  "note": "(도입부)"
+ },
+ {
+  "term": "서창/레치타티보",
+  "hanja": "敍唱",
+  "foreign": "recitative/recitativo",
+  "note": ""
+ },
+ {
+  "term": "선법",
+  "hanja": "旋法",
+  "foreign": "mode/modes",
+  "note": ""
+ },
+ {
+  "term": "성부",
+  "hanja": "聲部",
+  "foreign": "part",
+  "note": ""
+ },
+ {
+  "term": "성부 조직",
+  "hanja": "聲部組織",
+  "foreign": "texture",
+  "note": ""
+ },
+ {
+  "term": "세게 곧 여리게/",
+  "hanja": "",
+  "foreign": "forte-piano",
+  "note": "(포르테"
+ },
+ {
+  "term": "크게 곧 작게(fp)",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "세게/크게(f)",
+  "hanja": "",
+  "foreign": "forte",
+  "note": "(포르테)"
+ },
+ {
+  "term": "세도막 형식/3부분 형식",
+  "hanja": "",
+  "foreign": "ternary form",
+  "note": ""
+ },
+ {
+  "term": "세레나데",
+  "hanja": "",
+  "foreign": "Serenade",
+  "note": ""
+ },
+ {
+  "term": "세로줄/마디줄",
+  "hanja": "",
+  "foreign": "bar line",
+  "note": ""
+ },
+ {
+  "term": "센박/강박",
+  "hanja": "",
+  "foreign": "strong beat",
+  "note": ""
+ },
+ {
+  "term": "센티멘토",
+  "hanja": "",
+  "foreign": "sentimento",
+  "note": "감정을"
+ },
+ {
+  "term": "셈여림",
+  "hanja": "",
+  "foreign": "dynamics",
+  "note": ""
+ },
+ {
+  "term": "셈프레",
+  "hanja": "",
+  "foreign": "sempre",
+  "note": "항상, 계"
+ },
+ {
+  "term": "셋잇단음표",
+  "hanja": "",
+  "foreign": "triplet/Triole",
+  "note": ""
+ },
+ {
+  "term": "셋째자리바꿈/제3전위",
+  "hanja": "-/第三轉位",
+  "foreign": "third inversion",
+  "note": ""
+ },
+ {
+  "term": "소나타",
+  "hanja": "",
+  "foreign": "Sonata/Sonate",
+  "note": ""
+ },
+ {
+  "term": "소나타 형식",
+  "hanja": "",
+  "foreign": "sonata form",
+  "note": ""
+ },
+ {
+  "term": "소나티네",
+  "hanja": "",
+  "foreign": "Sonatine",
+  "note": "(작은 소"
+ },
+ {
+  "term": "소리굽쇠",
+  "hanja": "",
+  "foreign": "tuning fork/pitchfork",
+  "note": "음을 끌"
+ },
+ {
+  "term": "소스테누토",
+  "hanja": "",
+  "foreign": "sostenuto",
+  "note": "음을 늘"
+ },
+ {
+  "term": "소프라노",
+  "hanja": "",
+  "foreign": "soprano",
+  "note": ""
+ },
+ {
+  "term": "수난곡",
+  "hanja": "受難曲",
+  "foreign": "Passion",
+  "note": ""
+ },
+ {
+  "term": "수비토",
+  "hanja": "",
+  "foreign": "subito",
+  "note": ""
+ },
+ {
+  "term": "순음",
+  "hanja": "純音",
+  "foreign": "pure tone/sinus tone",
+  "note": ""
+ },
+ {
+  "term": "순음악/절대 음악",
+  "hanja": "純音樂/絕對音樂",
+  "foreign": "absolute music",
+  "note": ""
+ },
+ {
+  "term": "순정조/순정률",
+  "hanja": "純正調/純正律",
+  "foreign": "reine Stimmung",
+  "note": ""
+ },
+ {
+  "term": "숨은 5도",
+  "hanja": "",
+  "foreign": "hidden fifths",
+  "note": "(숨은 오도, 은복"
+ },
+ {
+  "term": "숨은 8도",
+  "hanja": "",
+  "foreign": "hidden octaves",
+  "note": "(숨은 팔도, 은복"
+ },
+ {
+  "term": "숨표",
+  "hanja": "",
+  "foreign": "breathing mark",
+  "note": ""
+ },
+ {
+  "term": "쉼표",
+  "hanja": "",
+  "foreign": "rest",
+  "note": ""
+ },
+ {
+  "term": "스모르찬도(smorz.)",
+  "hanja": "",
+  "foreign": "smorzando",
+  "note": "차차 꺼져가는 듯"
+ },
+ {
+  "term": "스케르찬도",
+  "hanja": "",
+  "foreign": "scherzando",
+  "note": "익살스럽게"
+ },
+ {
+  "term": "스케르초",
+  "hanja": "",
+  "foreign": "scherzo",
+  "note": "익살, 제멋대로,"
+ },
+ {
+  "term": "스케르초소",
+  "hanja": "",
+  "foreign": "scherzoso",
+  "note": "익살스러운"
+ },
+ {
+  "term": "스타카토",
+  "hanja": "",
+  "foreign": "staccato",
+  "note": "(끊음표)/또렷하게"
+ },
+ {
+  "term": "스트린젠도",
+  "hanja": "",
+  "foreign": "stringendo",
+  "note": "점점 서두르며"
+ },
+ {
+  "term": "스포르찬도(sfz.)",
+  "hanja": "",
+  "foreign": "sforzando",
+  "note": "특히 세게"
+ },
+ {
+  "term": "스피리토",
+  "hanja": "",
+  "foreign": "spirito",
+  "note": "힘차게, 활발하게"
+ },
+ {
+  "term": "스피리토소",
+  "hanja": "",
+  "foreign": "spiritoso",
+  "note": "힘차게, 활기 있게"
+ },
+ {
+  "term": "스피카토",
+  "hanja": "",
+  "foreign": "spiccato",
+  "note": "활을 튕겨 음을 가"
+ },
+ {
+  "term": "슬렌탄도",
+  "hanja": "",
+  "foreign": "slentando",
+  "note": "점점 느리게"
+ },
+ {
+  "term": "시창/보고부르기",
+  "hanja": "視唱",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "신고전주의",
+  "hanja": "新古典主義",
+  "foreign": "Neo-classicism",
+  "note": ""
+ },
+ {
+  "term": "신낭만주의",
+  "hanja": "新浪漫主義",
+  "foreign": "Neo-romanticism",
+  "note": ""
+ },
+ {
+  "term": "신예술",
+  "hanja": "新藝術",
+  "foreign": "ars nova",
+  "note": "(아르스노바)"
+ },
+ {
+  "term": "신포니에타",
+  "hanja": "",
+  "foreign": "Sinfonietta",
+  "note": "(작은 심포니)"
+ },
+ {
+  "term": "실내 협주곡",
+  "hanja": "室內協奏曲",
+  "foreign": "Concerto da camera",
+  "note": "(실내 콘체르토)"
+ },
+ {
+  "term": "실내악",
+  "hanja": "室內樂",
+  "foreign": "chamber music",
+  "note": ""
+ },
+ {
+  "term": "아 카펠라",
+  "hanja": "",
+  "foreign": "a cappella",
+  "note": "(무반주 합창, 무반"
+ },
+ {
+  "term": "아 템포",
+  "hanja": "",
+  "foreign": "a tempo",
+  "note": "본디 빠르기로"
+ },
+ {
+  "term": "아 포코",
+  "hanja": "",
+  "foreign": "a poco",
+  "note": "점차"
+ },
+ {
+  "term": "아 코포 피우 모소",
+  "hanja": "",
+  "foreign": "a poco più mosso",
+  "note": "조금씩 더욱 빠르생기 있게, 힘차게"
+ },
+ {
+  "term": "아니마토",
+  "hanja": "",
+  "foreign": "animato",
+  "note": "역동적으로"
+ },
+ {
+  "term": "아니모소",
+  "hanja": "",
+  "foreign": "animoso",
+  "note": "생동적으로, 활발"
+ },
+ {
+  "term": "아다지시모",
+  "hanja": "",
+  "foreign": "adagissimo",
+  "note": "매우 느리게"
+ },
+ {
+  "term": "아다지에토",
+  "hanja": "",
+  "foreign": "adagietto",
+  "note": "아다지오보다"
+ },
+ {
+  "term": "아다지오",
+  "hanja": "",
+  "foreign": "adagio",
+  "note": "느리게"
+ },
+ {
+  "term": "아다지오 아사이",
+  "hanja": "",
+  "foreign": "adagio assai",
+  "note": "아주 느리게"
+ },
+ {
+  "term": "아드 리비툼",
+  "hanja": "",
+  "foreign": "ad libitum",
+  "note": "자유스럽게"
+ },
+ {
+  "term": "아라베스크",
+  "hanja": "",
+  "foreign": "Arabesque",
+  "note": ""
+ },
+ {
+  "term": "아리아",
+  "hanja": "",
+  "foreign": "Aria",
+  "note": ""
+ },
+ {
+  "term": "아리아 부파",
+  "hanja": "",
+  "foreign": "Aria buffa",
+  "note": "희극적 아리"
+ },
+ {
+  "term": "아리오소",
+  "hanja": "",
+  "foreign": "Arioso",
+  "note": "(작은 아리아"
+ },
+ {
+  "term": "아르페지오",
+  "hanja": "",
+  "foreign": "arpeggio",
+  "note": "(펼침화음, 층"
+ },
+ {
+  "term": "아마빌레",
+  "hanja": "",
+  "foreign": "amabile",
+  "note": "우아하게, 사"
+ },
+ {
+  "term": "아모로소",
+  "hanja": "",
+  "foreign": "amoroso",
+  "note": "사랑스럽게,"
+ },
+ {
+  "term": "아사이",
+  "hanja": "",
+  "foreign": "assai",
+  "note": "매우, 더욱"
+ },
+ {
+  "term": "아지타토",
+  "hanja": "",
+  "foreign": "agitato",
+  "note": "격하여, 급속"
+ },
+ {
+  "term": "아첼레란도",
+  "hanja": "",
+  "foreign": "accelerando",
+  "note": "점점 빠르게"
+ },
+ {
+  "term": "아티큘레이션",
+  "hanja": "",
+  "foreign": "articulation",
+  "note": ""
+ },
+ {
+  "term": "아파시오나토",
+  "hanja": "",
+  "foreign": "appassionato",
+  "note": "열정적으로,"
+ },
+ {
+  "term": "악구",
+  "hanja": "樂句",
+  "foreign": "phrase",
+  "note": ""
+ },
+ {
+  "term": "악대",
+  "hanja": "樂隊",
+  "foreign": "band",
+  "note": ""
+ },
+ {
+  "term": "악보",
+  "hanja": "樂譜",
+  "foreign": "music score",
+  "note": ""
+ },
+ {
+  "term": "악센트",
+  "hanja": "",
+  "foreign": "accent/accento",
+  "note": "다른 음보다"
+ },
+ {
+  "term": "악식",
+  "hanja": "樂式",
+  "foreign": "musical form",
+  "note": ""
+ },
+ {
+  "term": "악장",
+  "hanja": "樂長",
+  "foreign": "band master",
+  "note": ""
+ },
+ {
+  "term": "악전",
+  "hanja": "樂典",
+  "foreign": "music theory",
+  "note": ""
+ },
+ {
+  "term": "악절",
+  "hanja": "樂節",
+  "foreign": "period/sentence/Satz",
+  "note": ""
+ },
+ {
+  "term": "안단테",
+  "hanja": "",
+  "foreign": "andante",
+  "note": "느리게"
+ },
+ {
+  "term": "안단테 칸타빌레",
+  "hanja": "",
+  "foreign": "andante cantabile",
+  "note": "느리게 노래안단테보다"
+ },
+ {
+  "term": "안단테 콘 모토",
+  "hanja": "",
+  "foreign": "andante con moto",
+  "note": "느리되 활기"
+ },
+ {
+  "term": "안단티노",
+  "hanja": "",
+  "foreign": "",
+  "note": "andantino"
+ },
+ {
+  "term": "안성부/내성",
+  "hanja": "",
+  "foreign": "-/內聲",
+  "note": "inner part/inner voice"
+ },
+ {
+  "term": "안어울림 음정",
+  "hanja": "/불협화 음정",
+  "foreign": "-/不協和音程",
+  "note": "dissonant interval"
+ },
+ {
+  "term": "안어울림 화음",
+  "hanja": "/불협화 화음",
+  "foreign": "-/不協和和音",
+  "note": "dissonant chord"
+ },
+ {
+  "term": "알 피네",
+  "hanja": "",
+  "foreign": "",
+  "note": "al fine"
+ },
+ {
+  "term": "알라 마르치아",
+  "hanja": "",
+  "foreign": "",
+  "note": "alla marcia"
+ },
+ {
+  "term": "알라 브레베",
+  "hanja": "",
+  "foreign": "",
+  "note": "alla breve"
+ },
+ {
+  "term": "알라 코다",
+  "hanja": "",
+  "foreign": "",
+  "note": "alla coda"
+ },
+ {
+  "term": "알라르간도",
+  "hanja": "",
+  "foreign": "",
+  "note": "allargando"
+ },
+ {
+  "term": "알레그레토",
+  "hanja": "",
+  "foreign": "",
+  "note": "allegretto"
+ },
+ {
+  "term": "알레그레토 스",
+  "hanja": "케르찬도",
+  "foreign": "",
+  "note": "allegretto scherzando"
+ },
+ {
+  "term": "알레그로",
+  "hanja": "",
+  "foreign": "",
+  "note": "allegro"
+ },
+ {
+  "term": "알레그로 논",
+  "hanja": "탄토",
+  "foreign": "",
+  "note": "allegro non tanto"
+ },
+ {
+  "term": "알레그로 디",
+  "hanja": "몰토",
+  "foreign": "",
+  "note": "allegro di molto"
+ },
+ {
+  "term": "알레그로 마",
+  "hanja": "그라치오소",
+  "foreign": "",
+  "note": "allegro ma grazioso"
+ },
+ {
+  "term": "알레그로 모데",
+  "hanja": "라토",
+  "foreign": "",
+  "note": "allegro moderato"
+ },
+ {
+  "term": "알레그로 비바",
+  "hanja": "체",
+  "foreign": "",
+  "note": "allegro vivace"
+ },
+ {
+  "term": "알레그로 아사",
+  "hanja": "이",
+  "foreign": "",
+  "note": "allegro assai"
+ },
+ {
+  "term": "알레그로 아지",
+  "hanja": "타토",
+  "foreign": "",
+  "note": "allegro agitato"
+ },
+ {
+  "term": "알레그로 주스",
+  "hanja": "토",
+  "foreign": "",
+  "note": "allegro giusto"
+ },
+ {
+  "term": "알레그로 콘",
+  "hanja": "브리오",
+  "foreign": "",
+  "note": "allegro con brio"
+ },
+ {
+  "term": "알망드",
+  "hanja": "",
+  "foreign": "",
+  "note": "Allemande"
+ },
+ {
+  "term": "알토",
+  "hanja": "",
+  "foreign": "",
+  "note": "alto"
+ },
+ {
+  "term": "앙상블",
+  "hanja": "",
+  "foreign": "",
+  "note": "ensemble"
+ },
+ {
+  "term": "앞꾸밈음",
+  "hanja": "",
+  "foreign": "",
+  "note": "appoggiatura"
+ },
+ {
+  "term": "앞선음",
+  "hanja": "",
+  "foreign": "",
+  "note": "anticipation/Antizipation"
+ },
+ {
+  "term": "앞작은악절/선행구",
+  "hanja": "先行句",
+  "foreign": "antecedent phrase",
+  "note": ""
+ },
+ {
+  "term": "야상곡/녹턴",
+  "hanja": "夜想曲",
+  "foreign": "Nocturne",
+  "note": ""
+ },
+ {
+  "term": "약음기",
+  "hanja": "弱音器",
+  "foreign": "sordino/mute",
+  "note": ""
+ },
+ {
+  "term": "약음기 없이",
+  "hanja": "",
+  "foreign": "senza sordino",
+  "note": ""
+ },
+ {
+  "term": "양식",
+  "hanja": "樣式",
+  "foreign": "style",
+  "note": ""
+ },
+ {
+  "term": "어울림 음정/협화 음정",
+  "hanja": "-/協和音程",
+  "foreign": "consonant interval",
+  "note": ""
+ },
+ {
+  "term": "어울림 화음/협화 화음",
+  "hanja": "-/協和和音",
+  "foreign": "consonant chord",
+  "note": "(협화음)"
+ },
+ {
+  "term": "엄격 푸가",
+  "hanja": "",
+  "foreign": "strict fuga",
+  "note": ""
+ },
+ {
+  "term": "엄격대위법",
+  "hanja": "嚴格對位法",
+  "foreign": "strict counterpoint",
+  "note": ""
+ },
+ {
+  "term": "엄격변주곡",
+  "hanja": "嚴格變奏曲",
+  "foreign": "strict variation",
+  "note": ""
+ },
+ {
+  "term": "에네르지코",
+  "hanja": "",
+  "foreign": "energico",
+  "note": "힘차게"
+ },
+ {
+  "term": "에스프레시보",
+  "hanja": "",
+  "foreign": "espressivo",
+  "note": "표정을 풍부"
+ },
+ {
+  "term": "에올리아 선법",
+  "hanja": "",
+  "foreign": "Aeolian mode",
+  "note": "(라 선법)"
+ },
+ {
+  "term": "엘레간테",
+  "hanja": "",
+  "foreign": "elegante",
+  "note": "우아하게"
+ },
+ {
+  "term": "엘레자코",
+  "hanja": "",
+  "foreign": "elegiaco",
+  "note": "슬프게"
+ },
+ {
+  "term": "여리게/작게(p)",
+  "hanja": "",
+  "foreign": "piano",
+  "note": "(피아노)"
+ },
+ {
+  "term": "여린내기",
+  "hanja": "",
+  "foreign": "Auftakt",
+  "note": "(못갖춘마디)"
+ },
+ {
+  "term": "여린박/약박",
+  "hanja": "",
+  "foreign": "weak accent/weak beat",
+  "note": ""
+ },
+ {
+  "term": "여섯잇단음표",
+  "hanja": "",
+  "foreign": "sextuplet",
+  "note": ""
+ },
+ {
+  "term": "여자 주인공",
+  "hanja": "",
+  "foreign": "prima donna",
+  "note": "(프리마 돈나"
+ },
+ {
+  "term": "연 페달",
+  "hanja": "",
+  "foreign": "open pedal",
+  "note": "(개방 페달)"
+ },
+ {
+  "term": "연습곡/에튀드",
+  "hanja": "練習曲",
+  "foreign": "Étude",
+  "note": ""
+ },
+ {
+  "term": "연주회/콘서트",
+  "hanja": "演奏會",
+  "foreign": "concert",
+  "note": ""
+ },
+ {
+  "term": "연주회용 절대 음높이/",
+  "hanja": "",
+  "foreign": "concert pitch",
+  "note": "(연주회 표준"
+ },
+ {
+  "term": "콘서트 피치",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "영창/아리아",
+  "hanja": "詠唱",
+  "foreign": "Air/Aria",
+  "note": ""
+ },
+ {
+  "term": "예술가곡",
+  "hanja": "藝術歌曲",
+  "foreign": "Lied/Artsong/Kunstlied",
+  "note": ""
+ },
+ {
+  "term": "오라토리오",
+  "hanja": "",
+  "foreign": "Oratorio Unterhaltungsmusik/",
+  "note": "(성가극, 성"
+ },
+ {
+  "term": "오락 음악",
+  "hanja": "娛樂音樂",
+  "foreign": "U-musik",
+  "note": ""
+ },
+ {
+  "term": "오르가눔",
+  "hanja": "",
+  "foreign": "organum",
+  "note": ""
+ },
+ {
+  "term": "오르간 지속음",
+  "hanja": "",
+  "foreign": "pedal point/Orgelpunkt",
+  "note": "(지속음)"
+ },
+ {
+  "term": "오르프 악기",
+  "hanja": "",
+  "foreign": "Orff instruments",
+  "note": ""
+ },
+ {
+  "term": "오블리가토",
+  "hanja": "",
+  "foreign": "obbligato",
+  "note": ""
+ },
+ {
+  "term": "오스티나토",
+  "hanja": "",
+  "foreign": "ostinato",
+  "note": ""
+ },
+ {
+  "term": "오페레타",
+  "hanja": "",
+  "foreign": "Operetta",
+  "note": "(작은 오"
+ },
+ {
+  "term": "옥타브",
+  "hanja": "",
+  "foreign": "octave",
+  "note": "(완전 8"
+ },
+ {
+  "term": "온쉼표",
+  "hanja": "",
+  "foreign": "whole rest",
+  "note": ""
+ },
+ {
+  "term": "온음",
+  "hanja": "",
+  "foreign": "whole note/whole tone",
+  "note": ""
+ },
+ {
+  "term": "온음 음계",
+  "hanja": "",
+  "foreign": "whole-tone scale",
+  "note": ""
+ },
+ {
+  "term": "온음계",
+  "hanja": "",
+  "foreign": "diatonic scale",
+  "note": "(전음계)"
+ },
+ {
+  "term": "온음표",
+  "hanja": "",
+  "foreign": "whole note/semibreve",
+  "note": ""
+ },
+ {
+  "term": "올림박",
+  "hanja": "",
+  "foreign": "upbeat",
+  "note": ""
+ },
+ {
+  "term": "올림표(#)",
+  "hanja": "",
+  "foreign": "sharp",
+  "note": ""
+ },
+ {
+  "term": "올림활",
+  "hanja": "",
+  "foreign": "up-bow",
+  "note": ""
+ },
+ {
+  "term": "완전 어울림 음정",
+  "hanja": "",
+  "foreign": "perfect consonance",
+  "note": ""
+ },
+ {
+  "term": "완전 음정",
+  "hanja": "完全音程",
+  "foreign": "perfect interval perfect fourth/",
+  "note": ""
+ },
+ {
+  "term": "완전 4도",
+  "hanja": "完全四度",
+  "foreign": "quarta perfetta",
+  "note": ""
+ },
+ {
+  "term": "왈츠",
+  "hanja": "",
+  "foreign": "Waltz",
+  "note": ""
+ },
+ {
+  "term": "요들",
+  "hanja": "",
+  "foreign": "yodel/yodle",
+  "note": ""
+ },
+ {
+  "term": "우연 음악",
+  "hanja": "遇然音樂",
+  "foreign": "chance music",
+  "note": ""
+ },
+ {
+  "term": "운 포코",
+  "hanja": "",
+  "foreign": "un poco",
+  "note": "조금"
+ },
+ {
+  "term": "운지법",
+  "hanja": "運指法",
+  "foreign": "fingering",
+  "note": ""
+ },
+ {
+  "term": "원조",
+  "hanja": "原調",
+  "foreign": "original key",
+  "note": ""
+ },
+ {
+  "term": "위으뜸음",
+  "hanja": "",
+  "foreign": "supertonic",
+  "note": ""
+ },
+ {
+  "term": "유절 노래/장절 노래",
+  "hanja": "",
+  "foreign": "strophic/strophen-lied",
+  "note": ""
+ },
+ {
+  "term": "으뜸 7화음",
+  "hanja": "",
+  "foreign": "tonic seventh chord",
+  "note": "(으뜸 칠"
+ },
+ {
+  "term": "으뜸음",
+  "hanja": "",
+  "foreign": "tonic/Keynote/Tonika",
+  "note": ""
+ },
+ {
+  "term": "으뜸조",
+  "hanja": "",
+  "foreign": "tonic key",
+  "note": ""
+ },
+ {
+  "term": "으뜸화음",
+  "hanja": "",
+  "foreign": "tonic chord",
+  "note": ""
+ },
+ {
+  "term": "음계",
+  "hanja": "音階",
+  "foreign": "scale/Skala/Tonleiter",
+  "note": ""
+ },
+ {
+  "term": "음길이",
+  "hanja": "",
+  "foreign": "duration",
+  "note": ""
+ },
+ {
+  "term": "음높이",
+  "hanja": "",
+  "foreign": "pitch",
+  "note": ""
+ },
+ {
+  "term": "음렬 음악",
+  "hanja": "音烈音樂",
+  "foreign": "serial music",
+  "note": ""
+ },
+ {
+  "term": "음색/음빛깔",
+  "hanja": "音色",
+  "foreign": "timbre/tone-color",
+  "note": ""
+ },
+ {
+  "term": "음악",
+  "hanja": "音樂",
+  "foreign": "music music drama/",
+  "note": ""
+ },
+ {
+  "term": "음악극",
+  "hanja": "音樂劇",
+  "foreign": "Musikdrama",
+  "note": ""
+ },
+ {
+  "term": "음역",
+  "hanja": "音域",
+  "foreign": "range minstrel/Minnesänger/",
+  "note": ""
+ },
+ {
+  "term": "음유 시인",
+  "hanja": "吟遊詩人",
+  "foreign": "Meistersinger/Trouveres/Troubadours",
+  "note": "(시인 음악"
+ },
+ {
+  "term": "음이름",
+  "hanja": "",
+  "foreign": "pitch names",
+  "note": ""
+ },
+ {
+  "term": "음자리표",
+  "hanja": "",
+  "foreign": "clef",
+  "note": ""
+ },
+ {
+  "term": "음정",
+  "hanja": "音程",
+  "foreign": "interval",
+  "note": ""
+ },
+ {
+  "term": "음질",
+  "hanja": "音質",
+  "foreign": "tone quality",
+  "note": ""
+ },
+ {
+  "term": "음파",
+  "hanja": "音波",
+  "foreign": "sound wave",
+  "note": ""
+ },
+ {
+  "term": "음표",
+  "hanja": "音標",
+  "foreign": "note/nota leading tone/",
+  "note": ""
+ },
+ {
+  "term": "이끎음/이끔음",
+  "hanja": "",
+  "foreign": "leading note",
+  "note": ""
+ },
+ {
+  "term": "이끎화음/이끔화음",
+  "hanja": "",
+  "foreign": "leading-tone chord",
+  "note": ""
+ },
+ {
+  "term": "이동 반복/동형진행",
+  "hanja": "",
+  "foreign": "sequence",
+  "note": ""
+ },
+ {
+  "term": "이동도법",
+  "hanja": "移動do法",
+  "foreign": "movable Do method",
+  "note": ""
+ },
+ {
+  "term": "이오니아 선법",
+  "hanja": "",
+  "foreign": "Ionian mode",
+  "note": "(도 선법)"
+ },
+ {
+  "term": "이음줄",
+  "hanja": "",
+  "foreign": "slur",
+  "note": ""
+ },
+ {
+  "term": "이탈리아 6화음",
+  "hanja": "",
+  "foreign": "Italian sixth chord",
+  "note": "(이탈리아"
+ },
+ {
+  "term": "인벤션",
+  "hanja": "",
+  "foreign": "Invention",
+  "note": ""
+ },
+ {
+  "term": "인상주의",
+  "hanja": "印象主義",
+  "foreign": "impressionism",
+  "note": ""
+ },
+ {
+  "term": "임시 조바꿈",
+  "hanja": "",
+  "foreign": "transitional modulation",
+  "note": "(경과적 조"
+ },
+ {
+  "term": "임시표",
+  "hanja": "臨時標",
+  "foreign": "accidental",
+  "note": "(변화표)"
+ },
+ {
+  "term": "자리 바꾸어 거꾸로 가기/",
+  "hanja": "-/傳位逆行",
+  "foreign": "retrograde-inversion",
+  "note": "(전회역행)"
+ },
+ {
+  "term": "전위역행",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "자리바꿈",
+  "hanja": "",
+  "foreign": "inversion/Umkehrung",
+  "note": "(전위)"
+ },
+ {
+  "term": "자리바꿈 대위법",
+  "hanja": "",
+  "foreign": "invertible counterpoint",
+  "note": "(전위 대위"
+ },
+ {
+  "term": "자리바꿈 음정",
+  "hanja": "",
+  "foreign": "inverted interval",
+  "note": "(전위 음정"
+ },
+ {
+  "term": "자리바꿈 화음",
+  "hanja": "",
+  "foreign": "inverted chords",
+  "note": "(전위 화음)"
+ },
+ {
+  "term": "자연 단음계",
+  "hanja": "自然短音階",
+  "foreign": "natural minor scale",
+  "note": ""
+ },
+ {
+  "term": "자유 푸가",
+  "hanja": "",
+  "foreign": "free fuga/free fugue",
+  "note": ""
+ },
+ {
+  "term": "자유대위법",
+  "hanja": "自由對位法",
+  "foreign": "free counterpoint",
+  "note": ""
+ },
+ {
+  "term": "자유변주곡",
+  "hanja": "自由變奏曲",
+  "foreign": "free variation",
+  "note": ""
+ },
+ {
+  "term": "작은 마침/코데타",
+  "hanja": "",
+  "foreign": "codetta",
+  "note": ""
+ },
+ {
+  "term": "작은 푸가/푸게타",
+  "hanja": "",
+  "foreign": "Fughetta",
+  "note": ""
+ },
+ {
+  "term": "작은악절",
+  "hanja": "",
+  "foreign": "phrase",
+  "note": "(악구)"
+ },
+ {
+  "term": "잔결꾸밈음",
+  "hanja": "",
+  "foreign": "mordent",
+  "note": "(모르덴트, 떤"
+ },
+ {
+  "term": "장3화음",
+  "hanja": "長三和音",
+  "foreign": "major triad",
+  "note": "(장삼화음)"
+ },
+ {
+  "term": "장7화음",
+  "hanja": "長七和音",
+  "foreign": "major seventh chord",
+  "note": "(장칠화음)"
+ },
+ {
+  "term": "장9화음",
+  "hanja": "長九和音",
+  "foreign": "major ninth chord",
+  "note": "(장구화음)"
+ },
+ {
+  "term": "장음계",
+  "hanja": "長音階",
+  "foreign": "major scale",
+  "note": ""
+ },
+ {
+  "term": "장음정",
+  "hanja": "長音程",
+  "foreign": "major interval",
+  "note": ""
+ },
+ {
+  "term": "장조",
+  "hanja": "長調",
+  "foreign": "major/Dur",
+  "note": ""
+ },
+ {
+  "term": "재즈",
+  "hanja": "",
+  "foreign": "Jazz",
+  "note": ""
+ },
+ {
+  "term": "재현부",
+  "hanja": "再現部",
+  "foreign": "recapitulation/Reprise",
+  "note": ""
+ },
+ {
+  "term": "저음 성부",
+  "hanja": "低音聲部",
+  "foreign": "bass",
+  "note": "베이스"
+ },
+ {
+  "term": "전개부",
+  "hanja": "展開部",
+  "foreign": "development",
+  "note": ""
+ },
+ {
+  "term": "전위파",
+  "hanja": "前衛派",
+  "foreign": "avantgarde",
+  "note": "아방가르드"
+ },
+ {
+  "term": "전주곡",
+  "hanja": "前奏曲",
+  "foreign": "Prelude",
+  "note": ""
+ },
+ {
+  "term": "전통 음악",
+  "hanja": "傳統音樂",
+  "foreign": "traditional music absolute hearing/",
+  "note": ""
+ },
+ {
+  "term": "절대 음감",
+  "hanja": "絕對音感",
+  "foreign": "absolute pitch",
+  "note": ""
+ },
+ {
+  "term": "점쉼표",
+  "hanja": "",
+  "foreign": "dotted rest",
+  "note": ""
+ },
+ {
+  "term": "점음표",
+  "hanja": "點音標",
+  "foreign": "dotted note",
+  "note": ""
+ },
+ {
+  "term": "제시부",
+  "hanja": "提示部",
+  "foreign": "exposition",
+  "note": "(도입부)"
+ },
+ {
+  "term": "제자리표",
+  "hanja": "",
+  "foreign": "natural",
+  "note": ""
+ },
+ {
+  "term": "제주/제창",
+  "hanja": "齊奏/齊唱",
+  "foreign": "unison",
+  "note": "유니즌"
+ },
+ {
+  "term": "조금 세게/조금 크게(mf)",
+  "hanja": "",
+  "foreign": "mezzo forte",
+  "note": "(메조포르테)"
+ },
+ {
+  "term": "조금 여리게/조금 작게(mp)",
+  "hanja": "",
+  "foreign": "mezzo piano",
+  "note": "(메조피아노)"
+ },
+ {
+  "term": "조바꿈",
+  "hanja": "",
+  "foreign": "modulation",
+  "note": "〔전조(轉調)〕"
+ },
+ {
+  "term": "조성",
+  "hanja": "調性",
+  "foreign": "tonality transposition/",
+  "note": ""
+ },
+ {
+  "term": "조옮김",
+  "hanja": "",
+  "foreign": "Transponierung",
+  "note": "〔이조(移調)〕"
+ },
+ {
+  "term": "조옮김 악기",
+  "hanja": "",
+  "foreign": "transposing instrument",
+  "note": "(이조 악기)"
+ },
+ {
+  "term": "조율",
+  "hanja": "調律",
+  "foreign": "tuning",
+  "note": ""
+ },
+ {
+  "term": "조음",
+  "hanja": "調音",
+  "foreign": "tuning",
+  "note": ""
+ },
+ {
+  "term": "조표",
+  "hanja": "調標",
+  "foreign": "key-signature",
+  "note": ""
+ },
+ {
+  "term": "조현/튜닝",
+  "hanja": "調絃",
+  "foreign": "tuning",
+  "note": ""
+ },
+ {
+  "term": "주요 3화음",
+  "hanja": "主要三和音",
+  "foreign": "primary triad",
+  "note": "(주요 삼화음)"
+ },
+ {
+  "term": "주제",
+  "hanja": "主題",
+  "foreign": "thema",
+  "note": ""
+ },
+ {
+  "term": "주제와 변주",
+  "hanja": "主題와變奏",
+  "foreign": "theme and variations",
+  "note": ""
+ },
+ {
+  "term": "줄임표",
+  "hanja": "",
+  "foreign": "abbreviation",
+  "note": ""
+ },
+ {
+  "term": "중심음",
+  "hanja": "中心音",
+  "foreign": "tonal center",
+  "note": ""
+ },
+ {
+  "term": "즉흥 연주",
+  "hanja": "卽興演奏",
+  "foreign": "improvisation",
+  "note": ""
+ },
+ {
+  "term": "즉흥곡",
+  "hanja": "卽興曲",
+  "foreign": "Impromptu",
+  "note": ""
+ },
+ {
+  "term": "증음정",
+  "hanja": "增音程",
+  "foreign": "augmented interval",
+  "note": ""
+ },
+ {
+  "term": "증화음",
+  "hanja": "增和音",
+  "foreign": "augmented chord",
+  "note": ""
+ },
+ {
+  "term": "지그",
+  "hanja": "",
+  "foreign": "Gigue/Jig",
+  "note": ""
+ },
+ {
+  "term": "지남음/경과음",
+  "hanja": "-/經過音",
+  "foreign": "passing note basso continuo/",
+  "note": ""
+ },
+ {
+  "term": "지속저음",
+  "hanja": "繼續低音",
+  "foreign": "thoroughbass",
+  "note": "(통주저음/숫자저음)"
+ },
+ {
+  "term": "지연음",
+  "hanja": "遲延音",
+  "foreign": "retardation",
+  "note": ""
+ },
+ {
+  "term": "지오코소",
+  "hanja": "",
+  "foreign": "giocoso",
+  "note": "즐겁고 유쾌하게"
+ },
+ {
+  "term": "지휘",
+  "hanja": "指揮",
+  "foreign": "conducting",
+  "note": ""
+ },
+ {
+  "term": "지휘봉",
+  "hanja": "指揮棒",
+  "foreign": "baton",
+  "note": ""
+ },
+ {
+  "term": "지휘자",
+  "hanja": "指揮者",
+  "foreign": "conductor",
+  "note": ""
+ },
+ {
+  "term": "진동수",
+  "hanja": "振動數",
+  "foreign": "frequency",
+  "note": ""
+ },
+ {
+  "term": "진혼곡",
+  "hanja": "鎭魂曲",
+  "foreign": "Requiem",
+  "note": ""
+ },
+ {
+  "term": "짧은 꾸밈음",
+  "hanja": "",
+  "foreign": "acciaccatura",
+  "note": ""
+ },
+ {
+  "term": "차례가기",
+  "hanja": "",
+  "foreign": "conjunct motion",
+  "note": "(순차 진행)"
+ },
+ {
+  "term": "찬송가",
+  "hanja": "讚頌歌",
+  "foreign": "Hymn",
+  "note": ""
+ },
+ {
+  "term": "창작",
+  "hanja": "創作",
+  "foreign": "creating",
+  "note": "(음악 만들기)"
+ },
+ {
+  "term": "처음부터",
+  "hanja": "",
+  "foreign": "da prima",
+  "note": ""
+ },
+ {
+  "term": "첫째 자리바꿈/제1전위",
+  "hanja": "-/第一傳位",
+  "foreign": "first inversion",
+  "note": "(제일전위)"
+ },
+ {
+  "term": "청음",
+  "hanja": "聽音",
+  "foreign": "music dictation",
+  "note": ""
+ },
+ {
+  "term": "최소 음악",
+  "hanja": "最小音樂",
+  "foreign": "minimal music",
+  "note": "미니멀 음악"
+ },
+ {
+  "term": "축제/축전",
+  "hanja": "祝祭/祝典",
+  "foreign": "carnival/festival",
+  "note": ""
+ },
+ {
+  "term": "춤 모음곡",
+  "hanja": "",
+  "foreign": "Dance suite",
+  "note": ""
+ },
+ {
+  "term": "춤곡",
+  "hanja": "",
+  "foreign": "dance music",
+  "note": ""
+ },
+ {
+  "term": "카논",
+  "hanja": "",
+  "foreign": "Canon",
+  "note": ""
+ },
+ {
+  "term": "카덴차",
+  "hanja": "",
+  "foreign": "cadenza",
+  "note": ""
+ },
+ {
+  "term": "카프리치오소",
+  "hanja": "",
+  "foreign": "Capriccioso",
+  "note": ""
+ },
+ {
+  "term": "칸초네",
+  "hanja": "",
+  "foreign": "Canzone",
+  "note": ""
+ },
+ {
+  "term": "칸초네타",
+  "hanja": "",
+  "foreign": "Canzonetta",
+  "note": "(작은 칸초네)"
+ },
+ {
+  "term": "칸타빌레",
+  "hanja": "",
+  "foreign": "cantabile",
+  "note": "노래하듯이"
+ },
+ {
+  "term": "칸타타",
+  "hanja": "",
+  "foreign": "Cantata",
+  "note": ""
+ },
+ {
+  "term": "칼란도",
+  "hanja": "",
+  "foreign": "calando",
+  "note": "점점 느리고 사라지듯이"
+ },
+ {
+  "term": "캐럴",
+  "hanja": "",
+  "foreign": "Carol",
+  "note": ""
+ },
+ {
+  "term": "컴퓨터 음악",
+  "hanja": "",
+  "foreign": "computer music",
+  "note": ""
+ },
+ {
+  "term": "코다/마침",
+  "hanja": "",
+  "foreign": "coda",
+  "note": ""
+ },
+ {
+  "term": "코랄",
+  "hanja": "",
+  "foreign": "Chorale",
+  "note": "(회중찬미가/회중합창곡)"
+ },
+ {
+  "term": "코모도",
+  "hanja": "",
+  "foreign": "choral/Chorale",
+  "note": "알맞은 빠르기로생생하게, 움직임을 가지"
+ },
+ {
+  "term": "모토",
+  "hanja": "",
+  "foreign": "con moto",
+  "note": ""
+ },
+ {
+  "term": "콘 브리오",
+  "hanja": "",
+  "foreign": "con brio",
+  "note": "쾌활하게, 명랑하게"
+ },
+ {
+  "term": "콘 소르디노",
+  "hanja": "",
+  "foreign": "con sordino",
+  "note": "약음기를 사용하여"
+ },
+ {
+  "term": "콘트랄토",
+  "hanja": "",
+  "foreign": "contralto",
+  "note": ""
+ },
+ {
+  "term": "콜로라투라 소프라노",
+  "hanja": "",
+  "foreign": "coloratura soprano",
+  "note": ""
+ },
+ {
+  "term": "크레셴도(cresc.)",
+  "hanja": "",
+  "foreign": "crescendo",
+  "note": "(점점 세게, 점점 크게)"
+ },
+ {
+  "term": "큰보표",
+  "hanja": "",
+  "foreign": "grand staff",
+  "note": ""
+ },
+ {
+  "term": "큰악절",
+  "hanja": "",
+  "foreign": "period/Satz",
+  "note": ""
+ },
+ {
+  "term": "키리에",
+  "hanja": "",
+  "foreign": "Kyrie",
+  "note": "(자비송)"
+ },
+ {
+  "term": "타란텔라",
+  "hanja": "",
+  "foreign": "Tarantella",
+  "note": ""
+ },
+ {
+  "term": "탱고",
+  "hanja": "Tango",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "텅잉",
+  "hanja": "tonguing",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "테너",
+  "hanja": "tenor",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "테누토",
+  "hanja": "tenuto",
+  "foreign": "음을 충분히",
+  "note": ""
+ },
+ {
+  "term": "템포 디 발로",
+  "hanja": "tempo di ballo",
+  "foreign": "춤추는 빠르",
+  "note": ""
+ },
+ {
+  "term": "템포 디 발세",
+  "hanja": "tempo di valse",
+  "foreign": "왈츠의 빠르",
+  "note": ""
+ },
+ {
+  "term": "템포 루바토",
+  "hanja": "tempo rubato",
+  "foreign": "자유로운 빠",
+  "note": ""
+ },
+ {
+  "term": "템포 프리모",
+  "hanja": "tempo primo/tempo",
+  "foreign": "본디 빠르기",
+  "note": ""
+ },
+ {
+  "term": "토카타",
+  "hanja": "Toccatathrough composedsong/",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "통절 가곡 通節歌曲",
+  "hanja": "Das durchkomponierteLied",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "투티",
+  "hanja": "tutti/tutta",
+  "foreign": "(총주)",
+  "note": ""
+ },
+ {
+  "term": "퉁김 현악기",
+  "hanja": "plucked instrument",
+  "foreign": "(발현 악기)",
+  "note": ""
+ },
+ {
+  "term": "트레몰로",
+  "hanja": "tremolo",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "트레파크",
+  "hanja": "Trepak",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "트로포",
+  "hanja": "troppo",
+  "foreign": "대단히, 매우",
+  "note": ""
+ },
+ {
+  "term": "트리오",
+  "hanja": "trio",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "트릴",
+  "hanja": "trill(tr.)",
+  "foreign": "떤꾸밈음",
+  "note": ""
+ },
+ {
+  "term": "파사칼리아",
+  "hanja": "Passacaglia",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "파쇼나토",
+  "hanja": "passionato",
+  "foreign": "정열적으로",
+  "note": ""
+ },
+ {
+  "term": "파스토랄레",
+  "hanja": "pastorale",
+  "foreign": "목가풍으로",
+  "note": ""
+ },
+ {
+  "term": "팔레스트리나양식",
+  "hanja": "Palestrina style",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "펼침화음",
+  "hanja": "broken chord",
+  "foreign": "(분산화음)",
+  "note": ""
+ },
+ {
+  "term": "평균율 平均律",
+  "hanja": "equal temperament",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "포르찬도",
+  "hanja": "forzando",
+  "foreign": "특히 세게, 특",
+  "note": ""
+ },
+ {
+  "term": "포르타멘토",
+  "hanja": "portamento",
+  "foreign": "미끄러지듯이",
+  "note": ""
+ },
+ {
+  "term": "포코",
+  "hanja": "poco",
+  "foreign": "조금",
+  "note": ""
+ },
+ {
+  "term": "포코 아 포코",
+  "hanja": "poco a poco",
+  "foreign": "조금씩, 점점",
+  "note": ""
+ },
+ {
+  "term": "포코소",
+  "hanja": "focoso",
+  "foreign": "정열적으로",
+  "note": ""
+ },
+ {
+  "term": "폴카",
+  "hanja": "Polka",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "표제 음악",
+  "hanja": "標題音樂",
+  "foreign": "program music",
+  "note": ""
+ },
+ {
+  "term": "표준 음고",
+  "hanja": "標準音高",
+  "foreign": "international pitch",
+  "note": ""
+ },
+ {
+  "term": "푸가",
+  "hanja": "",
+  "foreign": "Fuga/Fuge/fugue",
+  "note": ""
+ },
+ {
+  "term": "푸리오소",
+  "hanja": "",
+  "foreign": "furioso",
+  "note": "격렬하고 사"
+ },
+ {
+  "term": "푸오코",
+  "hanja": "",
+  "foreign": "fuoco",
+  "note": "열정적으로"
+ },
+ {
+  "term": "프랑스 6화음",
+  "hanja": "",
+  "foreign": "French sixth chord",
+  "note": "(프랑스 육화"
+ },
+ {
+  "term": "프레스토",
+  "hanja": "",
+  "foreign": "presto",
+  "note": "매우 빠르게아주 빠르게,"
+ },
+ {
+  "term": "프레스티시모",
+  "hanja": "",
+  "foreign": "prestissimo",
+  "note": "프레스토보다"
+ },
+ {
+  "term": "프리지아 마침",
+  "hanja": "",
+  "foreign": "Phrygian cadence",
+  "note": ""
+ },
+ {
+  "term": "프리지아 선법",
+  "hanja": "",
+  "foreign": "Phrygian mode",
+  "note": "(미 선법)"
+ },
+ {
+  "term": "피네",
+  "hanja": "",
+  "foreign": "fine",
+  "note": "끝"
+ },
+ {
+  "term": "피우",
+  "hanja": "",
+  "foreign": "più",
+  "note": "좀 더, 더욱"
+ },
+ {
+  "term": "피우 렌토",
+  "hanja": "",
+  "foreign": "più lento",
+  "note": "좀 더 느리게"
+ },
+ {
+  "term": "피우 모소",
+  "hanja": "",
+  "foreign": "più mosso",
+  "note": "좀 더 빠르게"
+ },
+ {
+  "term": "피우 아 피우",
+  "hanja": "",
+  "foreign": "più a più",
+  "note": "점점"
+ },
+ {
+  "term": "피치카토(pizz.)",
+  "hanja": "",
+  "foreign": "pizzicato",
+  "note": "뜯기/퉁기기"
+ },
+ {
+  "term": "피타고라스 음계",
+  "hanja": "",
+  "foreign": "Pythagorean scale",
+  "note": ""
+ },
+ {
+  "term": "하이포리디아 선법",
+  "hanja": "",
+  "foreign": "Hypolydian mode",
+  "note": ""
+ },
+ {
+  "term": "하이포프리지아 선법",
+  "hanja": "",
+  "foreign": "Hypophrygian mode",
+  "note": ""
+ },
+ {
+  "term": "한도막 형식/1부분 형식",
+  "hanja": "-/一部分形式",
+  "foreign": "one-part form",
+  "note": ""
+ },
+ {
+  "term": "합창",
+  "hanja": "合唱",
+  "foreign": "chorus",
+  "note": ""
+ },
+ {
+  "term": "합창단",
+  "hanja": "合唱團",
+  "foreign": "choir/chorus",
+  "note": ""
+ },
+ {
+  "term": "행진곡",
+  "hanja": "行進曲",
+  "foreign": "March/Marcia",
+  "note": ""
+ },
+ {
+  "term": "행진곡풍",
+  "hanja": "行進曲風",
+  "foreign": "marciale",
+  "note": ""
+ },
+ {
+  "term": "허밍",
+  "hanja": "",
+  "foreign": "humming",
+  "note": ""
+ },
+ {
+  "term": "헤미올라",
+  "hanja": "",
+  "foreign": "hemiola",
+  "note": "동일한 선율의"
+ },
+ {
+  "term": "헤테로포니",
+  "hanja": "現代音樂/",
+  "foreign": "heterophony modern music/",
+  "note": "변주"
+ },
+ {
+  "term": "현대 음악/동시대 음악",
+  "hanja": "同時代音樂",
+  "foreign": "contemporary music",
+  "note": ""
+ },
+ {
+  "term": "현악 3중주",
+  "hanja": "絃樂三重奏",
+  "foreign": "string trio",
+  "note": "(현악 삼중주"
+ },
+ {
+  "term": "현악 4중주",
+  "hanja": "絃樂四重奏",
+  "foreign": "string quartet",
+  "note": "(현악 사중"
+ },
+ {
+  "term": "현악 합주",
+  "hanja": "絃樂合奏",
+  "foreign": "string ensemble",
+  "note": "앙상블"
+ },
+ {
+  "term": "현악 합주단",
+  "hanja": "絃樂合奏團",
+  "foreign": "string orchestra",
+  "note": "현악 오케"
+ },
+ {
+  "term": "현악기",
+  "hanja": "絃樂器",
+  "foreign": "string instrument",
+  "note": ""
+ },
+ {
+  "term": "협주곡/콘체르토",
+  "hanja": "協奏曲",
+  "foreign": "Concerto/Konzert",
+  "note": ""
+ },
+ {
+  "term": "형식",
+  "hanja": "形式",
+  "foreign": "form",
+  "note": ""
+ },
+ {
+  "term": "혼성",
+  "hanja": "混聲",
+  "foreign": "mixed voices",
+  "note": ""
+ },
+ {
+  "term": "혼성 합창",
+  "hanja": "混聲合唱",
+  "foreign": "mixed chorus compound meter/",
+  "note": ""
+ },
+ {
+  "term": "혼합 박자",
+  "hanja": "混合拍子",
+  "foreign": "polymeter",
+  "note": ""
+ },
+ {
+  "term": "홑리드",
+  "hanja": "單簧",
+  "foreign": "single reed",
+  "note": ""
+ },
+ {
+  "term": "홑박자",
+  "hanja": "",
+  "foreign": "simple time",
+  "note": ""
+ },
+ {
+  "term": "화성",
+  "hanja": "和聲",
+  "foreign": "harmony",
+  "note": ""
+ },
+ {
+  "term": "화성 단음계",
+  "hanja": "和聲短音階",
+  "foreign": "harmonic minor scale",
+  "note": ""
+ },
+ {
+  "term": "화성 음정",
+  "hanja": "和聲音程",
+  "foreign": "harmonic interval",
+  "note": ""
+ },
+ {
+  "term": "화성음",
+  "hanja": "和聲音",
+  "foreign": "chord-tones",
+  "note": ""
+ },
+ {
+  "term": "화성적 단성 음악/ 호모포니",
+  "hanja": "和聲的單聲音樂",
+  "foreign": "homophony nonharmonic",
+  "note": "주선율과"
+ },
+ {
+  "term": "화음 밖의 음",
+  "hanja": "",
+  "foreign": "notes(tones) (harmonifremde Tone)",
+  "note": "(비화성음)"
+ },
+ {
+  "term": "화음/코드",
+  "hanja": "和音",
+  "foreign": "chord/accordo(Akkord)",
+  "note": ""
+ },
+ {
+  "term": "환상곡",
+  "hanja": "幻想曲",
+  "foreign": "Fantasie/Fantasy",
+  "note": ""
+ },
+ {
+  "term": "활쓰기",
+  "hanja": "",
+  "foreign": "bowing",
+  "note": ""
+ },
+ {
+  "term": "활줄로",
+  "hanja": "",
+  "foreign": "arco",
+  "note": "(운궁법)"
+ },
+ {
+  "term": "후렴",
+  "hanja": "後斂",
+  "foreign": "refrain",
+  "note": "(반복 부분"
+ },
+ {
+  "term": "후주",
+  "hanja": "後奏",
+  "foreign": "epilogue comic opera/",
+  "note": ""
+ },
+ {
+  "term": "희가극",
+  "hanja": "喜歌劇",
+  "foreign": "opera buffa",
+  "note": "오페라 부"
+ },
+ {
+  "term": "희극적 아리아",
+  "hanja": "",
+  "foreign": "Aria buffa",
+  "note": ""
+ },
+ {
+  "term": "1812년 서곡/",
+  "hanja": "",
+  "foreign": "",
+  "note": "1812 Overture/"
+ },
+ {
+  "term": "1812년 장엄 서곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Overture Solenelle 1812Danse des Mirlitons/Dance of"
+ },
+ {
+  "term": "갈대피리춤(‘호두까기",
+  "hanja": "인형’",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "모음곡 중에서)",
+  "hanja": "",
+  "foreign": "",
+  "note": "the Mirlitons(from ‘TheNutcracker’ Suite)"
+ },
+ {
+  "term": "겨울 나그네",
+  "hanja": "",
+  "foreign": "",
+  "note": "WinterreiseBrautchor/Wedding"
+ },
+ {
+  "term": "결혼 행진곡(‘로엔그린’",
+  "hanja": "중에서)",
+  "foreign": "結婚行進曲",
+  "note": "March(from ‘Lohengrin’)Leichte Kavallerie/"
+ },
+ {
+  "term": "경기병 서곡",
+  "hanja": "",
+  "foreign": "輕騎兵序曲",
+  "note": "Light CavalryAbschied Symphonie/‘Farewell’ Symphony/"
+ },
+ {
+  "term": "고별 교향곡",
+  "hanja": "",
+  "foreign": "告別交響曲",
+  "note": "Symphony No. 45 in F♯ minor‘Farewell‘Stille Nacht Heilige Nacht/"
+ },
+ {
+  "term": "고요한 밤 거룩한 밤",
+  "hanja": "",
+  "foreign": "",
+  "note": "Silent Night, Holy Night"
+ },
+ {
+  "term": "골드베르크 변주곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Goldberg VariationOrchestral Suite No. 3 in D"
+ },
+ {
+  "term": "관현악 모음곡 제3번",
+  "hanja": "라장조",
+  "foreign": "交響詩三番",
+  "note": "majorLes Preludèds/Preludes"
+ },
+ {
+  "term": "교향시 3번 전주곡",
+  "hanja": "",
+  "foreign": "前奏曲",
+  "note": "Militär-Symphonie/Militär-Sinf"
+ },
+ {
+  "term": "군대 교향곡",
+  "hanja": "",
+  "foreign": "軍隊交響曲",
+  "note": "onie/Symphony No. 100 in Gmajor ‘Military’Polonaise Militaire/"
+ },
+ {
+  "term": "군대 폴로네즈",
+  "hanja": "",
+  "foreign": "",
+  "note": "Military PolonaiseMarsche Militäre/"
+ },
+ {
+  "term": "군대 행진곡",
+  "hanja": "",
+  "foreign": "軍隊行進曲",
+  "note": "Marches Militaries"
+ },
+ {
+  "term": "그랜드 캐니언 모음곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Grand Canyon SuiteJeanie with the Light Brown"
+ },
+ {
+  "term": "금발의 제니",
+  "hanja": "",
+  "foreign": "",
+  "note": "HairMadama Butterfly/"
+ },
+ {
+  "term": "나비 부인",
+  "hanja": "",
+  "foreign": "",
+  "note": "Madame Butterfly"
+ },
+ {
+  "term": "나팔수의 휴일",
+  "hanja": "",
+  "foreign": "喇叭手의休曰",
+  "note": "Bugler's holiday"
+ },
+ {
+  "term": "노르웨이 춤곡",
+  "hanja": "",
+  "foreign": "Danse Norvégienne Fantaisie Norvégienne/",
+  "note": "그리그"
+ },
+ {
+  "term": "노르웨이 환상곡",
+  "hanja": "",
+  "foreign": "Norwegian Fantasy Paukenschlag Symphonie/",
+  "note": "랄로"
+ },
+ {
+  "term": "놀람 교향곡",
+  "hanja": "",
+  "foreign": "Surprise Symphony/Symphony No. 94 in G major ‘Surprise’ Die Meistersinger von",
+  "note": "하이든"
+ },
+ {
+  "term": "뉘른베르크의 명가수",
+  "hanja": "",
+  "foreign": "Nürnberg/The Mastersingers of Nuremberg",
+  "note": "바그너"
+ },
+ {
+  "term": "니벨룽겐의 반지/",
+  "hanja": "",
+  "foreign": "Der Ring des Nibelungen/",
+  "note": "바그너"
+ },
+ {
+  "term": "니벨룽겐의 가락지",
+  "hanja": "",
+  "foreign": "The Ring of the Nibelung Pierrot Lunaire/Moonstruck",
+  "note": ""
+ },
+ {
+  "term": "달에 홀린 피에로",
+  "hanja": "",
+  "foreign": "Pierrot/Pierrot in the Moonlight Op. 21 Coronation Mass/",
+  "note": "쇤베르크"
+ },
+ {
+  "term": "대관식 미사",
+  "hanja": "",
+  "foreign": "The Krönungsmesse Krönungskonzert/Coronation/",
+  "note": "모차르트"
+ },
+ {
+  "term": "대관식 협주곡",
+  "hanja": "戴冠式協奏曲",
+  "foreign": "Piano Concerto No. 26 in D major, K. 537 ‘Coronation’ Akademische Festouvertüre/",
+  "note": "모차르트"
+ },
+ {
+  "term": "대학 축전 서곡",
+  "hanja": "大學祝典序曲",
+  "foreign": "Academic Festival Overture Donauwellen Walzer/",
+  "note": "브람스"
+ },
+ {
+  "term": "도나우강의 잔물결 왈츠",
+  "hanja": "",
+  "foreign": "Waves of the Danube Waltz",
+  "note": "이바노비치"
+ },
+ {
+  "term": "돈 조반니",
+  "hanja": "",
+  "foreign": "Don Giovanni",
+  "note": "모차르트슈트라우스"
+ },
+ {
+  "term": "돈키호테",
+  "hanja": "",
+  "foreign": "Don Quixote Carnaval des Animaux/",
+  "note": "(리하르트)"
+ },
+ {
+  "term": "동물의 사육제",
+  "hanja": "動物의謝肉祭",
+  "foreign": "The Carnival of the Animals Die Beiden Grenadiere/",
+  "note": "생상스"
+ },
+ {
+  "term": "두 명의 척탄병",
+  "hanja": "",
+  "foreign": "The Two Grenadiers Heidenröslein/Rose on the",
+  "note": "슈만"
+ },
+ {
+  "term": "들장미",
+  "hanja": "",
+  "foreign": "Heath/Little Rose of the Field",
+  "note": "슈베르트"
+ },
+ {
+  "term": "디베르티멘토",
+  "hanja": "",
+  "foreign": "Divertimento",
+  "note": "하이든, 모"
+ },
+ {
+  "term": "라 보엠",
+  "hanja": "",
+  "foreign": "La Bohème",
+  "note": "푸치니"
+ },
+ {
+  "term": "라 쿰파르시타",
+  "hanja": "",
+  "foreign": "La Cumparsita",
+  "note": "로드리게스"
+ },
+ {
+  "term": "라 토스카",
+  "hanja": "",
+  "foreign": "La Tosca",
+  "note": "푸치니"
+ },
+ {
+  "term": "라 트라비아타",
+  "hanja": "La TraviataRadeszky March/",
+  "foreign": "베르디 슈트라우스",
+  "note": ""
+ },
+ {
+  "term": "라데츠키 행진곡",
+  "hanja": "Radetzky-MarschDas Rheingold/",
+  "foreign": "(요한) Ⅰ세",
+  "note": ""
+ },
+ {
+  "term": "라인의 황금",
+  "hanja": "The RheingoldRákóczy March/",
+  "foreign": "바그너",
+  "note": ""
+ },
+ {
+  "term": "라코치 행진곡",
+  "hanja": "Hungarian March",
+  "foreign": "리스트",
+  "note": ""
+ },
+ {
+  "term": "람메르무어의 루치아",
+  "hanja": "Lucia di Lammermoor",
+  "foreign": "도니체티",
+  "note": ""
+ },
+ {
+  "term": "랩소디 인 블루",
+  "hanja": "Rhapsody in BlueLondon Symphony/Symphonie 'London'/Londoner Synphonie/",
+  "foreign": "거슈윈",
+  "note": ""
+ },
+ {
+  "term": "런던 교향곡",
+  "hanja": "Salomon Symphony/Symphony No. 104 in D major,‘London’",
+  "foreign": "하이든",
+  "note": ""
+ },
+ {
+  "term": "레오노레 서곡",
+  "hanja": "Leonore OvertureLe Carnaval Romain/",
+  "foreign": "베토벤 베를리오즈",
+  "note": ""
+ },
+ {
+  "term": "로마의 축제 서곡",
+  "hanja": "Roman Carnival OvertureFantasy-Overture, 'Romeo",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "로미오와 줄리엣 환상 서곡",
+  "hanja": "and Juliet'/Romeo and Juliet(Fantasy Overture)",
+  "foreign": "차이콥스키",
+  "note": ""
+ },
+ {
+  "term": "로엔그린",
+  "hanja": "Lohengrin",
+  "foreign": "바그너",
+  "note": ""
+ },
+ {
+  "term": "로자문데",
+  "hanja": "Rosamunde",
+  "foreign": "슈베르트",
+  "note": ""
+ },
+ {
+  "term": "리골레토",
+  "hanja": "Rigoletto",
+  "foreign": "베르디",
+  "note": ""
+ },
+ {
+  "term": "마농 레스코",
+  "hanja": "Manon Lescaut",
+  "foreign": "푸치니",
+  "note": ""
+ },
+ {
+  "term": "마르첼로의 미사",
+  "hanja": "Pope Marcellus Mass",
+  "foreign": "팔레스트리나",
+  "note": ""
+ },
+ {
+  "term": "마르타",
+  "hanja": "Martha",
+  "foreign": "플로토",
+  "note": ""
+ },
+ {
+  "term": "마왕 魔王",
+  "hanja": "Der Erlkönig/The ErlKingDer Freischütz/",
+  "foreign": "슈베르트",
+  "note": ""
+ },
+ {
+  "term": "마탄의 사수 魔彈의射手",
+  "hanja": "The FreeshooterMatthäus-Passion/",
+  "foreign": "베버",
+  "note": ""
+ },
+ {
+  "term": "마태 수난곡",
+  "hanja": "St. Matthew Passion",
+  "foreign": "바흐",
+  "note": ""
+ },
+ {
+  "term": "맥베스(오페라)",
+  "hanja": "Macbeth(Opera)",
+  "foreign": "베르디 슈트라우스",
+  "note": ""
+ },
+ {
+  "term": "맥베스(교향시)",
+  "hanja": "Macbeth(Symphonic poem)",
+  "foreign": "(리하르트)",
+  "note": ""
+ },
+ {
+  "term": "메시아",
+  "hanja": "Messiah",
+  "foreign": "헨델",
+  "note": ""
+ },
+ {
+  "term": "메피스토 왈츠",
+  "hanja": "木神의午後에의",
+  "foreign": "Mephisto-Walzer Prélude à l'après-midi d'un",
+  "note": "리스트"
+ },
+ {
+  "term": "목신의 오후에의 전주곡",
+  "hanja": "前奏曲",
+  "foreign": "faune/Prelude to the Afternoon of a Faun",
+  "note": "드뷔시"
+ },
+ {
+  "term": "몰다우",
+  "hanja": "",
+  "foreign": "The Moldau/Vltava",
+  "note": "스메타나"
+ },
+ {
+  "term": "무반주 바이올린 소나타",
+  "hanja": "",
+  "foreign": "Unaccompanied Violin Sonata",
+  "note": "바흐"
+ },
+ {
+  "term": "무반주 첼로 모음곡",
+  "hanja": "",
+  "foreign": "Unaccompanied Cello Suite Lieder ohne Worte/",
+  "note": "바흐"
+ },
+ {
+  "term": "무언가",
+  "hanja": "無言歌",
+  "foreign": "Songs without Words",
+  "note": "멘델스존"
+ },
+ {
+  "term": "미뇽",
+  "hanja": "",
+  "foreign": "Mignon Unfinished Symphony/Unvollendete Symphonie/",
+  "note": "토마"
+ },
+ {
+  "term": "미완성 교향곡",
+  "hanja": "未完成交響曲",
+  "foreign": "Symphony No. 8 in B minor ‘Unfinished’ Waldstein Sonata/",
+  "note": "슈베르트"
+ },
+ {
+  "term": "발트슈타인 소나타",
+  "hanja": "",
+  "foreign": "Piano Sonata No. 21 in C major, Op. 53 'Waldstein'",
+  "note": "베토벤"
+ },
+ {
+  "term": "백설 공주",
+  "hanja": "白雪公主",
+  "foreign": "The Snow-Maiden Schwannengesang/",
+  "note": "림스키코르사코프"
+ },
+ {
+  "term": "백조의 노래",
+  "hanja": "",
+  "foreign": "Swan Song Le lac des cygnes/",
+  "note": "슈베르트"
+ },
+ {
+  "term": "백조의 호수",
+  "hanja": "白鳥의湖水",
+  "foreign": "Swan Lake",
+  "note": "차이콥스키"
+ },
+ {
+  "term": "벌거숭이산에서의 밤/",
+  "hanja": "",
+  "foreign": "Night on Bald Mountain/",
+  "note": "무소륵스키"
+ },
+ {
+  "term": "민둥산의 하룻밤",
+  "hanja": "",
+  "foreign": "Night on the Bare Mountain",
+  "note": ""
+ },
+ {
+  "term": "벼룩의 노래",
+  "hanja": "",
+  "foreign": "Song of the Flea",
+  "note": "무소륵스키"
+ },
+ {
+  "term": "별은 빛나건만(오페라 ‘토스",
+  "hanja": "",
+  "foreign": "E lucevan le stelle/",
+  "note": "푸치니"
+ },
+ {
+  "term": "카’ 중에서)",
+  "hanja": "",
+  "foreign": "And the stars were shining",
+  "note": ""
+ },
+ {
+  "term": "보리스 고두노프",
+  "hanja": "",
+  "foreign": "Boris Godunov",
+  "note": "무소륵스키"
+ },
+ {
+  "term": "보카치오",
+  "hanja": "",
+  "foreign": "Boccacio",
+  "note": "주페"
+ },
+ {
+  "term": "볼레로",
+  "hanja": "",
+  "foreign": "Bolero Frühlingsstimmen/",
+  "note": "라벨슈트라우스"
+ },
+ {
+  "term": "봄의 소리",
+  "hanja": "",
+  "foreign": "Voices of Spring Le Sacre du Printemps/",
+  "note": "(요한) Ⅱ세"
+ },
+ {
+  "term": "봄의 제전",
+  "hanja": "",
+  "foreign": "The Rite of Spring",
+  "note": "스트라빈스키"
+ },
+ {
+  "term": "부활 교향곡",
+  "hanja": "復活交響曲",
+  "foreign": "Symphony No. 2 in C major ‘Resurrection’ L'Oiseau de feu/",
+  "note": "말러"
+ },
+ {
+  "term": "불새 모음곡",
+  "hanja": "",
+  "foreign": "Firebird Suite Brandenburgische Konzerte/",
+  "note": "스트라빈스키"
+ },
+ {
+  "term": "브란덴부르크 협주곡",
+  "hanja": "",
+  "foreign": "Brandenburg Concerto Tragische Ouvertüre/",
+  "note": "바흐"
+ },
+ {
+  "term": "비극적 서곡",
+  "hanja": "悲劇的序曲",
+  "foreign": "Tragic Overture Symphonie 'Pathétique'/Symphony 'Pathetique'/",
+  "note": "브람스"
+ },
+ {
+  "term": "비창 교향곡",
+  "hanja": "悲愴交響曲",
+  "foreign": "Symphony No. 6 in B minor, Op. 74 ‘Patehtique’ Sonate 'Pathétique'/Sonata 'Pathétique'/",
+  "note": "차이콥스키"
+ },
+ {
+  "term": "비창 소나타",
+  "hanja": "悲愴sonata",
+  "foreign": "Piano Sonata No. 8 in C minor, Op. 13 ‘Patehtique’ Geschichte aus dem Wiener",
+  "note": "베토벤슈트라우스"
+ },
+ {
+  "term": "빈 숲 속의 이야기",
+  "hanja": "",
+  "foreign": "Wald/Tales from the Vienna Woods",
+  "note": "(요한) Ⅱ세"
+ },
+ {
+  "term": "빌헬름 텔(오페라)",
+  "hanja": "",
+  "foreign": "William Tell/Guillaume Tell William Tell Overture/",
+  "note": "로시니"
+ },
+ {
+  "term": "빌헬름 텔 서곡",
+  "hanja": "",
+  "foreign": "Guillaume Tell Overture",
+  "note": "로시니"
+ },
+ {
+  "term": "빗방울 전주곡",
+  "hanja": "",
+  "foreign": "Raindrop Prelude",
+  "note": "쇼팽"
+ },
+ {
+  "term": "뻐꾹 왈츠",
+  "hanja": "",
+  "foreign": "Cuckoo Waltz Die Jahreszeiten/",
+  "note": "요나손"
+ },
+ {
+  "term": "사계(오라토리오)",
+  "hanja": "四季",
+  "foreign": "The Seasons The Four Seasons/",
+  "note": "하이든"
+ },
+ {
+  "term": "사계(바이올린 협주곡)",
+  "hanja": "四季",
+  "foreign": "Le quattro stagioni Jägerchor(from ‘Der",
+  "note": "비발디"
+ },
+ {
+  "term": "사냥꾼의 합창(오페라 ‘마탄의",
+  "hanja": "",
+  "foreign": "Freischütz’)/‘The Hunters’",
+  "note": "베버"
+ },
+ {
+  "term": "사수’ 중에서)",
+  "hanja": "",
+  "foreign": "Chorus(from ‘The Freeshooter’)",
+  "note": ""
+ },
+ {
+  "term": "사단조 푸가(작은)",
+  "hanja": "",
+  "foreign": "G minor Fugue(little)",
+  "note": "바흐"
+ },
+ {
+  "term": "사랑의 기쁨",
+  "hanja": "",
+  "foreign": "Liebesfreud/Love's Joy Liebesträume/",
+  "note": "크라이슬러"
+ },
+ {
+  "term": "사랑의 꿈",
+  "hanja": "",
+  "foreign": "Dreams of Love",
+  "note": "리스트"
+ },
+ {
+  "term": "사랑의 슬픔",
+  "hanja": "",
+  "foreign": "Liebesleid/Love's Sorrow",
+  "note": "크라이슬러"
+ },
+ {
+  "term": "사랑의 인사",
+  "hanja": "",
+  "foreign": "",
+  "note": "Salut d'AmourSamuel GoldenbSchmuyle(from ‘"
+ },
+ {
+  "term": "사무엘 골덴베르크와",
+  "hanja": "슈뮈일레",
+  "foreign": "",
+  "note": "D'une Exposition"
+ },
+ {
+  "term": "(‘전람회의 그림’ 중",
+  "hanja": "에서)",
+  "foreign": "",
+  "note": "Goldenberg and(from ‘Pictures at"
+ },
+ {
+  "term": "사장조 미뉴에트",
+  "hanja": "",
+  "foreign": "",
+  "note": "Minuet in G majIn der Halle des(from 'Peer Gynt"
+ },
+ {
+  "term": "산왕의 궁전에서(‘페",
+  "hanja": "르 귄트",
+  "foreign": "山王의宮殿에서",
+  "note": "In the Hall of th"
+ },
+ {
+  "term": "모음곡’ 제1번 중에",
+  "hanja": "서)",
+  "foreign": "",
+  "note": "King(from 'PeerNo. 1)Samson et Dalila"
+ },
+ {
+  "term": "삼손과 델릴",
+  "hanja": "",
+  "foreign": "",
+  "note": "Samson and DelIntroduction and"
+ },
+ {
+  "term": "서주와 론도 카프리",
+  "hanja": "치오소",
+  "foreign": "",
+  "note": "Capriccioso"
+ },
+ {
+  "term": "성조기여 영원하라",
+  "hanja": "",
+  "foreign": "",
+  "note": "Stars and Stripe"
+ },
+ {
+  "term": "세미라미데",
+  "hanja": "",
+  "foreign": "",
+  "note": "SemiramideIl Barbiere di Siv"
+ },
+ {
+  "term": "세비야의 이발사",
+  "hanja": "",
+  "foreign": "",
+  "note": "The Barber of S"
+ },
+ {
+  "term": "셰에라자드",
+  "hanja": "",
+  "foreign": "",
+  "note": "ScheherazadeEine Kleine Nach"
+ },
+ {
+  "term": "소야곡/작은 밤의 음",
+  "hanja": "악",
+  "foreign": "小夜曲",
+  "note": "a Little Night MSolveig's Lied((fro"
+ },
+ {
+  "term": "솔베이그의 노래(‘페",
+  "hanja": "르 귄트",
+  "foreign": "",
+  "note": "Suite' Nr. 2)/"
+ },
+ {
+  "term": "모음곡’ 제2번 중에",
+  "hanja": "서)",
+  "foreign": "",
+  "note": "Solveig's Song(froSuite' No. 2)"
+ },
+ {
+  "term": "송어 5중주",
+  "hanja": "",
+  "foreign": "松魚五重奏",
+  "note": "Die Forelle/TheSuite aus der ‘W"
+ },
+ {
+  "term": "수상 음악 모음곡",
+  "hanja": "",
+  "foreign": "水上音樂組曲",
+  "note": "Water Music Sui"
+ },
+ {
+  "term": "숲속의 물레방아",
+  "hanja": "",
+  "foreign": "",
+  "note": "The Mill in the F"
+ },
+ {
+  "term": "스케이터스 왈츠",
+  "hanja": "",
+  "foreign": "",
+  "note": "The Skater's WaSymphonie 'Scho"
+ },
+ {
+  "term": "스코틀랜드 교향곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Scottish FantasyRhapsodie Espag"
+ },
+ {
+  "term": "스페인 광시곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Spanish Rhapsod"
+ },
+ {
+  "term": "스페인 교향곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Spanish Symphony"
+ },
+ {
+  "term": "슬라브 춤곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Slavonic DancesSymphonie 'Uhr'/Sy"
+ },
+ {
+  "term": "시계 교향곡",
+  "hanja": "",
+  "foreign": "時計交響曲",
+  "note": "No. 101 in D major"
+ },
+ {
+  "term": "시계포",
+  "hanja": "",
+  "foreign": "時計鋪",
+  "note": "In a clock storeDichter und Bauer/"
+ },
+ {
+  "term": "시인과 농부",
+  "hanja": "",
+  "foreign": "詩人과農夫",
+  "note": "Poet and Peasant"
+ },
+ {
+  "term": "시인의 사랑",
+  "hanja": "",
+  "foreign": "",
+  "note": "Dichterliebe/A Poet"
+ },
+ {
+  "term": "신세계 교향곡",
+  "hanja": "",
+  "foreign": "新世界交響曲",
+  "note": "New World Symph"
+ },
+ {
+  "term": "아델라이데",
+  "hanja": "",
+  "foreign": "",
+  "note": "Adelaide"
+ },
+ {
+  "term": "아라비아 춤(‘호두까",
+  "hanja": "기 인형’",
+  "foreign": "",
+  "note": "Danse Arabe(from"
+ },
+ {
+  "term": "아랑후에스 협주곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Concierto de AranjL'Arlesienne/"
+ },
+ {
+  "term": "아를의 여인 모음곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Woman from ArlesDie schöne Mülleri"
+ },
+ {
+  "term": "아름다운 물레방앗간의",
+  "hanja": "아가씨",
+  "foreign": "",
+  "note": "The Fair Maid of tAn der Schönen, B"
+ },
+ {
+  "term": "아름답고 푸른 도나우",
+  "hanja": "",
+  "foreign": "",
+  "note": "Donau/The Blue D"
+ },
+ {
+  "term": "아베 마리아",
+  "hanja": "",
+  "foreign": "",
+  "note": "Ave Maria"
+ },
+ {
+  "term": "아이다",
+  "hanja": "",
+  "foreign": "",
+  "note": "Aida"
+ },
+ {
+  "term": "개선 행진곡(오페라",
+  "hanja": "‘아이다’",
+  "foreign": "凱旋行進曲",
+  "note": "Triumphal March fr"
+ },
+ {
+  "term": "중에서)",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "아이오나이제이션",
+  "hanja": "",
+  "foreign": "",
+  "note": "IonisationBüchlein für Anna"
+ },
+ {
+  "term": "안나 막달레나를 위한",
+  "hanja": "노트",
+  "foreign": "",
+  "note": "Bach/Notebook forMagdalena Bach"
+ },
+ {
+  "term": "어린이 정경",
+  "hanja": "",
+  "foreign": "",
+  "note": "Kinderszenen"
+ },
+ {
+  "term": "엄마 거위 모음곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Mother Goose SuitEgmont Ouvertüre/"
+ },
+ {
+  "term": "에그몬트 서곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Egmont Overture"
+ },
+ {
+  "term": "엘리아스/엘리아",
+  "hanja": "",
+  "foreign": "",
+  "note": "Elias/Elijah"
+ },
+ {
+  "term": "엘리제를 위하여",
+  "hanja": "",
+  "foreign": "Für Elise/For Elise Appassionata Sonata/",
+  "note": ""
+ },
+ {
+  "term": "열정 소나타",
+  "hanja": "熱情sonata",
+  "foreign": "Piano Sonata No. 23 minor, Op. 57 ‘Appas Englische Suiten/",
+  "note": "in Fsionata’"
+ },
+ {
+  "term": "영국 모음곡/영국 조곡",
+  "hanja": "-/英國組曲",
+  "foreign": "English Suites Eroica Symphony/",
+  "note": ""
+ },
+ {
+  "term": "영웅 교향곡",
+  "hanja": "英雄交響曲",
+  "foreign": "Symphony No. 3 in E major, Op. 55 'Eroica'",
+  "note": "flat"
+ },
+ {
+  "term": "예술가의 생애",
+  "hanja": "藝術家의生涯",
+  "foreign": "Künstlerleben Artist's",
+  "note": "Life"
+ },
+ {
+  "term": "오르페오와 에우리디체",
+  "hanja": "",
+  "foreign": "Orfeo ed Euridice",
+  "note": ""
+ },
+ {
+  "term": "오텔로",
+  "hanja": "",
+  "foreign": "Otello Oxford Symphony/Sy",
+  "note": "mphony"
+ },
+ {
+  "term": "옥스퍼드 교향곡",
+  "hanja": "",
+  "foreign": "No. 92 in G major 'O Feuerwerksmusik/",
+  "note": "xford'"
+ },
+ {
+  "term": "왕궁의 불꽃놀이",
+  "hanja": "",
+  "foreign": "The Music for the Ro Fireworks HWV 351 Die Zauberflöte/",
+  "note": "yal"
+ },
+ {
+  "term": "요술피리/마술피리",
+  "hanja": "",
+  "foreign": "The Magic Flute Johannes-Passion/",
+  "note": ""
+ },
+ {
+  "term": "요한 수난곡",
+  "hanja": "",
+  "foreign": "St John Passion Symphony in C minor, Schicksals-Sinfonie/",
+  "note": "Op. 67/"
+ },
+ {
+  "term": "명 교향곡",
+  "hanja": "運命交響曲",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "울게 하소서(오페라 ‘리날도’",
+  "hanja": "",
+  "foreign": "Lascia chio pianga/Le",
+  "note": "t Me"
+ },
+ {
+  "term": "월광 소나타",
+  "hanja": "月光sonata",
+  "foreign": "Sonata No. 14 in C-s minor, Op. 27 ’Moonl",
+  "note": "harpight’"
+ },
+ {
+  "term": "웨스트사이드 스토리",
+  "hanja": "",
+  "foreign": "West Side Story Pomps and Circumsta Marches Op. 39, No.",
+  "note": "nces1/"
+ },
+ {
+  "term": "위풍당당 행진곡",
+  "hanja": "威風堂堂行進曲",
+  "foreign": "Pomp and Circumstan Military Marches",
+  "note": "ce"
+ },
+ {
+  "term": "유다스 마카베우스",
+  "hanja": "",
+  "foreign": "Judas Maccabaeus",
+  "note": ""
+ },
+ {
+  "term": "유랑의 무리",
+  "hanja": "",
+  "foreign": "Zigeunerleben/Gypsy",
+  "note": "Life"
+ },
+ {
+  "term": "유머레스크",
+  "hanja": "",
+  "foreign": "",
+  "note": "Humoresque"
+ },
+ {
+  "term": "음악에",
+  "hanja": "",
+  "foreign": "",
+  "note": "An die Musik/To Music D"
+ },
+ {
+  "term": "이고르 공",
+  "hanja": "",
+  "foreign": "",
+  "note": "Prince IgorEtude 'Chanson de L'adi"
+ },
+ {
+  "term": "이별의 곡",
+  "hanja": "",
+  "foreign": "離別의曲",
+  "note": "Etude No. 10-3 in E flatItalienische Symphonie/Italian Symphony/Symph"
+ },
+ {
+  "term": "이탈리아 교향곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "No. 4 in A major, Op. 9‘Italian’"
+ },
+ {
+  "term": "이탈리아 기상곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Capriccio Italien"
+ },
+ {
+  "term": "일 트로바토레",
+  "hanja": "",
+  "foreign": "",
+  "note": "Il Trovatore"
+ },
+ {
+  "term": "자장가",
+  "hanja": "",
+  "foreign": "",
+  "note": "Lullaby12 Variations on 'Ah,"
+ },
+ {
+  "term": "작은 별 변주곡(‘아,",
+  "hanja": "말씀드릴",
+  "foreign": "",
+  "note": "Vousdirai-je, maman' (K."
+ },
+ {
+  "term": "게요, 어머니’ 주제에",
+  "hanja": "의한 열",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "두 개의 변주곡)",
+  "hanja": "",
+  "foreign": "",
+  "note": "12 Variations on 'TwinkleStar’ (K. 265)"
+ },
+ {
+  "term": "잠자는 숲속의 미녀",
+  "hanja": "",
+  "foreign": "",
+  "note": "The Sleeping Beauty"
+ },
+ {
+  "term": "장난감 교향곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Toy SymphonyFuneral March/"
+ },
+ {
+  "term": "장송 행진곡",
+  "hanja": "",
+  "foreign": "葬送行進曲",
+  "note": "Piano Sonata No. 2 in Bminor, Op. 35, 3rd. moveBilder einer Ausstellung/"
+ },
+ {
+  "term": "전람회의 그림",
+  "hanja": "",
+  "foreign": "",
+  "note": "Pictures at an ExhibitionSymphonie 'Pastoral'/"
+ },
+ {
+  "term": "전원 교향곡",
+  "hanja": "",
+  "foreign": "田園交響曲",
+  "note": "Symphony No. 6 in F mOp. 68 ‘Pastoral’"
+ },
+ {
+  "term": "제비꽃",
+  "hanja": "",
+  "foreign": "",
+  "note": "Das Veilchen/The Violet"
+ },
+ {
+  "term": "조작된 피아노",
+  "hanja": "",
+  "foreign": "",
+  "note": "Prepared Piano"
+ },
+ {
+  "term": "종(‘아를의 여인’ 제",
+  "hanja": "1 모음곡",
+  "foreign": "鐘",
+  "note": "Carillon(from 'L'Arlésienn"
+ },
+ {
+  "term": "종달새 현악 4중주",
+  "hanja": "",
+  "foreign": "",
+  "note": "Quartet in D Major Op. 64,Symphonie 'Jupiter'/"
+ },
+ {
+  "term": "주피터 교향곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Symphony No. 41 in CK. 551 'Jupiter'"
+ },
+ {
+  "term": "죽은 왕녀를 위한 파",
+  "hanja": "반느",
+  "foreign": "",
+  "note": "Pavane for a Dead Princ"
+ },
+ {
+  "term": "죽음과 소녀",
+  "hanja": "",
+  "foreign": "",
+  "note": "String Quartet Nominor, D. 810"
+ },
+ {
+  "term": "중앙아시아의 초",
+  "hanja": "원에서",
+  "foreign": "",
+  "note": "In the Steppes of"
+ },
+ {
+  "term": "지크프리트의 목",
+  "hanja": "가",
+  "foreign": "",
+  "note": "Symphonic poemLes Pécheurs de"
+ },
+ {
+  "term": "진주 잡이",
+  "hanja": "",
+  "foreign": "",
+  "note": "The Pearl FishersDer Zigeunerbaron"
+ },
+ {
+  "term": "집시 남작",
+  "hanja": "",
+  "foreign": "",
+  "note": "The Gypsy BaronAlso sprach Zarat"
+ },
+ {
+  "term": "자라투스트라는",
+  "hanja": "이렇게 말했다",
+  "foreign": "",
+  "note": "Thus Spoke ZaratOrphée aux enfer"
+ },
+ {
+  "term": "천국과 지옥",
+  "hanja": "",
+  "foreign": "天國과地獄",
+  "note": "Orpheus in the UThunder and Blitz"
+ },
+ {
+  "term": "천둥과 번개",
+  "hanja": "",
+  "foreign": "",
+  "note": "And Lightning, Pol"
+ },
+ {
+  "term": "천지 창조",
+  "hanja": "",
+  "foreign": "天地 創造 青少年을위한管",
+  "note": "Die Schöpfung/ThThe Young Person"
+ },
+ {
+  "term": "청소년을 위한",
+  "hanja": "관현악 입문",
+  "foreign": "絃樂入門",
+  "note": "the Orchestra"
+ },
+ {
+  "term": "치고이너바이젠",
+  "hanja": "",
+  "foreign": "",
+  "note": "Zigeunerweisen"
+ },
+ {
+  "term": "카르멘",
+  "hanja": "",
+  "foreign": "",
+  "note": "Carmen"
+ },
+ {
+  "term": "카르멘 서곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Overture, Carmen"
+ },
+ {
+  "term": "카르미나 부라나",
+  "hanja": "칸타타",
+  "foreign": "",
+  "note": "Cantata ‘Carmina"
+ },
+ {
+  "term": "카발레리아 루스",
+  "hanja": "티카나",
+  "foreign": "",
+  "note": "Cavalleria RusticanKreutzer Sonate/"
+ },
+ {
+  "term": "크로이처 소나타",
+  "hanja": "",
+  "foreign": "",
+  "note": "Violin Sonata No.A major"
+ },
+ {
+  "term": "타이스",
+  "hanja": "",
+  "foreign": "",
+  "note": "Thais"
+ },
+ {
+  "term": "탄호이저",
+  "hanja": "",
+  "foreign": "",
+  "note": "TannhäuserTurkischer MarschTurkish March/"
+ },
+ {
+  "term": "터키 행진곡",
+  "hanja": "",
+  "foreign": "",
+  "note": "Piano Sonata No.major, K. 331, 3rdToccata et Fuga/"
+ },
+ {
+  "term": "토카타와 푸가",
+  "hanja": "",
+  "foreign": "",
+  "note": "Toccata and Fugu"
+ },
+ {
+  "term": "투오넬라의 백조",
+  "hanja": "",
+  "foreign": "The Swan of Tuonel",
+  "note": "a"
+ },
+ {
+  "term": "트로이메라이/",
+  "hanja": "",
+  "foreign": "Träumerei/",
+  "note": ""
+ },
+ {
+  "term": "꿈(‘어린이 정경’ 중에",
+  "hanja": "서)",
+  "foreign": "Dreaming(from 'Kinde",
+  "note": "rszenen')"
+ },
+ {
+  "term": "트리스탄과 이졸데",
+  "hanja": "",
+  "foreign": "Tristan und Isolde Rhapsody on a Them",
+  "note": "e of"
+ },
+ {
+  "term": "파가니니 주제에 의한",
+  "hanja": "광시곡",
+  "foreign": "Paganini Variationen über ein",
+  "note": "Thema"
+ },
+ {
+  "term": "파리의 미국인",
+  "hanja": "",
+  "foreign": "An American in Pari",
+  "note": "s"
+ },
+ {
+  "term": "팔려간 신부",
+  "hanja": "",
+  "foreign": "The Bartered Bride",
+  "note": ""
+ },
+ {
+  "term": "팔리아치",
+  "hanja": "",
+  "foreign": "Pagliacci",
+  "note": ""
+ },
+ {
+  "term": "페르 귄트 모음곡/",
+  "hanja": "",
+  "foreign": "Peer Gynt Suite",
+  "note": ""
+ },
+ {
+  "term": "페르 귄트 조곡",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "페르시아 시장에서",
+  "hanja": "",
+  "foreign": "In a Persian Market",
+  "note": ""
+ },
+ {
+  "term": "평균율 피아노곡집/",
+  "hanja": "",
+  "foreign": "Wohltemperiertes Kl",
+  "note": "avier/"
+ },
+ {
+  "term": "평균율 클라비어곡집",
+  "hanja": "",
+  "foreign": "The Well-Tempered",
+  "note": "Clavier"
+ },
+ {
+  "term": "푸른 옷소매 환상곡",
+  "hanja": "",
+  "foreign": "Greensleeves Fantas Prague Symphony/",
+  "note": "y"
+ },
+ {
+  "term": "프라하 교향곡",
+  "hanja": "",
+  "foreign": "Symphony No. 38 in K. 504 ‘Prague’",
+  "note": "D major,"
+ },
+ {
+  "term": "프랑스 모음곡/",
+  "hanja": "",
+  "foreign": "Französische Suite/",
+  "note": ""
+ },
+ {
+  "term": "프랑스 조곡",
+  "hanja": "",
+  "foreign": "French Suites",
+  "note": ""
+ },
+ {
+  "term": "프롬나드(‘전람회의 그",
+  "hanja": "림’ 중",
+  "foreign": "Promenade(from 'Pi",
+  "note": "ctures at"
+ },
+ {
+  "term": "에서)",
+  "hanja": "",
+  "foreign": "an Exhibition') Le Nozze di Figaro/",
+  "note": ""
+ },
+ {
+  "term": "피가로의 결혼",
+  "hanja": "",
+  "foreign": "The Marriage of Figa",
+  "note": "ro"
+ },
+ {
+  "term": "피델리오",
+  "hanja": "",
+  "foreign": "Fidelio",
+  "note": ""
+ },
+ {
+  "term": "피터와 늑대",
+  "hanja": "",
+  "foreign": "Peter and the Wolf",
+  "note": ""
+ },
+ {
+  "term": "핀란디아",
+  "hanja": "",
+  "foreign": "Finlandia Fingalshöle/",
+  "note": ""
+ },
+ {
+  "term": "핑갈의 동굴 서곡",
+  "hanja": "",
+  "foreign": "overture to ‘Die Heb The Hebrides(overtur",
+  "note": "riden’/e)"
+ },
+ {
+  "term": "하바네라",
+  "hanja": "",
+  "foreign": "Havanera/Habanera",
+  "note": ""
+ },
+ {
+  "term": "한국 환상곡",
+  "hanja": "韓國幻想曲",
+  "foreign": "Symphonic Fantasia",
+  "note": "KOREA"
+ },
+ {
+  "term": "한여름 밤의 꿈",
+  "hanja": "",
+  "foreign": "A Midsummer Night's Dream",
+  "note": "멘델스존"
+ },
+ {
+  "term": "할렐루야",
+  "hanja": "",
+  "foreign": "Hallelujah",
+  "note": "헨델"
+ },
+ {
+  "term": "합주 협주곡 사장조, 작품 6의",
+  "hanja": "",
+  "foreign": "Concerto Grosso in G major,",
+  "note": "헨델"
+ },
+ {
+  "term": "1번",
+  "hanja": "",
+  "foreign": "Op. 6, No. 1 Choral Symphony/",
+  "note": ""
+ },
+ {
+  "term": "합창 교향곡",
+  "hanja": "合唱交響曲",
+  "foreign": "Symphony No. 9 in D minor, Op. 125 ‘Choral’",
+  "note": "베토벤"
+ },
+ {
+  "term": "행성",
+  "hanja": "行星",
+  "foreign": "The Planets Ungarische Rhapsodie/",
+  "note": "홀스트"
+ },
+ {
+  "term": "헝가리 광시곡",
+  "hanja": "",
+  "foreign": "Hungarian Rhapsody Ungarischer Tanz/",
+  "note": "리스트"
+ },
+ {
+  "term": "헝가리 춤곡",
+  "hanja": "",
+  "foreign": "Hungarian Dance",
+  "note": "브람스"
+ },
+ {
+  "term": "호두까기 인형 모음곡",
+  "hanja": "",
+  "foreign": "Nutcracker Suite Les Contes d'Hoffmann/",
+  "note": "차이콥스키"
+ },
+ {
+  "term": "호프만 이야기",
+  "hanja": "",
+  "foreign": "The Tales of Hoffmann Symphonie fantastique/",
+  "note": "오펜바흐"
+ },
+ {
+  "term": "환상 교향곡",
+  "hanja": "幻想交響曲",
+  "foreign": "Fantasy Symphony",
+  "note": "베를리오즈"
+ },
+ {
+  "term": "환상 즉흥곡",
+  "hanja": "幻想卽興曲",
+  "foreign": "Fantaisie-Impromptu Polonaise-Fantaisie/",
+  "note": "쇼팽"
+ },
+ {
+  "term": "환상 폴로네즈",
+  "hanja": "",
+  "foreign": "Polonaise-fantasy Kaiser-Walzer(Kaiser-Walzer)/",
+  "note": "쇼팽슈트라우스"
+ },
+ {
+  "term": "황제 왈츠",
+  "hanja": "",
+  "foreign": "Emperor Waltz Emperor Concerto/",
+  "note": "(요한) Ⅱ세"
+ },
+ {
+  "term": "황제(피아노 협주곡)",
+  "hanja": "",
+  "foreign": "Piano Concerto No. 5 in E-flat major, Op. 73 ‘Emperor’ Kaiser Quartett/Emperor Quartet/Quartet in C major",
+  "note": "베토벤"
+ },
+ {
+  "term": "황제(현악 4중주)",
+  "hanja": "皇帝(絃樂四重奏)",
+  "foreign": "Op. 76 String Quartet No. 3 in C major Op. 76 ‘Emperor’",
+  "note": "하이든"
+ },
+ {
+  "term": "회상/추억",
+  "hanja": "回想/追憶",
+  "foreign": "Souvenir",
+  "note": "드르들라"
+ },
+ {
+  "term": "휘파람과 개",
+  "hanja": "",
+  "foreign": "The Whistler and his Dog",
+  "note": "프라이어"
+ },
+ {
+  "term": "가락 악기/선율 악기",
+  "hanja": "-/旋律樂器",
+  "foreign": "melody instrument",
+  "note": ""
+ },
+ {
+  "term": "건반",
+  "hanja": "鍵盤",
+  "foreign": "keyboard",
+  "note": ""
+ },
+ {
+  "term": "건반 악기",
+  "hanja": "鍵盤樂器",
+  "foreign": "keyboard instrumen",
+  "note": ""
+ },
+ {
+  "term": "공 라셀",
+  "hanja": "",
+  "foreign": "kugelrassel",
+  "note": ""
+ },
+ {
+  "term": "관악기",
+  "hanja": "管樂器",
+  "foreign": "wind instrument",
+  "note": ""
+ },
+ {
+  "term": "귀로",
+  "hanja": "",
+  "foreign": "güiro",
+  "note": ""
+ },
+ {
+  "term": "그랜드 피아노",
+  "hanja": "",
+  "foreign": "grand piano",
+  "note": ""
+ },
+ {
+  "term": "글로켄슈필/종금",
+  "hanja": "-/鐘琴",
+  "foreign": "Glockenspiel",
+  "note": ""
+ },
+ {
+  "term": "금관 악기",
+  "hanja": "金管樂器",
+  "foreign": "brass instrument",
+  "note": ""
+ },
+ {
+  "term": "기타",
+  "hanja": "",
+  "foreign": "guitar/Gitarre double bassoon/",
+  "note": ""
+ },
+ {
+  "term": "더블바순/콘트라파고토",
+  "hanja": "",
+  "foreign": "contrafagotto",
+  "note": ""
+ },
+ {
+  "term": "더블 하프",
+  "hanja": "",
+  "foreign": "double harp",
+  "note": ""
+ },
+ {
+  "term": "더블베이스/콘트라베이스",
+  "hanja": "",
+  "foreign": "double bass/contrab",
+  "note": ""
+ },
+ {
+  "term": "더블호른",
+  "hanja": "",
+  "foreign": "double horn",
+  "note": ""
+ },
+ {
+  "term": "덜시머",
+  "hanja": "",
+  "foreign": "dulcime",
+  "note": ""
+ },
+ {
+  "term": "디지털 피아노/전자 피아노",
+  "hanja": "",
+  "foreign": "digital piano",
+  "note": ""
+ },
+ {
+  "term": "딱따기/클래퍼",
+  "hanja": "",
+  "foreign": "clapper",
+  "note": ""
+ },
+ {
+  "term": "띠방울",
+  "hanja": "",
+  "foreign": "schellenband",
+  "note": ""
+ },
+ {
+  "term": "레벡",
+  "hanja": "",
+  "foreign": "rebeck",
+  "note": ""
+ },
+ {
+  "term": "레인스틱",
+  "hanja": "",
+  "foreign": "rainstick",
+  "note": ""
+ },
+ {
+  "term": "류트",
+  "hanja": "",
+  "foreign": "lute",
+  "note": ""
+ },
+ {
+  "term": "리드오르간/풍금",
+  "hanja": "-/風琴",
+  "foreign": "reed organ",
+  "note": ""
+ },
+ {
+  "term": "리듬 악기",
+  "hanja": "",
+  "foreign": "rhythm instrument",
+  "note": ""
+ },
+ {
+  "term": "리라",
+  "hanja": "",
+  "foreign": "lyra",
+  "note": ""
+ },
+ {
+  "term": "리코더",
+  "hanja": "",
+  "foreign": "recorder/Blockflöte",
+  "note": ""
+ },
+ {
+  "term": "마라카스",
+  "hanja": "",
+  "foreign": "maracas",
+  "note": ""
+ },
+ {
+  "term": "마림바",
+  "hanja": "",
+  "foreign": "marimba",
+  "note": ""
+ },
+ {
+  "term": "만돌린",
+  "hanja": "",
+  "foreign": "mandolin/mandolino",
+  "note": ""
+ },
+ {
+  "term": "메탈로폰/철금",
+  "hanja": "-/鐵琴",
+  "foreign": "metallophone",
+  "note": ""
+ },
+ {
+  "term": "멜로디언",
+  "hanja": "",
+  "foreign": "melodion",
+  "note": ""
+ },
+ {
+  "term": "목관 악기",
+  "hanja": "木管樂器",
+  "foreign": "woodwind instrum",
+  "note": ""
+ },
+ {
+  "term": "목탁",
+  "hanja": "木鐸",
+  "foreign": "temple block",
+  "note": ""
+ },
+ {
+  "term": "바순/파곳",
+  "hanja": "",
+  "foreign": "bassoon/fagott",
+  "note": ""
+ },
+ {
+  "term": "바이올린",
+  "hanja": "",
+  "foreign": "violin",
+  "note": ""
+ },
+ {
+  "term": "반도네온",
+  "hanja": "",
+  "foreign": "bandoneon",
+  "note": ""
+ },
+ {
+  "term": "발라폰",
+  "hanja": "",
+  "foreign": "balafon",
+  "note": ""
+ },
+ {
+  "term": "발랄라이카",
+  "hanja": "",
+  "foreign": "balalaika",
+  "note": ""
+ },
+ {
+  "term": "방울라셀",
+  "hanja": "",
+  "foreign": "schellenrassel",
+  "note": ""
+ },
+ {
+  "term": "백파이프",
+  "hanja": "",
+  "foreign": "bagpipes",
+  "note": ""
+ },
+ {
+  "term": "밴조",
+  "hanja": "",
+  "foreign": "banjo",
+  "note": ""
+ },
+ {
+  "term": "버지널",
+  "hanja": "",
+  "foreign": "virginal",
+  "note": ""
+ },
+ {
+  "term": "베이스 기타",
+  "hanja": "",
+  "foreign": "bass guitar",
+  "note": ""
+ },
+ {
+  "term": "베이스 드럼",
+  "hanja": "",
+  "foreign": "bass drum",
+  "note": ""
+ },
+ {
+  "term": "베이스 클라리넷",
+  "hanja": "",
+  "foreign": "bass clarinet",
+  "note": ""
+ },
+ {
+  "term": "벨/종",
+  "hanja": "-/鐘",
+  "foreign": "bell",
+  "note": ""
+ },
+ {
+  "term": "봉고",
+  "hanja": "",
+  "foreign": "bongo",
+  "note": ""
+ },
+ {
+  "term": "북/드럼",
+  "hanja": "",
+  "foreign": "drum",
+  "note": ""
+ },
+ {
+  "term": "북채",
+  "hanja": "",
+  "foreign": "drumstick",
+  "note": ""
+ },
+ {
+  "term": "비브라폰",
+  "hanja": "",
+  "foreign": "vibraphone",
+  "note": ""
+ },
+ {
+  "term": "비올라",
+  "hanja": "",
+  "foreign": "viola",
+  "note": ""
+ },
+ {
+  "term": "색소폰",
+  "hanja": "",
+  "foreign": "saxophone",
+  "note": ""
+ },
+ {
+  "term": "소리 막대/클라베스",
+  "hanja": "",
+  "foreign": "claves/schlagstäbe",
+  "note": ""
+ },
+ {
+  "term": "손가락 심벌즈",
+  "hanja": "",
+  "foreign": "finger cymbals",
+  "note": ""
+ },
+ {
+  "term": "손북/핸드드럼",
+  "hanja": "",
+  "foreign": "handtrommel",
+  "note": ""
+ },
+ {
+  "term": "수자폰",
+  "hanja": "",
+  "foreign": "sousaphone",
+  "note": ""
+ },
+ {
+  "term": "슬라이드 트롬본",
+  "hanja": "",
+  "foreign": "slide trombone",
+  "note": ""
+ },
+ {
+  "term": "신호나팔",
+  "hanja": "信號喇叭",
+  "foreign": "signal horn/bugle",
+  "note": ""
+ },
+ {
+  "term": "실로폰",
+  "hanja": "",
+  "foreign": "xylophone/xilofono",
+  "note": ""
+ },
+ {
+  "term": "심벌즈",
+  "hanja": "",
+  "foreign": "cymbals",
+  "note": ""
+ },
+ {
+  "term": "썰매 종/슬레이벨",
+  "hanja": "",
+  "foreign": "sleigh bell",
+  "note": ""
+ },
+ {
+  "term": "아고고 벨",
+  "hanja": "",
+  "foreign": "agogo bell",
+  "note": ""
+ },
+ {
+  "term": "아울로스",
+  "hanja": "",
+  "foreign": "aulos",
+  "note": ""
+ },
+ {
+  "term": "아코디언",
+  "hanja": "",
+  "foreign": "accordion",
+  "note": ""
+ },
+ {
+  "term": "알토 색소폰",
+  "hanja": "",
+  "foreign": "alto saxoph",
+  "note": ""
+ },
+ {
+  "term": "알토 오보에",
+  "hanja": "",
+  "foreign": "alto oboe",
+  "note": ""
+ },
+ {
+  "term": "알토 클라리넷",
+  "hanja": "",
+  "foreign": "alto clarine",
+  "note": ""
+ },
+ {
+  "term": "알토 트롬본",
+  "hanja": "",
+  "foreign": "alto tromb",
+  "note": ""
+ },
+ {
+  "term": "알토 플루트",
+  "hanja": "",
+  "foreign": "alto flute",
+  "note": ""
+ },
+ {
+  "term": "알토 호른",
+  "hanja": "",
+  "foreign": "alto horn",
+  "note": ""
+ },
+ {
+  "term": "알펜호른",
+  "hanja": "",
+  "foreign": "Alpenhorn",
+  "note": ""
+ },
+ {
+  "term": "업라이트 피아노",
+  "hanja": "",
+  "foreign": "upright pia",
+  "note": ""
+ },
+ {
+  "term": "오르간",
+  "hanja": "",
+  "foreign": "organ",
+  "note": ""
+ },
+ {
+  "term": "오보에",
+  "hanja": "",
+  "foreign": "oboe",
+  "note": ""
+ },
+ {
+  "term": "오카리나",
+  "hanja": "",
+  "foreign": "ocarina",
+  "note": ""
+ },
+ {
+  "term": "오토하프",
+  "hanja": "",
+  "foreign": "autoharp",
+  "note": ""
+ },
+ {
+  "term": "우드블록",
+  "hanja": "",
+  "foreign": "wood bloc",
+  "note": ""
+ },
+ {
+  "term": "우쿨렐레",
+  "hanja": "",
+  "foreign": "ukulele",
+  "note": ""
+ },
+ {
+  "term": "유건 나팔/마개 나팔",
+  "hanja": "有鍵喇叭",
+  "foreign": "key bugle",
+  "note": ""
+ },
+ {
+  "term": "유포늄",
+  "hanja": "",
+  "foreign": "euphonium",
+  "note": ""
+ },
+ {
+  "term": "음판 악기",
+  "hanja": "音板樂器",
+  "foreign": "stabspiele",
+  "note": ""
+ },
+ {
+  "term": "잉글리시 호른",
+  "hanja": "",
+  "foreign": "English hor",
+  "note": ""
+ },
+ {
+  "term": "작은북",
+  "hanja": "",
+  "foreign": "side drum/",
+  "note": ""
+ },
+ {
+  "term": "재즈 기타",
+  "hanja": "",
+  "foreign": "jazz guitar",
+  "note": ""
+ },
+ {
+  "term": "전기 악기",
+  "hanja": "電氣樂器",
+  "foreign": "electric ins",
+  "note": ""
+ },
+ {
+  "term": "전자기타",
+  "hanja": "",
+  "foreign": "electronic",
+  "note": ""
+ },
+ {
+  "term": "전자 바이올린",
+  "hanja": "",
+  "foreign": "electric vio",
+  "note": ""
+ },
+ {
+  "term": "전자 악기",
+  "hanja": "電子樂器",
+  "foreign": "electronic i",
+  "note": ""
+ },
+ {
+  "term": "전자 오르간",
+  "hanja": "",
+  "foreign": "electronic",
+  "note": ""
+ },
+ {
+  "term": "줄받침",
+  "hanja": "",
+  "foreign": "bridge",
+  "note": ""
+ },
+ {
+  "term": "줄조이개",
+  "hanja": "",
+  "foreign": "peg",
+  "note": ""
+ },
+ {
+  "term": "차임/관종",
+  "hanja": "-/管鐘",
+  "foreign": "chime/Röbrenglocken",
+  "note": ""
+ },
+ {
+  "term": "첼레스타",
+  "hanja": "",
+  "foreign": "celesta",
+  "note": ""
+ },
+ {
+  "term": "첼로",
+  "hanja": "",
+  "foreign": "violoncello/cello",
+  "note": ""
+ },
+ {
+  "term": "쳄발로",
+  "hanja": "",
+  "foreign": "cembalo",
+  "note": ""
+ },
+ {
+  "term": "취구/마우스피스",
+  "hanja": "吹管/吹口",
+  "foreign": "mouthpiece",
+  "note": ""
+ },
+ {
+  "term": "치터",
+  "hanja": "",
+  "foreign": "Zither",
+  "note": ""
+ },
+ {
+  "term": "캄파나/종",
+  "hanja": "-/鐘",
+  "foreign": "campana",
+  "note": ""
+ },
+ {
+  "term": "캄파넬라/작은 종",
+  "hanja": "",
+  "foreign": "campanella",
+  "note": ""
+ },
+ {
+  "term": "캐스터네츠",
+  "hanja": "",
+  "foreign": "castanets",
+  "note": ""
+ },
+ {
+  "term": "코넷",
+  "hanja": "",
+  "foreign": "cornet",
+  "note": ""
+ },
+ {
+  "term": "큰북/베이스 드럼",
+  "hanja": "",
+  "foreign": "bass drum",
+  "note": ""
+ },
+ {
+  "term": "클라리넷",
+  "hanja": "",
+  "foreign": "clarinet",
+  "note": ""
+ },
+ {
+  "term": "클라비어",
+  "hanja": "",
+  "foreign": "Klavier",
+  "note": ""
+ },
+ {
+  "term": "클라비코드",
+  "hanja": "",
+  "foreign": "clavichord",
+  "note": ""
+ },
+ {
+  "term": "클래식 기타",
+  "hanja": "",
+  "foreign": "classic guitar",
+  "note": ""
+ },
+ {
+  "term": "키보드/건반",
+  "hanja": "-/鍵盤",
+  "foreign": "keyboard",
+  "note": ""
+ },
+ {
+  "term": "타악기",
+  "hanja": "打樂器",
+  "foreign": "percussion instrument",
+  "note": ""
+ },
+ {
+  "term": "탬버린",
+  "hanja": "",
+  "foreign": "tambourine/Schellentrommel",
+  "note": ""
+ },
+ {
+  "term": "테너 트롬본",
+  "hanja": "",
+  "foreign": "tenor trombone",
+  "note": ""
+ },
+ {
+  "term": "톰톰",
+  "hanja": "",
+  "foreign": "tom-tom",
+  "note": ""
+ },
+ {
+  "term": "튜바",
+  "hanja": "",
+  "foreign": "tuba",
+  "note": ""
+ },
+ {
+  "term": "트라이앵글",
+  "hanja": "",
+  "foreign": "triangle",
+  "note": ""
+ },
+ {
+  "term": "트럼펫",
+  "hanja": "",
+  "foreign": "trumpet",
+  "note": ""
+ },
+ {
+  "term": "트롬본",
+  "hanja": "",
+  "foreign": "trombone",
+  "note": ""
+ },
+ {
+  "term": "팀파니",
+  "hanja": "",
+  "foreign": "timpani/Pauken",
+  "note": ""
+ },
+ {
+  "term": "파이프 오르간",
+  "hanja": "",
+  "foreign": "pipe organ",
+  "note": ""
+ },
+ {
+  "term": "페달 팀파니",
+  "hanja": "",
+  "foreign": "pedal timpani",
+  "note": ""
+ },
+ {
+  "term": "포크 기타",
+  "hanja": "",
+  "foreign": "folk guitar",
+  "note": ""
+ },
+ {
+  "term": "프렌치 호른",
+  "hanja": "",
+  "foreign": "French horn",
+  "note": ""
+ },
+ {
+  "term": "플루트",
+  "hanja": "",
+  "foreign": "flute",
+  "note": ""
+ },
+ {
+  "term": "피아노",
+  "hanja": "",
+  "foreign": "pianoforte",
+  "note": ""
+ },
+ {
+  "term": "피치 파이프",
+  "hanja": "pitch pipe",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "피콜로",
+  "hanja": "piccolo/octave",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "하모니카",
+  "hanja": "harmonica",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "하와이안 기타",
+  "hanja": "Hawaiian guita",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "하프",
+  "hanja": "harp/arpa",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "하프시코드",
+  "hanja": "harpsichord",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "해먼드 오르간",
+  "hanja": "Hammond org",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "핸드벨",
+  "hanja": "handbell",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "현악기 絃樂器",
+  "hanja": "string instrum",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "호른",
+  "hanja": "Horn",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "혼파이프",
+  "hanja": "hornpipe",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "회전 팀파니",
+  "hanja": "Drepauke",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "갈리쿠르치",
+  "hanja": "Galli-Curci, Ameli",
+  "foreign": "ta",
+  "note": "이탈리아"
+ },
+ {
+  "term": "거슈윈",
+  "hanja": "Gershwin, George",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "고다르",
+  "hanja": "Godard, Benjamin",
+  "foreign": "Louis Paul",
+  "note": "프랑스"
+ },
+ {
+  "term": "고세크",
+  "hanja": "Gossec, François",
+  "foreign": "Joseph",
+  "note": "프랑스"
+ },
+ {
+  "term": "구노",
+  "hanja": "Gounod, CharlesGoodman, Benny",
+  "foreign": "François Benjamin",
+  "note": "프랑스"
+ },
+ {
+  "term": "굿맨",
+  "hanja": "David",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "귀도 다레초",
+  "hanja": "Guido, d'Arezzo",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "그로페",
+  "hanja": "Grofé, Ferde",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "그리그",
+  "hanja": "Grieg, Edvard Ha",
+  "foreign": "gerup",
+  "note": "노르웨이"
+ },
+ {
+  "term": "글라스",
+  "hanja": "Glass, Philip Morr",
+  "foreign": "is",
+  "note": "미국"
+ },
+ {
+  "term": "글루크",
+  "hanja": "Gluck, Christoph",
+  "foreign": "Willibald",
+  "note": "독일"
+ },
+ {
+  "term": "글린카",
+  "hanja": "Glinka, Mikhail Iva",
+  "foreign": "novich",
+  "note": "러시아"
+ },
+ {
+  "term": "기제킹",
+  "hanja": "Gieseking, Walter",
+  "foreign": "Wilhelm",
+  "note": "독일"
+ },
+ {
+  "term": "네겔리",
+  "hanja": "Nägeli, Hans Geo",
+  "foreign": "rg",
+  "note": "스위스"
+ },
+ {
+  "term": "니콜라이",
+  "hanja": "Nicolai, Carl Otto",
+  "foreign": "Ehrenfried",
+  "note": "독일"
+ },
+ {
+  "term": "던스터블",
+  "hanja": "Dunstable, John",
+  "foreign": "",
+  "note": "영국"
+ },
+ {
+  "term": "데무스",
+  "hanja": "Demus, Jörg",
+  "foreign": "",
+  "note": "오스트리아"
+ },
+ {
+  "term": "도니체티",
+  "hanja": "Donizetti, Gaetano",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "드리고",
+  "hanja": "Drigo, Riccardo",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "드보르자크",
+  "hanja": "Dvořák, Antonín",
+  "foreign": "",
+  "note": "체코"
+ },
+ {
+  "term": "드뷔시",
+  "hanja": "Debussy, Claudebelli, Anton",
+  "foreign": "Achille",
+  "note": "프랑스오스트리아"
+ },
+ {
+  "term": "디아벨리",
+  "hanja": "Dia",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "라모",
+  "hanja": "Rameau, Jean Ph",
+  "foreign": "ilippe",
+  "note": "프랑스"
+ },
+ {
+  "term": "라벨",
+  "hanja": "Ravel, Joseph Ma",
+  "foreign": "urice",
+  "note": "프랑스"
+ },
+ {
+  "term": "라소",
+  "hanja": "Lasso, Orlando di",
+  "foreign": "",
+  "note": "네덜란드"
+ },
+ {
+  "term": "라이시",
+  "hanja": "Reich, Steve",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "라일리",
+  "hanja": "Riley, Terry",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "라흐마니노프",
+  "hanja": "Vasil’evich",
+  "foreign": "러시아",
+  "note": "1873∼1943(작곡가)"
+ },
+ {
+  "term": "란자",
+  "hanja": "Lanza, Mario",
+  "foreign": "미국",
+  "note": "1921∼1959(테너 가"
+ },
+ {
+  "term": "랄로",
+  "hanja": "Lalo, Édouard Victor Antoine",
+  "foreign": "프랑스",
+  "note": "1823∼1892(작곡가)"
+ },
+ {
+  "term": "레거",
+  "hanja": "Reger, Max",
+  "foreign": "독일",
+  "note": "1873∼1916(작곡가)"
+ },
+ {
+  "term": "레스피기",
+  "hanja": "Respighi, Ottorino",
+  "foreign": "이탈리아",
+  "note": "1879∼1936(작곡가)"
+ },
+ {
+  "term": "레오냉/",
+  "hanja": "Léonin/Leoninus",
+  "foreign": "프랑스",
+  "note": "1135~1201(작곡가)"
+ },
+ {
+  "term": "레오니우스",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "레온카발로",
+  "hanja": "Leoncavallo, Ruggiero",
+  "foreign": "이탈리아",
+  "note": "1857∼1919(작곡가)"
+ },
+ {
+  "term": "레하르",
+  "hanja": "Lehár, Franz",
+  "foreign": "헝가리",
+  "note": "1870∼1948(작곡가)"
+ },
+ {
+  "term": "로르칭",
+  "hanja": "Lortzing, Albert",
+  "foreign": "독일",
+  "note": "1801∼1851(작곡가)"
+ },
+ {
+  "term": "로시니",
+  "hanja": "Rossini, Gioacchino Antonio",
+  "foreign": "이탈리아",
+  "note": "1792∼1868(작곡가)"
+ },
+ {
+  "term": "로사스",
+  "hanja": "Rosas, Juventino",
+  "foreign": "멕시코",
+  "note": "1868∼1894(작곡가)"
+ },
+ {
+  "term": "로젠스톡",
+  "hanja": "Rosenstock, Joseph",
+  "foreign": "폴란드→미국",
+  "note": "1895∼1985(지휘자)"
+ },
+ {
+  "term": "로진스키",
+  "hanja": "Rodzinski, Artur",
+  "foreign": "폴란드→미국",
+  "note": "1892∼1958(지휘자)"
+ },
+ {
+  "term": "로파르츠",
+  "hanja": "Ropartz, Joseph Guy Marie",
+  "foreign": "프랑스",
+  "note": "1864∼1955(작곡가)"
+ },
+ {
+  "term": "뢰베",
+  "hanja": "Loewe, Johann Carl Gottfried",
+  "foreign": "독일",
+  "note": "1796∼1869(작곡가)"
+ },
+ {
+  "term": "루빈스타인(아르",
+  "hanja": "Rubinstein, Artur",
+  "foreign": "폴란드→미국",
+  "note": "1887∼1982(피아노"
+ },
+ {
+  "term": "투르)",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "루빈스타인(안톤)",
+  "hanja": "Rubinstein, Anton",
+  "foreign": "러시아",
+  "note": "1829∼1894(작곡가)"
+ },
+ {
+  "term": "뤼베크",
+  "hanja": "Lübeck, Vincent",
+  "foreign": "독일 이탈리아→",
+  "note": "1654∼1740(작곡가)"
+ },
+ {
+  "term": "륄리",
+  "hanja": "Lully, Jean Baptiste",
+  "foreign": "프랑스",
+  "note": "1632∼1687(작곡가)1811∼1886(작곡가,"
+ },
+ {
+  "term": "리스트",
+  "hanja": "Liszt, FranzRimsky-Korsakov, Nikolay",
+  "foreign": "헝가리",
+  "note": "주가)"
+ },
+ {
+  "term": "림스키코르사코프",
+  "hanja": "AndreyevichMarchesi de Castrone,",
+  "foreign": "러시아",
+  "note": "1844∼1908(작곡가)"
+ },
+ {
+  "term": "마르케지",
+  "hanja": "Mathilde",
+  "foreign": "독일",
+  "note": "1821∼1913(성악가,"
+ },
+ {
+  "term": "마르티니(조반니)",
+  "hanja": "Martini, Giovanni Battista",
+  "foreign": "이탈리아",
+  "note": "1706∼1784(작곡가)"
+ },
+ {
+  "term": "마르티니(장 폴)",
+  "hanja": "Martini, Jean Paul Égide",
+  "foreign": "독일",
+  "note": "1741∼1816(작곡가)"
+ },
+ {
+  "term": "마리",
+  "hanja": "Marie, GabrielMassenet, Jules Émile",
+  "foreign": "프랑스",
+  "note": "1852∼1928(작곡가)"
+ },
+ {
+  "term": "마스네",
+  "hanja": "Frédéric",
+  "foreign": "프랑스",
+  "note": "1842∼1912(작곡가)"
+ },
+ {
+  "term": "마스카니",
+  "hanja": "Mascagni, Pietro",
+  "foreign": "이탈리아",
+  "note": "1863∼1945(작곡가)"
+ },
+ {
+  "term": "마이어베어",
+  "hanja": "Meyerbeer, Giacomo",
+  "foreign": "독일",
+  "note": "1791∼1864(작곡가)"
+ },
+ {
+  "term": "말러",
+  "hanja": "Mahler, Gustav",
+  "foreign": "오스트리아",
+  "note": "1860∼1911(작곡가)"
+ },
+ {
+  "term": "매코맥",
+  "hanja": "McCormack, John",
+  "foreign": "영국",
+  "note": "1884∼1945(테너 가수)"
+ },
+ {
+  "term": "맥다월",
+  "hanja": "MacDowell, Edward Alexander",
+  "foreign": "미국",
+  "note": "1861∼1908(작곡가)1916∼1999(바이올린 연"
+ },
+ {
+  "term": "메뉴인",
+  "hanja": "Menuhin, Yehudi",
+  "foreign": "미국",
+  "note": "지휘자)"
+ },
+ {
+  "term": "메시앙",
+  "hanja": "Messiaen, OlivierMendelssohn-Bartholdy,",
+  "foreign": "프랑스",
+  "note": "1908~1992(작곡가, 오르간"
+ },
+ {
+  "term": "멘델스존",
+  "hanja": "Jakob Ludwig Felix",
+  "foreign": "독일",
+  "note": "1809∼1847(작곡가)"
+ },
+ {
+  "term": "멜바",
+  "hanja": "Melba, Nellie",
+  "foreign": "오스트레일리아",
+  "note": "1861∼1931(소프라노 가"
+ },
+ {
+  "term": "멜첼",
+  "hanja": "Mälzel Johann Nepomuk",
+  "foreign": "독일",
+  "note": "1772∼1838(발명가)"
+ },
+ {
+  "term": "모차르트",
+  "hanja": "Mozart, Wolfgang Amadeus",
+  "foreign": "오스트리아 독일→",
+  "note": "1756∼1791(작곡가)"
+ },
+ {
+  "term": "모차르트(레오폴트)",
+  "hanja": "Mozart, Leopold",
+  "foreign": "오스트리아",
+  "note": "1719∼1787(작곡가)"
+ },
+ {
+  "term": "몬테베르디",
+  "hanja": "Monteverdi, Claudio",
+  "foreign": "이탈리아",
+  "note": "1567∼1643(작곡가)"
+ },
+ {
+  "term": "몽퇴",
+  "hanja": "Monteux, Pierre",
+  "foreign": "프랑스→미국",
+  "note": "1875∼1964(지휘자)"
+ },
+ {
+  "term": "무소륵스키",
+  "hanja": "Musorgskii, Modest Petrovich",
+  "foreign": "러시아",
+  "note": "1839∼1881(작곡가)1899∼1987(피아노 연주"
+ },
+ {
+  "term": "무어",
+  "hanja": "Moore, Gerald",
+  "foreign": "영국",
+  "note": "아노 반주자)"
+ },
+ {
+  "term": "뮌슈",
+  "hanja": "Münch, Charles",
+  "foreign": "프랑스",
+  "note": "1891∼1968(지휘자)"
+ },
+ {
+  "term": "뮐러하르트만",
+  "hanja": "Müller-Hartmann, Robert",
+  "foreign": "독일",
+  "note": "1884∼1950(작곡가, 교사,"
+ },
+ {
+  "term": "미하엘리스",
+  "hanja": "Michaelis, Theodor",
+  "foreign": "독일",
+  "note": "1831∼1887(작곡가)"
+ },
+ {
+  "term": "바그너",
+  "hanja": "Wagner, Wilhelm Richard",
+  "foreign": "독일",
+  "note": "1813∼1883(작곡가)"
+ },
+ {
+  "term": "바레즈",
+  "hanja": "Varèse, Edgar",
+  "foreign": "프랑스→미국",
+  "note": "1883∼1965(작곡가, 지휘1881∼1945(작곡가, 피아"
+ },
+ {
+  "term": "버르토크",
+  "hanja": "Bartók, Béla",
+  "foreign": "헝가리",
+  "note": "주가)"
+ },
+ {
+  "term": "바버",
+  "hanja": "Barber, Samuel",
+  "foreign": "미국",
+  "note": "1910~1981(작곡가)"
+ },
+ {
+  "term": "바인가르트너",
+  "hanja": "Weingartner, Felix",
+  "foreign": "오스트리아",
+  "note": "1863∼1942(지휘자)"
+ },
+ {
+  "term": "바흐",
+  "hanja": "Bach, Johann Sebastian",
+  "foreign": "독일",
+  "note": "1685∼1750(작곡가)"
+ },
+ {
+  "term": "박하우스",
+  "hanja": "Backhaus, Wilhelm",
+  "foreign": "독일→스위스",
+  "note": "1884∼1969(피아노 연주"
+ },
+ {
+  "term": "발라키레프",
+  "hanja": "Balakirev, Mily Alekseevich",
+  "foreign": "러시아",
+  "note": "1837∼1910(작곡가)"
+ },
+ {
+  "term": "발렌티니",
+  "hanja": "Valentini, Giuseppe",
+  "foreign": "이탈리아",
+  "note": "1681∼1759(작곡가)"
+ },
+ {
+  "term": "한글 표기",
+  "hanja": "",
+  "foreign": "원어명",
+  "note": "국적"
+ },
+ {
+  "term": "발터",
+  "hanja": "Walter, Brun",
+  "foreign": "o",
+  "note": "독일→미국"
+ },
+ {
+  "term": "발퇴펠",
+  "hanja": "Waldteufel,",
+  "foreign": "Émile",
+  "note": "프랑스"
+ },
+ {
+  "term": "밸프",
+  "hanja": "Balfe, Micha",
+  "foreign": "el William",
+  "note": "아일랜드"
+ },
+ {
+  "term": "버드",
+  "hanja": "Byrd, Willia",
+  "foreign": "m",
+  "note": "영국"
+ },
+ {
+  "term": "번스타인",
+  "hanja": "Bernstein, L",
+  "foreign": "eonard",
+  "note": "미국"
+ },
+ {
+  "term": "베니딕트",
+  "hanja": "Benedict, Si",
+  "foreign": "r Julius",
+  "note": "영국"
+ },
+ {
+  "term": "베르너",
+  "hanja": "Werner, HeiVerdi, Giuse",
+  "foreign": "nrich ppe Fortunino",
+  "note": "독일"
+ },
+ {
+  "term": "베르디",
+  "hanja": "Francesco",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "베르크",
+  "hanja": "Berg, Alban",
+  "foreign": "Maria Johannes",
+  "note": "오스트리아"
+ },
+ {
+  "term": "베를리오즈",
+  "hanja": "Berlioz, HecWeber, Carl",
+  "foreign": "tor Maria Friedrich",
+  "note": "프랑스"
+ },
+ {
+  "term": "베버",
+  "hanja": "Ernst vonWebern, An",
+  "foreign": "ton Friedrich",
+  "note": "독일"
+ },
+ {
+  "term": "베베른",
+  "hanja": "Wilhelm von",
+  "foreign": "",
+  "note": "오스트리아"
+ },
+ {
+  "term": "베일리",
+  "hanja": "Bayly, Thom",
+  "foreign": "as Haynes",
+  "note": "영국"
+ },
+ {
+  "term": "베토벤",
+  "hanja": "Beethoven,",
+  "foreign": "Ludwig van",
+  "note": "독일"
+ },
+ {
+  "term": "벤저민",
+  "hanja": "Benjamin, A",
+  "foreign": "rthur",
+  "note": "호주"
+ },
+ {
+  "term": "벨리니",
+  "hanja": "Bellini, Vinc",
+  "foreign": "enzo",
+  "note": "이탈리아"
+ },
+ {
+  "term": "보로딘",
+  "hanja": "Borodin, Alek",
+  "foreign": "sandr Porfiryevich",
+  "note": "러시아"
+ },
+ {
+  "term": "보케리니",
+  "hanja": "Boccherini,",
+  "foreign": "Luigi",
+  "note": "이탈리아"
+ },
+ {
+  "term": "볼프",
+  "hanja": "Wolf, Hugo",
+  "foreign": "Philipp Jakob",
+  "note": "오스트리아"
+ },
+ {
+  "term": "부르크뮐러",
+  "hanja": "Burgmüller,",
+  "foreign": "Norbert",
+  "note": "독일"
+ },
+ {
+  "term": "북스테후데",
+  "hanja": "Buxtehude,",
+  "foreign": "Dietrich",
+  "note": "독일"
+ },
+ {
+  "term": "불레즈",
+  "hanja": "Boulez, Pier",
+  "foreign": "re",
+  "note": "프랑스"
+ },
+ {
+  "term": "브람스",
+  "hanja": "Brahms, Joh",
+  "foreign": "annes",
+  "note": "독일"
+ },
+ {
+  "term": "브루크너",
+  "hanja": "Bruckner, Jo",
+  "foreign": "sef Anton",
+  "note": "오스트리아"
+ },
+ {
+  "term": "브루흐",
+  "hanja": "Bruch, Max",
+  "foreign": "Karl August",
+  "note": "독일"
+ },
+ {
+  "term": "브리튼",
+  "hanja": "Britten, Edw",
+  "foreign": "ard Benjamin",
+  "note": "영국"
+ },
+ {
+  "term": "비발디",
+  "hanja": "Vivaldi, Antoni",
+  "foreign": "o Lucio",
+  "note": "이탈리아"
+ },
+ {
+  "term": "비숍",
+  "hanja": "Bishop, Sir He",
+  "foreign": "nry Rowley",
+  "note": "영국"
+ },
+ {
+  "term": "비엘링",
+  "hanja": "Björling, Jussi",
+  "foreign": "",
+  "note": "스웨덴"
+ },
+ {
+  "term": "비제",
+  "hanja": "Bizet, Georges",
+  "foreign": "",
+  "note": "프랑스"
+ },
+ {
+  "term": "비첨",
+  "hanja": "Beecham, Sir",
+  "foreign": "Thomas",
+  "note": "영국"
+ },
+ {
+  "term": "빌라로부스",
+  "hanja": "Villa-Lobos, H",
+  "foreign": "eitor",
+  "note": "브라질"
+ },
+ {
+  "term": "사라사테",
+  "hanja": "Sarasate, Pabl",
+  "foreign": "o de",
+  "note": "에스파냐"
+ },
+ {
+  "term": "사티",
+  "hanja": "Satie, Éric Alfr",
+  "foreign": "ed Leslie",
+  "note": "프랑스"
+ },
+ {
+  "term": "살리에리",
+  "hanja": "Salieri, Antonio",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "생상스",
+  "hanja": "Saint-Saëns, C",
+  "foreign": "harles Camille",
+  "note": "프랑스"
+ },
+ {
+  "term": "샬랴핀",
+  "hanja": "Chaliapin, Fyo",
+  "foreign": "dor Ivanovitah",
+  "note": "러시아"
+ },
+ {
+  "term": "세고비아",
+  "hanja": "Segovia, Andr",
+  "foreign": "és",
+  "note": "에스파냐"
+ },
+ {
+  "term": "셰링",
+  "hanja": "Szeryng, Henr",
+  "foreign": "yk",
+  "note": "멕시코오스트리아→"
+ },
+ {
+  "term": "쇤베르크",
+  "hanja": "Schönberg, Ar",
+  "foreign": "nold",
+  "note": "미국"
+ },
+ {
+  "term": "쇼송",
+  "hanja": "Chausson, ErnShostakovich,",
+  "foreign": "est Dmitry/",
+  "note": "프랑스"
+ },
+ {
+  "term": "쇼스타코비치",
+  "hanja": "Dmitri Dmitriy",
+  "foreign": "evich",
+  "note": "러시아"
+ },
+ {
+  "term": "쇼팽",
+  "hanja": "Chopin, Frédér",
+  "foreign": "ic François",
+  "note": "폴란드"
+ },
+ {
+  "term": "숄티",
+  "hanja": "Solti, Sir Geor",
+  "foreign": "g",
+  "note": "헝가리→영국"
+ },
+ {
+  "term": "수자",
+  "hanja": "Sousa, John P",
+  "foreign": "hilip",
+  "note": "미국"
+ },
+ {
+  "term": "쉥크",
+  "hanja": "Schenk, Johan",
+  "foreign": "n Baptist",
+  "note": "오스트리아"
+ },
+ {
+  "term": "슈나벨",
+  "hanja": "Schnabel, Artu",
+  "foreign": "r",
+  "note": "오스트리아"
+ },
+ {
+  "term": "슈만(로베르트)",
+  "hanja": "Schumann, Ro",
+  "foreign": "bert Alexander",
+  "note": "독일"
+ },
+ {
+  "term": "슈만(클라라)",
+  "hanja": "Schumann, Cla",
+  "foreign": "ra Josephine",
+  "note": "독일"
+ },
+ {
+  "term": "슈바이처",
+  "hanja": "Schweitzer, Al",
+  "foreign": "bert",
+  "note": "독일"
+ },
+ {
+  "term": "슈베르트",
+  "hanja": "Schubert, Franz",
+  "foreign": "Peter",
+  "note": "오스트리아"
+ },
+ {
+  "term": "슈토크하우젠",
+  "hanja": "Stockhausen, Ka",
+  "foreign": "rlheinz",
+  "note": "독일"
+ },
+ {
+  "term": "슈트라우스",
+  "hanja": "Straus, Oskar",
+  "foreign": "",
+  "note": "오스트리아"
+ },
+ {
+  "term": "슈트라우스(리하",
+  "hanja": "Strauss, Richard",
+  "foreign": "Georg",
+  "note": "독일"
+ },
+ {
+  "term": "르트)",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "슈트라우스(요한)",
+  "hanja": "Strauss, Johann",
+  "foreign": "",
+  "note": "오스트리아"
+ },
+ {
+  "term": "Ⅱ세",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "I세",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "스메타나",
+  "hanja": "Smetana, Bedřic",
+  "foreign": "h",
+  "note": "체코"
+ },
+ {
+  "term": "스카를라티",
+  "hanja": "Scarlatti, Alessa",
+  "foreign": "ndro",
+  "note": "이탈리아"
+ },
+ {
+  "term": "스크랴빈",
+  "hanja": "Skryabin, Aleksan",
+  "foreign": "dr Nikolaevich",
+  "note": "러시아"
+ },
+ {
+  "term": "스키파",
+  "hanja": "Schipa, Tito",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "스타커",
+  "hanja": "Starker, János",
+  "foreign": "",
+  "note": "헝가리→미국우크라이나→"
+ },
+ {
+  "term": "스턴",
+  "hanja": "Stern, Isaac",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "스테파노",
+  "hanja": "Stefano, GiusepStokowski, Leop",
+  "foreign": "pe di old Antoni",
+  "note": "이탈리아"
+ },
+ {
+  "term": "스토코프스키",
+  "hanja": "Stanislaw Bolesl",
+  "foreign": "awowicz",
+  "note": "영국→미국"
+ },
+ {
+  "term": "스트라디바리",
+  "hanja": "Stradivari, Anton",
+  "foreign": "io",
+  "note": "이탈리아"
+ },
+ {
+  "term": "스트라빈스키",
+  "hanja": "Stravinsky, Igor",
+  "foreign": "Fyodorovich",
+  "note": "러시아→미국"
+ },
+ {
+  "term": "시게티",
+  "hanja": "Szigeti, Joseph",
+  "foreign": "",
+  "note": "헝가리→미국"
+ },
+ {
+  "term": "시마노프스키",
+  "hanja": "Szymanowski, K",
+  "foreign": "arol",
+  "note": "폴란드"
+ },
+ {
+  "term": "시벨리우스",
+  "hanja": "Sibelius, Jean",
+  "foreign": "",
+  "note": "핀란드"
+ },
+ {
+  "term": "아농",
+  "hanja": "Hanon, Charles",
+  "foreign": "Louis",
+  "note": "프랑스"
+ },
+ {
+  "term": "아벤트로트",
+  "hanja": "Abendroth, Her",
+  "foreign": "mann",
+  "note": "독일"
+ },
+ {
+  "term": "아벨",
+  "hanja": "Abel, Karl Friedr",
+  "foreign": "ich",
+  "note": "독일"
+ },
+ {
+  "term": "아이브스",
+  "hanja": "Ives, Charles Ed",
+  "foreign": "ward",
+  "note": "미국"
+ },
+ {
+  "term": "아일렌베르크",
+  "hanja": "Eilenberg, Richa",
+  "foreign": "rd",
+  "note": "독일"
+ },
+ {
+  "term": "알랭",
+  "hanja": "Alain, Marie-Cla",
+  "foreign": "ire",
+  "note": "프랑스"
+ },
+ {
+  "term": "알비노니",
+  "hanja": "Albinoni, Tomas",
+  "foreign": "o Giovanni",
+  "note": "이탈리아"
+ },
+ {
+  "term": "암스트롱(루이)",
+  "hanja": "Armstrong, Loui",
+  "foreign": "s Daniel",
+  "note": "미국"
+ },
+ {
+  "term": "앙트르몽",
+  "hanja": "Entremont, Philippe",
+  "foreign": "프랑스",
+  "note": "1934∼ (피아노 연주가"
+ },
+ {
+  "term": "앤더슨(리로이)",
+  "hanja": "Anderson, Leroy",
+  "foreign": "미국",
+  "note": "1908∼1975(작곡가, 지"
+ },
+ {
+  "term": "앤더슨(메리언)",
+  "hanja": "Anderson, Marian",
+  "foreign": "미국",
+  "note": "1897-1993(알토 가수)"
+ },
+ {
+  "term": "에네스코",
+  "hanja": "Enesco, Georges",
+  "foreign": "루마니아",
+  "note": "1881∼1955(작곡가)"
+ },
+ {
+  "term": "엘가",
+  "hanja": "Elgar, Edward William",
+  "foreign": "영국",
+  "note": "1857∼1934(작곡가)"
+ },
+ {
+  "term": "옌젠",
+  "hanja": "Jensen, Adolf",
+  "foreign": "독일",
+  "note": "1837∼1879(작곡가)"
+ },
+ {
+  "term": "오르먼디",
+  "hanja": "Ormandy, Eugene",
+  "foreign": "헝가리→미국",
+  "note": "1899∼1985(지휘자)"
+ },
+ {
+  "term": "오르트",
+  "hanja": "Orth, Charles",
+  "foreign": "미국",
+  "note": "1867-1921(작곡가)"
+ },
+ {
+  "term": "오르프",
+  "hanja": "Orff, Carl",
+  "foreign": "독일",
+  "note": "1895∼1982(작곡가, 음"
+ },
+ {
+  "term": "오케겜",
+  "hanja": "Ockeghem, Johannes",
+  "foreign": "네덜란드",
+  "note": "1410∼1497(작곡가)"
+ },
+ {
+  "term": "오펜바흐",
+  "hanja": "Offenbach, Jacques",
+  "foreign": "독일→프랑스",
+  "note": "1819∼1880(작곡가)"
+ },
+ {
+  "term": "요나손",
+  "hanja": "Jonasson, Johan Emanuel",
+  "foreign": "스웨덴 헝가리→",
+  "note": "1886∼1956(작곡가)"
+ },
+ {
+  "term": "요아힘",
+  "hanja": "Joachim, Joseph",
+  "foreign": "오스트리아 이탈리아→",
+  "note": "1831∼1907(바이올린1886∼1943(작곡가, 오"
+ },
+ {
+  "term": "윌리엄스",
+  "hanja": "Williams, Ralph Vaughan",
+  "foreign": "영국",
+  "note": "1872∼1958(작곡가)"
+ },
+ {
+  "term": "이라디에르",
+  "hanja": "Yradier, Sebastián",
+  "foreign": "에스파냐",
+  "note": "1809∼1865(작곡가)"
+ },
+ {
+  "term": "이바노비치",
+  "hanja": "Ivanovici, Iosif",
+  "foreign": "루마니아",
+  "note": "1845∼1902(작곡가)"
+ },
+ {
+  "term": "이자이",
+  "hanja": "Ysaÿe, Eugène Auguste",
+  "foreign": "벨기에",
+  "note": "1858∼1931(바이올린"
+ },
+ {
+  "term": "작스",
+  "hanja": "Sachs, HansRudolf",
+  "foreign": "독일 오스트리아→",
+  "note": "1494∼1576(작곡가)"
+ },
+ {
+  "term": "제르킨",
+  "hanja": "Serkin,",
+  "foreign": "미국",
+  "note": "1903∼1991(피아노 연"
+ },
+ {
+  "term": "조르다니",
+  "hanja": "Giordani, Giuseppe",
+  "foreign": "이탈리아",
+  "note": "1751∼1798(작곡가)"
+ },
+ {
+  "term": "조스캥",
+  "hanja": "Josquin des Prez",
+  "foreign": "프랑스",
+  "note": "1440경∼1521(작곡가)1868∼1917(작곡가, 래"
+ },
+ {
+  "term": "조플린",
+  "hanja": "Joplin, Scott",
+  "foreign": "미국",
+  "note": "연주가)"
+ },
+ {
+  "term": "주페",
+  "hanja": "Suppé, Franz von",
+  "foreign": "오스트리아",
+  "note": "1819∼1895(작곡가)"
+ },
+ {
+  "term": "질리",
+  "hanja": "Gigli, Beniamino",
+  "foreign": "이탈리아",
+  "note": "1890∼1957(테너 가수"
+ },
+ {
+  "term": "질허",
+  "hanja": "Silcher, Friedrich",
+  "foreign": "독일",
+  "note": "1789∼1860(작곡가)"
+ },
+ {
+  "term": "짐발리스트",
+  "hanja": "Zimbalist, Efrem",
+  "foreign": "러시아→미국",
+  "note": "1889∼1985(바이올린"
+ },
+ {
+  "term": "차이콥스키",
+  "hanja": "Tchaikovsky, Pyotr Il’ich",
+  "foreign": "러시아",
+  "note": "1840∼1893(작곡가)"
+ },
+ {
+  "term": "체르니",
+  "hanja": "Czerny, Karl",
+  "foreign": "",
+  "note": "오스트리아"
+ },
+ {
+  "term": "칠레아",
+  "hanja": "Cilea, Francesco",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "카라얀",
+  "hanja": "Karajan, Herbert",
+  "foreign": "von",
+  "note": "오스트리아"
+ },
+ {
+  "term": "카루소",
+  "hanja": "Caruso, Enrico",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "카베손",
+  "hanja": "Cabezón, Antonio",
+  "foreign": "de",
+  "note": "에스파냐"
+ },
+ {
+  "term": "카월",
+  "hanja": "Cowell, Henry",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "카살스",
+  "hanja": "Casals, Pablo",
+  "foreign": "",
+  "note": "에스파냐"
+ },
+ {
+  "term": "칼라스",
+  "hanja": "Callas, Maria",
+  "foreign": "",
+  "note": "미국→그리스"
+ },
+ {
+  "term": "칼만",
+  "hanja": "Kálmán, Emmeric",
+  "foreign": "h",
+  "note": "헝가리"
+ },
+ {
+  "term": "캉프라",
+  "hanja": "Campra, AndréCherubini, Maria",
+  "foreign": "Luigi Carlo",
+  "note": "프랑스"
+ },
+ {
+  "term": "케루비니",
+  "hanja": "Zenobio Salvator",
+  "foreign": "e",
+  "note": "이탈리아"
+ },
+ {
+  "term": "케이지",
+  "hanja": "Cage, John",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "케텔비",
+  "hanja": "Ketèlbey, Albert",
+  "foreign": "William",
+  "note": "영국"
+ },
+ {
+  "term": "코다이",
+  "hanja": "Kodály, Zoltán",
+  "foreign": "",
+  "note": "헝가리"
+ },
+ {
+  "term": "코렐리",
+  "hanja": "Corelli, Arcangelo",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "코플런드",
+  "hanja": "Copland, Aaron",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "콘코네",
+  "hanja": "Concone, GiusepKöchel, Ludwig A",
+  "foreign": "pe lois Ferdinand",
+  "note": "이탈리아"
+ },
+ {
+  "term": "쾨헬",
+  "hanja": "von Ritter",
+  "foreign": "",
+  "note": "오스트리아오스트리아→"
+ },
+ {
+  "term": "쿠르트",
+  "hanja": "Kurth, Ernst",
+  "foreign": "",
+  "note": "스위스"
+ },
+ {
+  "term": "쿠세비츠키",
+  "hanja": "Koussevitzky, Se",
+  "foreign": "rgei",
+  "note": "러시아→미국"
+ },
+ {
+  "term": "쿠프랭",
+  "hanja": "Couperin, Franço",
+  "foreign": "is",
+  "note": "프랑스"
+ },
+ {
+  "term": "큐이",
+  "hanja": "Cui, César Anton",
+  "foreign": "ovitch",
+  "note": "러시아오스트리아→"
+ },
+ {
+  "term": "크라이슬러",
+  "hanja": "Kreisler, Fritz",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "크반츠",
+  "hanja": "Quantz, Johann",
+  "foreign": "Joachim",
+  "note": "독일"
+ },
+ {
+  "term": "크세나키스",
+  "hanja": "Xenakis, Yannis",
+  "foreign": "",
+  "note": "그리스"
+ },
+ {
+  "term": "클라이번",
+  "hanja": "Cliburn, Van",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "클레멘티",
+  "hanja": "Clementi, Muzio",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "22 개정 교육과정에 따",
+  "hanja": "른 교과용도서 개발을 위한 편",
+  "foreign": "수자료 Ⅱ- 인문",
+  "note": "‧사회과학/체육‧음"
+ },
+ {
+  "term": "타레가",
+  "hanja": "Tárrega, Francisco",
+  "foreign": "",
+  "note": "에스파냐"
+ },
+ {
+  "term": "타르티니",
+  "hanja": "Tartini, Giuseppe",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "타우베르트",
+  "hanja": "Taubert, Karl Gottfried",
+  "foreign": "Wilhelm",
+  "note": "독일"
+ },
+ {
+  "term": "탈리아비니",
+  "hanja": "Tagliavini, Ferruccio",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "터커",
+  "hanja": "Tucker, Richard",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "테발디",
+  "hanja": "Tebaldi, Renata",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "텔레만",
+  "hanja": "Telemann, Georg Phili",
+  "foreign": "pp",
+  "note": "독일"
+ },
+ {
+  "term": "토렐리",
+  "hanja": "Torelli, GiuseppeThomas, Charles Louis",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "토마",
+  "hanja": "Ambroise",
+  "foreign": "",
+  "note": "프랑스"
+ },
+ {
+  "term": "토셀리",
+  "hanja": "Toselli, Enrico",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "토스카니니",
+  "hanja": "Toscanini, Arturo",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "토스티",
+  "hanja": "Tosti, Francesco Paolo",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "파가니니",
+  "hanja": "Paganini, Niccolò",
+  "foreign": "",
+  "note": "이탈리아"
+ },
+ {
+  "term": "파데레프스키",
+  "hanja": "Paderewski, Ignacy Ja",
+  "foreign": "n",
+  "note": "폴란드"
+ },
+ {
+  "term": "파야",
+  "hanja": "Falla, Manuel de",
+  "foreign": "",
+  "note": "에스파냐"
+ },
+ {
+  "term": "파헬벨",
+  "hanja": "Pachelbel, Johann",
+  "foreign": "",
+  "note": "독일"
+ },
+ {
+  "term": "팔레스트리나",
+  "hanja": "Palestrina, Giovanni Pie",
+  "foreign": "rluigi da",
+  "note": "이탈리아"
+ },
+ {
+  "term": "패르트",
+  "hanja": "Pärt, Arvo",
+  "foreign": "",
+  "note": "에스토니아"
+ },
+ {
+  "term": "퍼셀",
+  "hanja": "Purcell, Henry",
+  "foreign": "",
+  "note": "영국"
+ },
+ {
+  "term": "페로탱/",
+  "hanja": "Pérotin/Perotinus",
+  "foreign": "",
+  "note": "프랑스"
+ },
+ {
+  "term": "페로티누스",
+  "hanja": "",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "페르골레시",
+  "hanja": "Pergolesi, Giovanni Ba",
+  "foreign": "ttista",
+  "note": "이탈리아"
+ },
+ {
+  "term": "페르난데스",
+  "hanja": "Fernández, Oscar Lore",
+  "foreign": "nzo",
+  "note": "브라질"
+ },
+ {
+  "term": "펜데레츠키",
+  "hanja": "Penderecki, Krzysztof",
+  "foreign": "",
+  "note": "폴란드"
+ },
+ {
+  "term": "포레",
+  "hanja": "Fauré, Gabriel Urbain",
+  "foreign": "",
+  "note": "프랑스"
+ },
+ {
+  "term": "포르트너",
+  "hanja": "Fortner, Wolfgang",
+  "foreign": "",
+  "note": "독일"
+ },
+ {
+  "term": "포스터",
+  "hanja": "Foster, Stephen Collin",
+  "foreign": "s",
+  "note": "미국"
+ },
+ {
+  "term": "푸르트벵글러",
+  "hanja": "Furtwängler, Wilhelm",
+  "foreign": "",
+  "note": "독일"
+ },
+ {
+  "term": "푸치니",
+  "hanja": "Domenico MicheleMaria",
+  "foreign": "Secondo",
+  "note": "이탈리아"
+ },
+ {
+  "term": "풀랑크",
+  "hanja": "Poulenc, Francis J",
+  "foreign": "ean Marcel",
+  "note": "프랑스"
+ },
+ {
+  "term": "퐁스",
+  "hanja": "Pons, Lily",
+  "foreign": "",
+  "note": "프랑스→미국"
+ },
+ {
+  "term": "프란츠",
+  "hanja": "Franz, Robert",
+  "foreign": "",
+  "note": "독일벨기에→"
+ },
+ {
+  "term": "프랑크",
+  "hanja": "Franck, César Au",
+  "foreign": "guste",
+  "note": "프랑스"
+ },
+ {
+  "term": "프로코피예프",
+  "hanja": "Prokofiev, SergeiFlotow, Friedrich,",
+  "foreign": "Sergeevich Adolf",
+  "note": "러시아"
+ },
+ {
+  "term": "플로토",
+  "hanja": "Ferdinand von Fre",
+  "foreign": "iherr",
+  "note": "독일"
+ },
+ {
+  "term": "피셔",
+  "hanja": "Fischer, Edwin",
+  "foreign": "",
+  "note": "스위스"
+ },
+ {
+  "term": "피셔디스카우",
+  "hanja": "Fischer-Dieskau,",
+  "foreign": "Dietrich",
+  "note": "독일"
+ },
+ {
+  "term": "피스턴",
+  "hanja": "Piston, Walter",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "피아졸라",
+  "hanja": "Piazzolla, Ástor Pa",
+  "foreign": "ntaleón",
+  "note": "스페인"
+ },
+ {
+  "term": "퍄티고르스키",
+  "hanja": "Piatigorsky, Grego",
+  "foreign": "r",
+  "note": "러시아→미국"
+ },
+ {
+  "term": "피어스",
+  "hanja": "Peerce, Jan",
+  "foreign": "",
+  "note": "미국"
+ },
+ {
+  "term": "하이든",
+  "hanja": "Haydn, Franz Jos",
+  "foreign": "eph",
+  "note": "오스트리아"
+ },
+ {
+  "term": "하이페츠",
+  "hanja": "Heifetz, Jascha",
+  "foreign": "",
+  "note": "러시아→미국"
+ },
+ {
+  "term": "하차투리안",
+  "hanja": "Khachaturian, Ara",
+  "foreign": "mIl'ich",
+  "note": "러시아"
+ },
+ {
+  "term": "한슬리크",
+  "hanja": "Hanslick, Eduard",
+  "foreign": "",
+  "note": "오스트리아"
+ },
+ {
+  "term": "헨델",
+  "hanja": "Händel, Georg Fri",
+  "foreign": "edrich",
+  "note": "독일→영국우크라이나→"
+ },
+ {
+  "term": "호로비츠",
+  "hanja": "Horowitz, VladimirHawthorn, Alice",
+  "foreign": "Winner",
+  "note": "미국"
+ },
+ {
+  "term": "호손",
+  "hanja": "SeptimusHoffmann, Ernst",
+  "foreign": "Theodor",
+  "note": "미국"
+ },
+ {
+  "term": "호프만",
+  "hanja": "Amadeus",
+  "foreign": "",
+  "note": "독일"
+ },
+ {
+  "term": "홀스트",
+  "hanja": "Holst, Gustav The",
+  "foreign": "odore",
+  "note": "영국"
+ },
+ {
+  "term": "훔멜",
+  "hanja": "Hummel, Johann",
+  "foreign": "Nepomuk",
+  "note": "오스트리아"
+ },
+ {
+  "term": "힌데미트",
+  "hanja": "Hindemith, Paul",
+  "foreign": "",
+  "note": "독일"
+ },
+ {
+  "term": "가상 공간",
+  "hanja": "假想空間",
+  "foreign": "virtual space",
+  "note": ""
+ },
+ {
+  "term": "가상 악기",
+  "hanja": "假象樂器",
+  "foreign": "virtual music instrument",
+  "note": ""
+ },
+ {
+  "term": "가상 현실",
+  "hanja": "假象現實",
+  "foreign": "virtual reality",
+  "note": "입ㆍ출력 신호의"
+ },
+ {
+  "term": "게인",
+  "hanja": "",
+  "foreign": "gain",
+  "note": "비율"
+ },
+ {
+  "term": "노브",
+  "hanja": "",
+  "foreign": "knob",
+  "note": ""
+ },
+ {
+  "term": "노테이션 프로그램",
+  "hanja": "",
+  "foreign": "notation program",
+  "note": "(기보 소프트웨어"
+ },
+ {
+  "term": "데시벨",
+  "hanja": "",
+  "foreign": "decibel, dB",
+  "note": "소리의 세기의 단타악기의 리듬을"
+ },
+ {
+  "term": "드럼 머신",
+  "hanja": "",
+  "foreign": "drum machine",
+  "note": "장치를 통하여내는 기계"
+ },
+ {
+  "term": "디지털 녹음",
+  "hanja": "",
+  "foreign": "digital recording",
+  "note": ""
+ },
+ {
+  "term": "디지털 사운드",
+  "hanja": "",
+  "foreign": "digital sound",
+  "note": ""
+ },
+ {
+  "term": "디지털 오디오",
+  "hanja": "",
+  "foreign": "digital audio",
+  "note": ""
+ },
+ {
+  "term": "디지털 케이블",
+  "hanja": "",
+  "foreign": "digital cable",
+  "note": ""
+ },
+ {
+  "term": "레이아웃",
+  "hanja": "",
+  "foreign": "layout",
+  "note": "(편집창 배열)"
+ },
+ {
+  "term": "레졸루션",
+  "hanja": "",
+  "foreign": "resolution",
+  "note": "음표 단위, 음원의"
+ },
+ {
+  "term": "리버브",
+  "hanja": "",
+  "foreign": "reverb",
+  "note": "(잔향 효과)"
+ },
+ {
+  "term": "마스터 악기",
+  "hanja": "",
+  "foreign": "master instrument",
+  "note": ""
+ },
+ {
+  "term": "마이크로톤",
+  "hanja": "",
+  "foreign": "microtone",
+  "note": ""
+ },
+ {
+  "term": "멀티미디어",
+  "hanja": "",
+  "foreign": "multimedia",
+  "note": ""
+ },
+ {
+  "term": "모듈(음원)",
+  "hanja": "-(音源)",
+  "foreign": "module",
+  "note": "음악의 디지털"
+ },
+ {
+  "term": "미디",
+  "hanja": "",
+  "foreign": "MIDI",
+  "note": "관한 국제 규격"
+ },
+ {
+  "term": "미디 디바이스",
+  "hanja": "",
+  "foreign": "MIDI device",
+  "note": "(미디 기기)"
+ },
+ {
+  "term": "미디어",
+  "hanja": "",
+  "foreign": "media",
+  "note": "(전달 매개)"
+ },
+ {
+  "term": "미디 인터페이스",
+  "hanja": "",
+  "foreign": "MIDI interface",
+  "note": ""
+ },
+ {
+  "term": "미디 케이블",
+  "hanja": "",
+  "foreign": "MIDI cable",
+  "note": ""
+ },
+ {
+  "term": "미디 효과",
+  "hanja": "",
+  "foreign": "MIDI effect",
+  "note": ""
+ },
+ {
+  "term": "믹서",
+  "hanja": "",
+  "foreign": "mixer",
+  "note": ""
+ },
+ {
+  "term": "믹싱",
+  "hanja": "",
+  "foreign": "mixing",
+  "note": ""
+ },
+ {
+  "term": "벨로시티",
+  "hanja": "velocity",
+  "foreign": "소리의 세기 단위",
+  "note": ""
+ },
+ {
+  "term": "볼륨",
+  "hanja": "volume",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "비트",
+  "hanja": "bit",
+  "foreign": "정보량의 최소 단",
+  "note": "위"
+ },
+ {
+  "term": "비피엠",
+  "hanja": "BPM, beat per minute",
+  "foreign": "분당 박의 수",
+  "note": ""
+ },
+ {
+  "term": "사운드 카드",
+  "hanja": "sound card",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "샘플링",
+  "hanja": "sampling",
+  "foreign": "(오디오 표본화)",
+  "note": ""
+ },
+ {
+  "term": "서스테인",
+  "hanja": "sustain",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "소프트웨어",
+  "hanja": "software",
+  "foreign": "(응용 프로그램) 음악 코딩이 가능",
+  "note": "한 블"
+ },
+ {
+  "term": "스크래치",
+  "hanja": "Scratch",
+  "foreign": "록 기반 컴퓨터",
+  "note": "언어"
+ },
+ {
+  "term": "슬레이브 악기",
+  "hanja": "slave instruments",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "시디",
+  "hanja": "CD",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "시디롬",
+  "hanja": "CD-ROM",
+  "foreign": "(음악 입력 및 편",
+  "note": "집 소프"
+ },
+ {
+  "term": "시퀀서",
+  "hanja": "sequencer",
+  "foreign": "트웨어)",
+  "note": ""
+ },
+ {
+  "term": "신시사이저",
+  "hanja": "synthesizer",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "아날로그",
+  "hanja": "analog",
+  "foreign": "(연속신호)",
+  "note": ""
+ },
+ {
+  "term": "아웃풋",
+  "hanja": "output",
+  "foreign": "(출력)",
+  "note": ""
+ },
+ {
+  "term": "액티브 스피커",
+  "hanja": "active speaker",
+  "foreign": "(앰프 내장 스피",
+  "note": "커)"
+ },
+ {
+  "term": "앰프",
+  "hanja": "amplifier",
+  "foreign": "(확성기)",
+  "note": ""
+ },
+ {
+  "term": "앰플리튜드",
+  "hanja": "amplitude",
+  "foreign": "(소리의 진폭)",
+  "note": ""
+ },
+ {
+  "term": "어쿠스틱",
+  "hanja": "acoustic",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "옥스",
+  "hanja": "aux",
+  "foreign": "(추가 기기 연결",
+  "note": "단자)"
+ },
+ {
+  "term": "에코",
+  "hanja": "echo",
+  "foreign": "(ADSR 커브)/시",
+  "note": "간의 흐"
+ },
+ {
+  "term": "엔벨로프",
+  "hanja": "anvelope",
+  "foreign": "름에 따른 소리 변화",
+  "note": "세기의"
+ },
+ {
+  "term": "엠피3",
+  "hanja": "MP3",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "오디오 인터페이스",
+  "hanja": "audio interface",
+  "foreign": "(오디오 접속 장",
+  "note": "치)"
+ },
+ {
+  "term": "오디오 카드",
+  "hanja": "audio card",
+  "foreign": "음악 입력 및 편",
+  "note": "집 전용"
+ },
+ {
+  "term": "워크스테이션",
+  "hanja": "workstation",
+  "foreign": "고성능 컴퓨터 시",
+  "note": "스템"
+ },
+ {
+  "term": "웨이브",
+  "hanja": "wave",
+  "foreign": "",
+  "note": ""
+ },
+ {
+  "term": "웨이브 테이블",
+  "hanja": "",
+  "foreign": "wave table",
+  "note": ""
+ },
+ {
+  "term": "음향 효과",
+  "hanja": "音響效果",
+  "foreign": "sound effect",
+  "note": ""
+ },
+ {
+  "term": "이벤트",
+  "hanja": "",
+  "foreign": "event",
+  "note": ""
+ },
+ {
+  "term": "인터페이스",
+  "hanja": "",
+  "foreign": "interface",
+  "note": ""
+ },
+ {
+  "term": "인풋",
+  "hanja": "",
+  "foreign": "input",
+  "note": "(입력)전파나 음"
+ },
+ {
+  "term": "주파수",
+  "hanja": "周波數",
+  "foreign": "frequency",
+  "note": "진동하는"
+ },
+ {
+  "term": "주파수 변조",
+  "hanja": "周波數變調",
+  "foreign": "FM(frequency modulation)",
+  "note": ""
+ },
+ {
+  "term": "진폭 변조",
+  "hanja": "振幅變調",
+  "foreign": "AM(amplitude modulation)",
+  "note": ""
+ },
+ {
+  "term": "채널",
+  "hanja": "",
+  "foreign": "channel",
+  "note": ""
+ },
+ {
+  "term": "카세트테이프",
+  "hanja": "",
+  "foreign": "cassette tape",
+  "note": ""
+ },
+ {
+  "term": "컨버터",
+  "hanja": "",
+  "foreign": "converter",
+  "note": "(신호 교"
+ },
+ {
+  "term": "트랙",
+  "hanja": "",
+  "foreign": "track",
+  "note": ""
+ },
+ {
+  "term": "트랙 파라미터",
+  "hanja": "",
+  "foreign": "track parameter",
+  "note": ""
+ },
+ {
+  "term": "피시엠",
+  "hanja": "",
+  "foreign": "PCM(pulse code modulation)",
+  "note": ""
+ },
+ {
+  "term": "피치 밴드",
+  "hanja": "",
+  "foreign": "pitch bend",
+  "note": "음높이"
+ },
+ {
+  "term": "하드디스크 리코딩",
+  "hanja": "",
+  "foreign": "hard disk recording",
+  "note": ""
+ }
+]
