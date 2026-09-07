@@ -2,26 +2,63 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from team_app import TeamApplication, TeamStore, _safe_name
+from team_app import (
+    CURRICULUM_TAXONOMY,
+    TeamApplication,
+    TeamStore,
+    _curriculum_file_path,
+    _curriculum_sub_subjects,
+    _curriculum_taxonomy_status,
+    _safe_name,
+)
 
 
 class TeamAppTests(unittest.TestCase):
-    def test_reference_versions_and_textbooks_are_persistent(self):
+    def test_textbook_references_all_stay_active(self):
+        # 교육과정은 더 이상 화면에서 업로드받지 않고 curricula/ 폴더의 고정 파일을
+        # 쓰므로, add_reference의 '한 종류당 하나만 활성' 자동 교체 동작은 이제
+        # 실제로 쓰이는 유일한 종류인 textbook에는 적용되지 않는다(여러 개 등록 가능).
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             store = TeamStore(root)
             first = root / "first.pdf"
             second = root / "second.pdf"
-            book = root / "book.pdf"
-            for path in (first, second, book):
+            for path in (first, second):
                 path.write_bytes(b"%PDF-1.4\n")
-            store.add_reference("curriculum", "first.pdf", first, "a" * 64, 9, "2015", "음악")
-            store.add_reference("curriculum", "second.pdf", second, "b" * 64, 9, "2022", "음악")
-            store.add_reference("textbook", "book.pdf", book, "c" * 64, 9, "2015", "음악")
+            store.add_reference("textbook", "first.pdf", first, "a" * 64, 9, "2015", "음악")
+            store.add_reference("textbook", "second.pdf", second, "b" * 64, 9, "2022", "음악")
             active = store.references()
-            self.assertEqual(len([item for item in active if item["kind"] == "curriculum"]), 1)
-            self.assertEqual(store.active_reference("curriculum")["original_name"], "second.pdf")
-            self.assertEqual(len([item for item in active if item["kind"] == "textbook"]), 1)
+            self.assertEqual(len([item for item in active if item["kind"] == "textbook"]), 2)
+
+    def test_curriculum_file_path_uses_sub_subject_when_present(self):
+        root = Path("team_data")
+        self.assertEqual(
+            _curriculum_file_path(root, "고등학교", "음악", "음악 감상과 비평"),
+            root / "curricula" / "고등학교" / "음악" / "음악 감상과 비평.pdf",
+        )
+        self.assertEqual(
+            _curriculum_file_path(root, "중학교", "한문"),
+            root / "curricula" / "중학교" / "한문" / "한문.pdf",
+        )
+
+    def test_curriculum_sub_subjects_only_for_configured_high_school_subjects(self):
+        self.assertEqual(_curriculum_sub_subjects("고등학교", "음악"), ["음악", "음악 감상과 비평"])
+        self.assertIsNone(_curriculum_sub_subjects("고등학교", "한문"))
+        self.assertIsNone(_curriculum_sub_subjects("중학교", "음악"))
+
+    def test_curriculum_taxonomy_status_reports_missing_and_registered_files(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            registered = _curriculum_file_path(root, "고등학교", "음악", "음악")
+            registered.parent.mkdir(parents=True, exist_ok=True)
+            registered.write_bytes(b"%PDF-1.4\n")
+            status = _curriculum_taxonomy_status(root)
+            music_entry = status["고등학교"]["음악"]
+            available_by_name = {item["name"]: item["available"] for item in music_entry["sub_subjects"]}
+            self.assertTrue(available_by_name["음악"])
+            self.assertFalse(available_by_name["음악 감상과 비평"])
+            self.assertFalse(status["초등학교"]["음악"]["available"])
+            self.assertEqual(set(status.keys()), set(CURRICULUM_TAXONOMY.keys()))
 
     def test_jobs_keep_status_and_result(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -81,6 +118,7 @@ class TeamAppTests(unittest.TestCase):
             job_id = application.store.create_job(
                 "manuscript.pdf", source, "d" * 64, source.stat().st_size,
                 target_level="고등학교 1학년", work_titles="곡명",
+                school_level="고등학교", subject="음악", sub_subject="음악",
             )
             application.cancel(job_id)
             application._run_audit(job_id)
@@ -177,10 +215,10 @@ class TeamAppTests(unittest.TestCase):
             store = TeamStore(root / "data")
             original = root / "original.pdf"
             original.write_bytes(b"%PDF-1.4\n")
-            uploaded = store.uploads / "references" / "curriculum" / "copy.pdf"
+            uploaded = store.uploads / "references" / "textbook" / "copy.pdf"
             uploaded.parent.mkdir(parents=True, exist_ok=True)
             uploaded.write_bytes(original.read_bytes())
-            store.add_reference("curriculum", "original.pdf", uploaded, "e" * 64, 9, "", "")
+            store.add_reference("textbook", "original.pdf", uploaded, "e" * 64, 9, "", "")
             store.create_job("original.pdf", original, "f" * 64, 9)
             store.update_job(store.jobs()[0]["id"], status="completed")
             store.reset_all()

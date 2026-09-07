@@ -16,6 +16,7 @@ import re
 import shutil
 import socket
 import sqlite3
+import sys
 import threading
 import uuid
 import webbrowser
@@ -31,22 +32,38 @@ from urllib.parse import quote, unquote, urlparse
 import vercel_blob_store as blob_store
 
 
-def _load_dotenv(path: Path = Path(".env")) -> None:
+def _dotenv_candidates() -> list[Path]:
+    """`.env`를 찾을 후보 위치들.
+
+    PyInstaller로 묶은 데스크톱 실행 파일은 실행 시 작업 디렉터리가 exe 위치와
+    다를 수 있어(`team_app_desktop.py`), 현재 작업 디렉터리뿐 아니라 실행 파일 ·
+    스크립트가 있는 디렉터리도 함께 찾는다.
+    """
+    candidates = [Path(".env")]
+    if getattr(sys, "frozen", False):
+        candidates.append(Path(sys.executable).resolve().parent / ".env")
+    else:
+        candidates.append(Path(__file__).resolve().parent / ".env")
+    return candidates
+
+
+def _load_dotenv() -> None:
     """`.env` 파일의 KEY=VALUE 줄을 환경변수로 불러온다 (이미 설정된 값은 덮어쓰지 않음).
 
-    OPENAI_API_KEY 같은 비밀 값을 셸 환경변수 대신 gitignore된 로컬 파일로
+    ANTHROPIC_API_KEY 같은 비밀 값을 셸 환경변수 대신 gitignore된 로컬 파일로
     관리하기 위한 용도라 외부 패키지(dotenv) 없이 표준 라이브러리만 사용한다.
     """
-    if not path.is_file():
-        return
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
+    for path in _dotenv_candidates():
+        if not path.is_file():
             continue
-        key, _, value = line.partition("=")
-        key = key.strip()
-        value = value.strip().strip('"').strip("'")
-        os.environ.setdefault(key, value)
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            os.environ.setdefault(key, value)
 
 
 _load_dotenv()
@@ -56,16 +73,70 @@ MAX_MANUSCRIPT_BYTES = 200 * 1024 * 1024
 MAX_REFERENCE_REQUEST_BYTES = 800 * 1024 * 1024
 MAX_STORED_UPLOAD_BYTES = 800 * 1024 * 1024
 MAX_MANUSCRIPT_PAGES = 300
-ALLOWED_KINDS = {"curriculum", "textbook", "evaluation"}
+ALLOWED_KINDS = {"textbook"}
 KIND_LABELS = {
-    "curriculum": "교육과정",
     "textbook": "이전 개정 교과서",
-    "evaluation": "평가리스트",
 }
 TARGET_LEVEL_OPTIONS = (
     "초등학교 저학년", "초등학교 고학년", "중학교",
     "고등학교 1학년", "고등학교 2·3학년",
 )
+
+# 교육과정 PDF는 화면에서 업로드받지 않고, 학교급/과목(/세부과목)별로 미리 정해진
+# 폴더 구조(team_data/curricula/...)에 등록해 둔 파일을 그대로 사용한다.
+# 원고 분석 시 사용자가 이 트리에서 학교급→과목→세부과목 순으로 선택하면 그 값에
+# 해당하는 파일을 찾아 성취기준 비교에 사용한다.
+CURRICULUM_TAXONOMY: dict[str, dict[str, Any]] = {
+    "초등학교": {
+        "subjects": ["영어", "수학", "사회", "음악", "체육", "보건", "미술", "과학"],
+    },
+    "중학교": {
+        "subjects": [
+            "영어", "수학", "과학", "기술·가정", "정보", "체육", "음악", "한문",
+            "보건", "진로와 선택", "개념 기반 탐구", "미디어와 민주시민",
+        ],
+    },
+    "고등학교": {
+        "subjects": ["영어", "수학", "정보", "체육", "음악", "한문", "보건"],
+        "sub_subjects": {
+            "영어": ["공통영어1", "공통영어2", "영어 I", "영어 Ⅱ", "영어 독해와 작문",
+                    "심화 영어", "실생활 영어 회화", "세계 문화와 영어", "미디어 영어",
+                    "심화 영어 독해와 작문"],
+            "수학": ["공통수학1", "공통수학2", "대수", "미적분Ⅰ", "미적분Ⅱ", "확률과 통계", "기하"],
+            "정보": ["정보", "인공지능 기초", "데이터 과학"],
+            "체육": ["스포츠 과학", "체육1", "체육2", "운동과 건강", "스포츠 생활1", "스포츠 생활2"],
+            "음악": ["음악", "음악 감상과 비평"],
+        },
+    },
+}
+
+
+def _curriculum_sub_subjects(school_level: str, subject: str) -> list[str] | None:
+    config = CURRICULUM_TAXONOMY.get(school_level, {})
+    return config.get("sub_subjects", {}).get(subject)
+
+
+def _curriculum_file_path(data_root: Path, school_level: str, subject: str, sub_subject: str = "") -> Path:
+    base = data_root / "curricula" / school_level / subject
+    return base / f"{sub_subject or subject}.pdf"
+
+
+def _curriculum_taxonomy_status(data_root: Path) -> dict[str, dict[str, Any]]:
+    """학교급·과목·세부과목별로 PDF가 실제로 등록돼 있는지 스캔한다."""
+    result: dict[str, dict[str, Any]] = {}
+    for school_level, config in CURRICULUM_TAXONOMY.items():
+        subjects_out: dict[str, Any] = {}
+        for subject in config["subjects"]:
+            sub_list = _curriculum_sub_subjects(school_level, subject)
+            if sub_list:
+                subjects_out[subject] = {"sub_subjects": [
+                    {"name": name, "available": _curriculum_file_path(data_root, school_level, subject, name).is_file()}
+                    for name in sub_list
+                ]}
+            else:
+                subjects_out[subject] = {"available": _curriculum_file_path(data_root, school_level, subject).is_file()}
+        result[school_level] = subjects_out
+    return result
 
 
 def _utc_now() -> str:
@@ -167,6 +238,12 @@ class TeamStore:
                 db.execute("ALTER TABLE audit_jobs ADD COLUMN work_titles TEXT NOT NULL DEFAULT ''")
             if "diff_path" not in columns:
                 db.execute("ALTER TABLE audit_jobs ADD COLUMN diff_path TEXT")
+            if "school_level" not in columns:
+                db.execute("ALTER TABLE audit_jobs ADD COLUMN school_level TEXT NOT NULL DEFAULT ''")
+            if "subject" not in columns:
+                db.execute("ALTER TABLE audit_jobs ADD COLUMN subject TEXT NOT NULL DEFAULT ''")
+            if "sub_subject" not in columns:
+                db.execute("ALTER TABLE audit_jobs ADD COLUMN sub_subject TEXT NOT NULL DEFAULT ''")
             if "current_page" not in columns:
                 db.execute("ALTER TABLE audit_jobs ADD COLUMN current_page INTEGER NOT NULL DEFAULT 0")
             if "total_page" not in columns:
@@ -218,8 +295,6 @@ class TeamStore:
             ).fetchone()
             if existing:
                 return {**dict(existing), "duplicate": True}
-            if kind in {"curriculum", "evaluation"}:
-                db.execute("UPDATE reference_files SET active=0 WHERE kind=?", (kind,))
             db.execute(
                 """INSERT INTO reference_files
                    (id,kind,original_name,stored_path,sha256,size_bytes,revision,subject,active,created_at)
@@ -233,15 +308,17 @@ class TeamStore:
 
     def create_job(self, original_name: str, stored_path: Path, sha256: str,
                    size_bytes: int, target_level: str = "고등학교 1학년",
-                   work_titles: str = "") -> str:
+                   work_titles: str = "", school_level: str = "", subject: str = "",
+                   sub_subject: str = "") -> str:
         job_id = uuid.uuid4().hex
         with closing(self.connect()) as db:
             db.execute(
                 """INSERT INTO audit_jobs
-                   (id,original_name,stored_path,sha256,size_bytes,target_level,work_titles,status,created_at)
-                   VALUES (?,?,?,?,?,?,?,'queued',?)""",
+                   (id,original_name,stored_path,sha256,size_bytes,target_level,work_titles,
+                    school_level,subject,sub_subject,status,created_at)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,'queued',?)""",
                 (job_id, original_name, str(stored_path), sha256, size_bytes,
-                 target_level, work_titles, _utc_now()),
+                 target_level, work_titles, school_level, subject, sub_subject, _utc_now()),
             )
         self._push_db()
         return job_id
@@ -491,6 +568,7 @@ class TeamApplication:
         new_job_id = self.store.create_job(
             job["original_name"], target, job["sha256"], job["size_bytes"],
             job.get("target_level") or "고등학교 1학년", job.get("work_titles") or "",
+            job.get("school_level") or "", job.get("subject") or "", job.get("sub_subject") or "",
         )
         self.submit(new_job_id)
         return new_job_id
@@ -522,19 +600,26 @@ class TeamApplication:
 
     def _run_audit(self, job_id: str) -> None:
         job = self.store.job(job_id)
+        if not job:
+            return
         if self._is_cancel_requested(job_id):
             self._clear_cancel_requested(job_id)
             self.store.update_job(job_id, status="cancelled", error="사용자가 취소했습니다.")
             return
-        curriculum = self.store.active_reference("curriculum")
-        if not job or not curriculum:
-            self.store.update_job(job_id, status="failed", error="등록된 교육과정이 없습니다.")
+        curriculum_path = _curriculum_file_path(
+            self.store.root, job.get("school_level") or "", job.get("subject") or "",
+            job.get("sub_subject") or "",
+        )
+        if not curriculum_path.is_file():
+            self.store.update_job(
+                job_id, status="failed",
+                error=f"선택한 교육과정 PDF가 없습니다: {curriculum_path.relative_to(self.store.root)}",
+            )
             return
         self.store.update_job(job_id, status="running")
         try:
             from curriculum_audit import audit_manuscript, compare_manuscript_audits
             manuscript_path = Path(job["stored_path"])
-            curriculum_path = Path(curriculum["stored_path"])
             blob_store.pull_if_missing(manuscript_path, self.store._blob_key(manuscript_path))
             blob_store.pull_if_missing(curriculum_path, self.store._blob_key(curriculum_path))
             for name in self._CACHE_FILE_NAMES:
@@ -634,7 +719,10 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
                 references = application.store.references()
                 grouped = {kind: [] for kind in ALLOWED_KINDS}
                 for item in references:
-                    grouped[item["kind"]].append(item)
+                    # 예전 kind(curriculum/evaluation)로 등록된 레코드가 남아 있을 수
+                    # 있으니(더 이상 화면에 표시하지 않음), 알 수 없는 kind는 조용히 건너뛴다.
+                    if item["kind"] in grouped:
+                        grouped[item["kind"]].append(item)
                 self._send_json({
                     "references": grouped,
                     "jobs": application.store.jobs(),
@@ -643,6 +731,7 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
                                "manuscript_pages": MAX_MANUSCRIPT_PAGES,
                                "reference_file_mb": MAX_MANUSCRIPT_BYTES // (1024 * 1024),
                                "request_mb": MAX_REFERENCE_REQUEST_BYTES // (1024 * 1024)},
+                    "curricula": _curriculum_taxonomy_status(application.store.root),
                 })
                 return
             match = re.fullmatch(r"/api/jobs/([0-9a-f]{32})", path)
@@ -786,8 +875,6 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
             fields = [field for field in fields if getattr(field, "filename", None)]
             if not fields:
                 raise ValueError("PDF 파일을 선택해 주세요.")
-            if kind != "textbook" and len(fields) != 1:
-                raise ValueError(f"{KIND_LABELS[kind]}은 한 번에 PDF 한 개만 등록할 수 있습니다.")
             saved = []
             for field in fields:
                 original = _safe_name(field.filename)
@@ -803,9 +890,25 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
             self._send_json({"message": f"{KIND_LABELS[kind]} 등록 완료", "files": saved}, 201)
 
         def _upload_manuscript(self) -> None:
-            if not application.store.active_reference("curriculum"):
-                raise ValueError("먼저 교육과정 PDF를 등록해 주세요.")
             form = self._multipart()
+            school_level = form.getfirst("school_level", "")
+            subject = form.getfirst("subject", "")
+            sub_subject = form.getfirst("sub_subject", "")
+            if school_level not in CURRICULUM_TAXONOMY:
+                raise ValueError("학교급 선택이 올바르지 않습니다.")
+            if subject not in CURRICULUM_TAXONOMY[school_level]["subjects"]:
+                raise ValueError("과목 선택이 올바르지 않습니다.")
+            expected_sub_subjects = _curriculum_sub_subjects(school_level, subject)
+            if expected_sub_subjects and sub_subject not in expected_sub_subjects:
+                raise ValueError("세부 과목 선택이 올바르지 않습니다.")
+            if not expected_sub_subjects:
+                sub_subject = ""
+            curriculum_path = _curriculum_file_path(application.store.root, school_level, subject, sub_subject)
+            if not curriculum_path.is_file():
+                raise ValueError(
+                    f"선택한 교육과정 PDF가 아직 등록되지 않았습니다: "
+                    f"{curriculum_path.relative_to(application.store.root)}"
+                )
             target_level = form.getfirst("target_level", "고등학교 1학년")
             if target_level not in TARGET_LEVEL_OPTIONS:
                 raise ValueError("학습자 수준 선택이 올바르지 않습니다.")
@@ -833,7 +936,8 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
                 raise ValueError(f"원고는 최대 {MAX_MANUSCRIPT_PAGES}쪽까지 업로드할 수 있습니다.")
             blob_store.push(target, application.store._blob_key(target))
             job_id = application.store.create_job(
-                original, target, digest, size, target_level, work_titles
+                original, target, digest, size, target_level, work_titles,
+                school_level, subject, sub_subject,
             )
             application.submit(job_id)
             self._send_json({"message": "원고 분석을 시작했습니다.", "job_id": job_id,

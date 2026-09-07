@@ -4,186 +4,231 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>교과서 원고 점검</title>
-  <link rel="stylesheet" as="style" crossorigin
-    href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
   <style>
     :root{
-      --cloud:#f2efe8; --cloud-2:#e9e3d7;
-      --sky:#5b8fd1; --lavender:#8a76c9; --peach:#e2896a; --coral:#dd6a5c; --gold:#cd9a44;
-      --ink:#23262d; --muted:#6c7078;
-      --glass:rgba(255,255,255,.55); --glass-2:rgba(255,255,255,.72);
-      --border:rgba(255,255,255,.8); --line:rgba(35,38,45,.1);
+      --page-bg:#f7f9fc;
+      --sky:#2563eb; --lavender:#1e4fc4; --peach:#2563eb; --coral:#dc2626; --gold:#d99a00; --green:#16a36a;
+      --ink:#1e293b; --title:#263242; --muted:#6b7788;
+      --card:#ffffff; --card-active:#eff6ff;
+      --border:#e2e8f0; --line:#edf1f7;
       --ease:cubic-bezier(.2,.8,.2,1);
-      --h-size:13.5px;
+      --h-size:15.5px;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
     body{
-      background:linear-gradient(135deg,#f5f2ec 0%,var(--cloud) 45%,var(--cloud-2) 100%);
-      font-family:'Wanted Sans Variable','Wanted Sans','Malgun Gothic',sans-serif;
+      background:var(--page-bg);
+      font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
       color:var(--ink);font-size:14px;height:100vh;overflow:hidden;
       display:flex;align-items:center;justify-content:center;padding:24px;
     }
     .window{
-      width:min(1400px,100%);height:min(880px,94vh);background:var(--glass);
-      backdrop-filter:blur(28px) saturate(160%);-webkit-backdrop-filter:blur(28px) saturate(160%);
-      border:1px solid var(--border);border-radius:28px;
-      box-shadow:0 30px 80px rgba(60,50,40,.16), inset 0 1px 0 rgba(255,255,255,.8);
+      width:min(1400px,100%);height:min(880px,94vh);background:var(--card);
+      border:1px solid var(--border);border-radius:20px;
+      box-shadow:0 20px 50px rgba(15,23,42,.12);
       display:flex;flex-direction:column;overflow:hidden;
     }
     .chrome{
-      height:40px;flex:none;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 18px;
+      height:36px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 18px;
       border-bottom:1px solid var(--line);
     }
-    .logo{height:16px;width:auto;display:block;grid-column:2;justify-self:center}
+    .logo{height:15px;width:auto;display:block}
     .chrome .addr{
-      grid-column:3;justify-self:end;font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.6);
+      font-size:11.5px;color:var(--muted);background:var(--page-bg);
       padding:4px 16px;border-radius:99px;border:1px solid var(--line);
     }
     .menubar{
       flex:none;display:flex;align-items:center;gap:10px;padding:14px 22px;flex-wrap:wrap;
       border-bottom:1px solid var(--line);
     }
-    .brand-group{display:flex;align-items:baseline;gap:10px;overflow:hidden;flex-wrap:wrap}
-    .brand{font-weight:800;font-size:21px;letter-spacing:-.02em;white-space:nowrap;color:var(--ink)}
-    .brand-desc{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .brand-group{display:flex;align-items:center;gap:10px;overflow:hidden;flex-wrap:wrap}
+    .brand{font-weight:800;font-size:24px;letter-spacing:-.02em;white-space:nowrap;color:var(--ink)}
+    .brand-desc{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .right-group{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
     .reset-all{
-      border:1px solid var(--line);border-radius:99px;padding:9px 16px;font-family:inherit;font-size:11.5px;font-weight:700;
-      background:rgba(255,255,255,.4);color:var(--muted);cursor:pointer;white-space:nowrap;
+      border:1px solid var(--border);border-radius:99px;padding:9px 16px;font-family:inherit;font-size:11.5px;font-weight:700;
+      background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap;
       transition:background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease),transform .15s var(--ease);
     }
-    .reset-all:hover{background:rgba(221,106,92,.14);border-color:rgba(221,106,92,.45);color:#b7392c;transform:translateY(-1px)}
+    .reset-all:hover{background:rgba(220,38,38,.1);border-color:rgba(220,38,38,.35);color:var(--coral);transform:translateY(-1px)}
     .reset-all:active{transform:translateY(0) scale(.96)}
     .widget{
-      display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.5);border-radius:14px;
-      padding:8px 14px;flex:none;border:1px solid var(--line);
+      display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;
+      padding:8px 14px;flex:none;border:1px solid var(--border);
     }
     .widget .ring{
       width:30px;height:30px;border-radius:50%;flex:none;
-      background:conic-gradient(var(--sky) 0 0%, rgba(35,38,45,.1) 0% 100%);
+      background:conic-gradient(var(--sky) 0 0%, #e2e8f0 0% 100%);
       display:flex;align-items:center;justify-content:center;
     }
-    .widget .ring::after{content:'';width:20px;height:20px;border-radius:50%;background:#fbf9f4}
+    .widget .ring::after{content:'';width:20px;height:20px;border-radius:50%;background:#fff}
     .widget-text{display:flex;flex-direction:column;gap:2px;min-width:0}
     .widget-text b{font-size:11px;color:var(--ink);font-weight:800;white-space:nowrap}
-    .widget-line{font-size:10.5px;color:var(--muted);display:flex;gap:5px;align-items:baseline;white-space:nowrap;overflow:hidden}
+    .widget-line{font-size:10.5px;color:var(--ink);font-weight:600;display:flex;gap:5px;align-items:baseline;white-space:nowrap;overflow:hidden}
     .widget-line b{font-size:11.5px;color:var(--ink);font-weight:800}
 
-    .content{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:16px;padding:18px 22px 6px}
+    .steps-bar{
+      flex:none;display:flex;align-items:center;justify-content:center;gap:10px;
+      padding:10px 22px;border-bottom:1px solid var(--line);font-size:11.5px;font-weight:700;color:var(--muted);
+    }
+    .steps-bar .step{display:flex;align-items:center;gap:6px}
+    .steps-bar .step .sn{width:18px;height:18px;border-radius:50%;background:#f1f5f9;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:10px;flex:none}
+    .steps-bar .step.active{color:var(--ink)}
+    .steps-bar .step.active .sn,.steps-bar .step.done .sn{background:var(--sky);color:#fff}
+    .steps-bar .arrow{color:#cbd5e1;font-size:11px}
+
+    .content{flex:1;min-height:0;display:grid;grid-template-columns:.9fr 1.3fr 1fr;gap:16px;padding:18px 22px 6px}
     .col{display:flex;flex-direction:column;min-height:0}
     .row-title{display:flex;align-items:center;gap:8px;margin:0 0 10px;flex:none}
-    .row-title .n2{
-      width:20px;height:20px;border-radius:6px;background:rgba(35,38,45,.08);color:var(--ink);
-      display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex:none;
-      border:1px solid var(--line);
-    }
-    .row-title h2{font-size:var(--h-size);font-weight:800;margin:0;letter-spacing:-.01em;color:var(--ink)}
+    .row-title h2{font-size:var(--h-size);font-weight:700;margin:0;letter-spacing:-.01em;color:var(--title)}
 
     .card{
-      background:var(--glass-2);border:1px solid var(--border);border-radius:18px;
-      box-shadow:0 8px 24px rgba(60,50,40,.08), inset 0 1px 0 rgba(255,255,255,.6);
+      background:var(--card);border:1px solid var(--border);border-radius:14px;
+      box-shadow:0 1px 2px rgba(15,23,42,.04);
     }
+    .center-card{flex:1;min-height:0;padding:18px;display:flex;flex-direction:column;overflow-y:auto;background:var(--card-active);border-color:#dce8fd}
+    .center-head{text-align:center;margin:0 0 10px;flex:none}
+    .center-head h2{font-size:19px;font-weight:800;margin:0 0 5px;letter-spacing:-.01em;color:var(--ink)}
+    .center-head p{font-size:11.5px;color:var(--muted);margin:0}
+    .substep{display:flex;align-items:center;gap:8px;flex:none}
+    .substep .sn{width:19px;height:19px;border-radius:6px;background:var(--sky);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+    .substep h4{font-size:12.5px;font-weight:800;margin:0;color:var(--ink)}
+    .field-row{display:flex;gap:10px;flex:none}
+    .field-row>div{flex:1;min-width:0}
+    .divider{height:1px;background:var(--line);flex:none}
+
+    .dropzone-wrap{flex:1;min-height:64px;position:relative;display:flex}
+    .dropzone{
+      flex:1;min-height:0;border:1.5px dashed var(--border);border-radius:14px;background:#f7fafd;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+      cursor:pointer;transition:background .15s var(--ease),border-color .15s var(--ease);text-align:center;padding:14px;
+    }
+    .dropzone:hover{border-color:#a9c8f5}
+    .dropzone.dragover{border-color:var(--sky);border-style:solid;background:#fff}
+    .dropzone.has-file{border-style:solid;background:#fff}
+    .dropzone-icon{width:34px;height:42px;flex:none}
+    .dropzone-icon svg{width:100%;height:100%;display:block}
+    .dropzone p{font-size:11.5px;color:var(--muted);margin:0;overflow-wrap:anywhere}
+    .dropzone-clear{
+      display:none;position:absolute;top:8px;right:8px;width:24px;height:24px;padding:0;border-radius:50%;border:none;
+      background:#fff;box-shadow:0 1px 6px rgba(15,23,42,.18);color:var(--muted);font-size:14px;line-height:1;cursor:pointer;
+      align-items:center;justify-content:center;
+      transition:background .15s var(--ease),color .15s var(--ease),transform .15s var(--ease);
+    }
+    .dropzone-clear:hover{background:rgba(220,38,38,.14);color:var(--coral);transform:scale(1.1)}
+    .dropzone-wrap.has-file .dropzone-clear{display:flex}
+
+    .file-icon{width:22px;height:28px;display:flex;align-items:center;justify-content:center;flex:none}
+    .file-icon svg{width:100%;height:100%;display:block}
+
     .note{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 8px;flex:none}
     .refs{flex:1;display:flex;flex-direction:column;gap:10px;min-height:0;overflow:auto}
-    .ref-card{padding:13px 15px;flex:none}
+    .ref-card{padding:13px 15px;flex:1;min-height:0;display:flex;flex-direction:column}
     .ref-card h3{font-size:var(--h-size);font-weight:800;margin:0 0 2px;color:var(--ink)}
-    .state{max-height:120px;overflow-y:auto;overflow-x:hidden}
+    .state{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding-right:8px}
     .file-row{
       display:flex;align-items:center;justify-content:space-between;gap:8px;
-      padding:7px 10px;margin-bottom:6px;background:rgba(255,255,255,.55);border-radius:10px;
+      padding:7px 10px;margin-bottom:9px;background:#fff;border-radius:10px;
       border:1px solid var(--line);overflow-wrap:anywhere;
     }
-    .file-info b{font-size:11.5px;font-weight:650;line-height:1.3;color:var(--ink);display:block}
-    .file-info span{font-size:10px;color:var(--muted);display:block;margin-top:2px}
+    .file-info{flex:1;min-width:0}
+    .file-info b{font-size:13px;font-weight:600;line-height:1.3;color:var(--ink);display:block}
+    .file-info span{font-size:10.5px;color:var(--muted);display:block;margin-top:2px}
     .file-delete{
-      width:22px;height:22px;padding:0;flex:none;border-radius:50%;border:none;background:rgba(35,38,45,.06);
+      width:22px;height:22px;padding:0;flex:none;border-radius:50%;border:none;background:#f1f5f9;
       color:var(--muted);font-size:14px;line-height:1;cursor:pointer;
       transition:background .15s var(--ease),color .15s var(--ease),transform .15s var(--ease);
     }
-    .file-delete:hover,.file-delete:focus{background:rgba(221,106,92,.16);color:var(--coral);transform:scale(1.1)}
+    .file-delete:hover,.file-delete:focus{background:rgba(220,38,38,.12);color:var(--coral);transform:scale(1.1)}
     .file-delete:active{transform:scale(.92)}
     .empty{padding:10px 0;color:var(--muted);font-size:11.5px}
 
-    input[type=text]{
-      width:100%;height:38px;font:inherit;font-size:12.5px;background:rgba(255,255,255,.55);
+    input[type=text],select{
+      width:100%;height:38px;font:inherit;font-size:12.5px;background:#fff;
       border:1px solid var(--line);border-radius:9px;padding:0 11px;color:var(--ink);
     }
+    select{
+      margin-top:4px;appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:32px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%236b7788' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 13px center;background-size:11px 7px;
+    }
+    .curriculum-label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin:10px 0 0}
     input[type=file]{
-      width:100%;margin-top:8px;font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.4);
-      border:1px solid var(--line);border-radius:9px;padding:6px;
+      width:100%;margin-top:20px;font-size:11.5px;color:var(--muted);background:#f7fafd;
+      border:1.5px dashed var(--border);border-radius:9px;padding:10px;
     }
     input[type=file]::file-selector-button{
-      border:none;border-radius:8px;padding:6px 12px;margin-right:8px;font-family:inherit;font-size:11px;font-weight:700;
-      background:rgba(35,38,45,.06);color:var(--ink);cursor:pointer;
-      transition:background .15s var(--ease),color .15s var(--ease);
+      border:none;border-radius:8px;padding:8px 16px;margin-right:10px;font-family:inherit;font-size:11.5px;font-weight:800;
+      background:var(--sky);color:#fff;cursor:pointer;
+      transition:background .15s var(--ease);
     }
-    input[type=file]::file-selector-button:hover{background:rgba(91,143,209,.14);color:var(--sky)}
+    input[type=file]::file-selector-button:hover{background:var(--lavender)}
     .btn{
-      border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-size:12px;font-weight:800;
-      background:linear-gradient(135deg,var(--sky),var(--lavender));color:#fff;cursor:pointer;width:100%;margin-top:8px;
-      box-shadow:0 3px 10px rgba(91,143,209,.28);
-      transition:transform .16s var(--ease),box-shadow .16s var(--ease),filter .16s var(--ease);
+      border:none;border-radius:10px;height:44px;padding:0 16px;font-family:inherit;font-size:12px;font-weight:800;
+      background:var(--sky);color:#fff;cursor:pointer;width:100%;margin-top:18px;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 3px 10px rgba(37,99,235,.25);
+      transition:transform .16s var(--ease),box-shadow .16s var(--ease),background .16s var(--ease);
     }
-    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(91,143,209,.4);filter:brightness(1.06)}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(37,99,235,.35);background:var(--lavender)}
     .btn:active{transform:translateY(0) scale(.97)}
     .btn:disabled{opacity:.5;cursor:wait;transform:none}
-    .btn.secondary{background:linear-gradient(135deg,var(--peach),var(--coral));box-shadow:0 6px 18px rgba(221,106,92,.32)}
-    .btn.secondary:hover{box-shadow:0 10px 24px rgba(221,106,92,.45)}
+    .btn.secondary{background:var(--peach);box-shadow:0 3px 10px rgba(37,99,235,.25)}
+    .btn.secondary:hover{background:var(--lavender);box-shadow:0 8px 18px rgba(37,99,235,.35)}
 
-    .upload{padding:16px 18px;flex:none}
-    .upload>p{font-size:11px;color:var(--muted);line-height:1.55;margin:0}
-    .limit-banner{font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:8px}
+    .limit-banner{font-size:11px;color:#475569;line-height:1.5;margin-top:8px}
     .limit-banner b{color:var(--ink)}
-    #manuscript-form{margin-top:6px}
+
+    #manuscript-form{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;margin:0}
 
     .message{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:11.5px;line-height:1.5;
-      background:rgba(91,143,209,.12);border:1px solid rgba(91,143,209,.3);color:var(--ink)}
-    .message.error{background:rgba(221,106,92,.12);border-color:rgba(221,106,92,.35);color:#b7392c}
+      background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.25);color:var(--ink)}
+    .message.error{background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.28);color:#b91c1c}
 
     .history{min-height:0;flex:1}
     .history .card{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:0}
-    .jobs-wrap{flex:1;min-height:0;overflow-y:auto}
+    .jobs-wrap{flex:1;min-height:0;overflow-y:auto;padding-right:8px}
     .job-list{padding:4px 6px}
     .job{padding:11px 10px;border-bottom:1px solid var(--line);transition:background .15s var(--ease)}
-    .job:hover{background:rgba(255,255,255,.5)}
+    .job:hover{background:rgba(37,99,235,.05)}
     .job:last-child{border-bottom:none}
     .job-main{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .job-main b{font-size:12.5px;font-weight:700;overflow-wrap:anywhere;color:var(--ink);flex:1;min-width:0}
     .job-actions{display:flex;align-items:center;gap:6px;flex:none}
-    .job-meta{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+    .job-meta{font-size:10.5px;color:#475569;margin-top:4px;line-height:1.5}
     .job-links{font-size:11px;margin-top:4px}
     .status{display:inline-flex;align-items:center;padding:3px 10px;border-radius:99px;font-size:10.5px;font-weight:800;flex:none;white-space:nowrap}
-    .status.completed{background:rgba(34,150,94,.13);color:#1f7a4d}
-    .status.running,.status.queued{background:rgba(205,154,68,.18);color:#8a6011}
+    .status.completed{background:rgba(22,163,106,.13);color:#0f7a51}
+    .status.running,.status.queued{background:rgba(217,154,0,.14);color:#8a6500}
     .job-progress{display:flex;align-items:center;gap:8px;margin-top:6px}
-    .job-progress-track{flex:1;height:5px;background:rgba(35,38,45,.08);border-radius:99px;overflow:hidden}
+    .job-progress-track{flex:1;height:5px;background:#eef1f5;border-radius:99px;overflow:hidden}
     .job-progress-fill{height:100%;background:var(--sky);border-radius:99px;transition:width .3s ease}
     .job-progress-text{font-size:10px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
-    .status.failed{background:rgba(221,106,92,.14);color:#b7392c}
-    .status.cancelled{background:rgba(108,112,120,.14);color:var(--muted)}
-    .status.cancelling{background:rgba(205,154,68,.18);color:#8a6011}
+    .status.failed{background:rgba(220,38,38,.13);color:#b91c1c}
+    .status.cancelled{background:rgba(100,116,139,.14);color:#475569}
+    .status.cancelling{background:rgba(217,154,0,.14);color:#8a6500}
     .job-cancel{
-      flex:none;padding:3px 10px;border-radius:99px;border:1px solid rgba(221,106,92,.35);background:rgba(255,255,255,.5);
+      flex:none;padding:3px 10px;border-radius:99px;border:1px solid rgba(220,38,38,.3);background:#fff;
       color:var(--coral);font-size:10.5px;font-weight:700;cursor:pointer;
       transition:background .15s var(--ease),transform .15s var(--ease);
     }
-    .job-cancel:hover,.job-cancel:focus{background:rgba(221,106,92,.14)}
+    .job-cancel:hover,.job-cancel:focus{background:rgba(220,38,38,.1)}
     .job-cancel:active{transform:scale(.95)}
     .job-cancel:disabled{opacity:.7;cursor:default;transform:none}
-    .job-cancel.is-cancelling{border-color:rgba(108,112,120,.35);color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+    .job-cancel.is-cancelling{border-color:rgba(100,116,139,.35);color:#64748b;display:inline-flex;align-items:center;gap:5px}
     .job-cancel.is-cancelling::before{
       content:'';width:8px;height:8px;border-radius:50%;flex:none;
-      border:1.5px solid rgba(108,112,120,.35);border-top-color:var(--muted);
+      border:1.5px solid rgba(100,116,139,.35);border-top-color:#64748b;
       animation:job-spin .7s linear infinite;
     }
     @keyframes job-spin{to{transform:rotate(360deg)}}
     .job-retry{
-      flex:none;padding:3px 10px;border-radius:99px;border:1px solid rgba(91,143,209,.35);background:rgba(255,255,255,.5);
+      flex:none;padding:3px 10px;border-radius:99px;border:1px solid rgba(35,120,200,.3);background:#fff;
       color:var(--sky);font-size:10.5px;font-weight:700;cursor:pointer;
       transition:background .15s var(--ease),transform .15s var(--ease);
     }
-    .job-retry:hover,.job-retry:focus{background:rgba(91,143,209,.14)}
+    .job-retry:hover,.job-retry:focus{background:rgba(35,120,200,.1)}
     .job-retry:active{transform:scale(.95)}
     a.result{color:var(--sky);font-weight:800;text-decoration:none;font-size:11px}
     a.result:hover{color:var(--lavender);text-decoration:underline}
@@ -205,7 +250,7 @@
   <div class="menubar">
     <div class="brand-group">
       <span class="brand">교과서 원고 점검</span>
-      <span class="brand-desc">기준 자료는 한 번 등록하고, 원고만 매번 올려 점검합니다.</span>
+      <span class="brand-desc">기준 자료는 한 번 등록하고, 원고만 매번 올려 점검합니다. 교육과정·편수자료는 이미 시스템 등록이 완료되었습니다.</span>
     </div>
     <div class="right-group">
       <button id="reset-all" class="reset-all" type="button">전체 초기화</button>
@@ -219,34 +264,23 @@
     </div>
   </div>
 
+  <div class="steps-bar">
+    <div class="step done" id="step1"><span class="sn">✓</span><span>기준자료 확인</span></div>
+    <span class="arrow">→</span>
+    <div class="step active" id="step2"><span class="sn">2</span><span>분석 대상 설정</span></div>
+    <span class="arrow">→</span>
+    <div class="step" id="step3"><span class="sn">3</span><span>원고 업로드·분석</span></div>
+  </div>
+
   <div class="content">
     <div class="col">
-      <div class="row-title"><span class="n2">1</span><h2 id="reference-title">기준 자료 설정</h2></div>
-      <p class="note">교육과정과 평가리스트는 새 파일을 등록하면 이전 파일을 보관하고 최신 버전을 사용합니다. 교과서는 여러 PDF를 함께 등록할 수 있습니다.</p>
+      <div class="row-title"><h2 id="reference-title">비교용 교과서 PDF</h2></div>
+      <p class="note">이전 개정 교과서 및 타 출판사 교과서 PDF를 등록합니다. 여러 PDF 파일 대량 선택 가능</p>
       <div class="refs">
         <div class="card ref-card">
-          <h3>교육과정 PDF</h3><div class="note">개정 연도·과목별 기준 문서</div>
-          <div class="state" id="curriculum-state"></div>
-          <form class="reference-form" data-kind="curriculum">
-            <input type="file" name="files" accept="application/pdf,.pdf" required>
-            <button class="btn" type="submit">등록</button>
-          </form>
-        </div>
-
-        <div class="card ref-card">
-          <h3>이전 개정 교과서 PDF</h3><div class="note">같은 과목의 비교·레이아웃 참고 자료 · 여러 PDF 함께 선택 가능</div>
           <div class="state" id="textbook-state"></div>
           <form class="reference-form" data-kind="textbook">
             <input type="file" name="files" accept="application/pdf,.pdf" multiple required>
-            <button class="btn" type="submit">등록</button>
-          </form>
-        </div>
-
-        <div class="card ref-card">
-          <h3>평가리스트 PDF</h3><div class="note">검정 기준과 편집 점검 항목</div>
-          <div class="state" id="evaluation-state"></div>
-          <form class="reference-form" data-kind="evaluation">
-            <input type="file" name="files" accept="application/pdf,.pdf" required>
             <button class="btn" type="submit">등록</button>
           </form>
         </div>
@@ -255,13 +289,39 @@
     </div>
 
     <div class="col">
-      <div class="row-title"><span class="n2">2</span><h2 id="manuscript-title">새 원고 점검</h2></div>
-      <div class="card upload">
-        <p>원고 PDF를 올리면 등록된 교육과정·교과서와 비교하고, 페이지별 점검 화면을 만듭니다.</p>
-        <div id="limit-note" class="note" style="margin-top:6px"></div>
-        <div id="upload-limit-banner" class="limit-banner"></div>
+      <div class="card center-card">
+        <div class="center-head">
+          <h2>새 원고 분석</h2>
+          <p>교과서 원고를 업로드하면 교육과정과 비교하여 점검·분석합니다.</p>
+        </div>
         <form id="manuscript-form">
-          <input type="file" name="file" accept="application/pdf,.pdf" required>
+          <div class="substep"><span class="sn">1</span><h4>학교급·과목 선택</h4></div>
+          <div class="field-row">
+            <div>
+              <label class="curriculum-label" for="school-level-select">학교급</label>
+              <select id="school-level-select" required></select>
+            </div>
+            <div>
+              <label class="curriculum-label" for="subject-select">과목</label>
+              <select id="subject-select" required></select>
+            </div>
+          </div>
+          <div>
+            <label class="curriculum-label" id="sub-subject-label" for="sub-subject-select" style="display:none">세부 과목</label>
+            <select id="sub-subject-select" style="display:none"></select>
+          </div>
+          <div id="curriculum-availability" class="note" style="margin:0"></div>
+          <div class="divider"></div>
+          <div class="substep"><span class="sn">2</span><h4 id="manuscript-title">원고 PDF 업로드</h4></div>
+          <div class="dropzone-wrap" id="manuscript-dropzone-wrap">
+            <label class="dropzone" id="manuscript-dropzone">
+              <input type="file" name="file" accept="application/pdf,.pdf" required id="manuscript-file-input" style="display:none">
+              <div class="dropzone-icon"><svg viewBox="0 0 48 60" xmlns="http://www.w3.org/2000/svg"><path d="M6,4 H28 L40,16 V54 H6 Z" fill="#fff" stroke="#d7dbe3" stroke-width="2" stroke-linejoin="round"/><path d="M28,4 L40,16 H28 Z" fill="#eef1f5" stroke="#d7dbe3" stroke-width="2" stroke-linejoin="round"/><rect x="2" y="34" width="36" height="16" rx="3" fill="#dc2626"/><text x="20" y="45.5" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">PDF</text></svg></div>
+              <p id="manuscript-dropzone-text">PDF 파일을 드래그하거나 클릭하여 업로드하세요.</p>
+            </label>
+            <button type="button" class="dropzone-clear" id="manuscript-dropzone-clear" aria-label="선택한 파일 지우기" title="선택한 파일 지우기">×</button>
+          </div>
+          <div id="upload-limit-banner" class="limit-banner"></div>
           <button class="btn secondary" type="submit">분석 시작</button>
           <div id="manuscript-message" class="message" role="status"></div>
         </form>
@@ -269,7 +329,7 @@
     </div>
 
     <div class="col history">
-      <div class="row-title"><span class="n2">3</span><h2 id="history-title">원고 분석 이력</h2></div>
+      <div class="row-title"><h2 id="history-title">원고 분석 이력</h2></div>
       <p class="note">파일명을 이전과 동일하게 올리면 자동으로 이전 버전과 비교됩니다.</p>
       <div class="card">
         <div class="jobs-wrap"><div id="jobs" class="job-list"></div></div>
@@ -280,7 +340,9 @@
   <div class="footer-note">현재 버전은 로그인 없는 사내망용입니다. 인터넷에 직접 공개하지 마세요.</div>
 </div>
 <script>
-const labels={curriculum:'교육과정',textbook:'교과서',evaluation:'평가리스트'};
+const labels={textbook:'교과서'};
+const pdfIconSvg='<svg viewBox="0 0 48 60" xmlns="http://www.w3.org/2000/svg"><path d="M6,4 H28 L40,16 V54 H6 Z" fill="#fff" stroke="#d7dbe3" stroke-width="2" stroke-linejoin="round"/><path d="M28,4 L40,16 H28 Z" fill="#eef1f5" stroke="#d7dbe3" stroke-width="2" stroke-linejoin="round"/><rect x="2" y="34" width="36" height="16" rx="3" fill="#dc2626"/><text x="20" y="45.5" font-family="Pretendard, Malgun Gothic, sans-serif" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">PDF</text></svg>';
+let curriculumTaxonomy={};
 const statusLabels={queued:'대기 중',running:'분석 중',cancelling:'취소 중…',completed:'완료',failed:'실패',cancelled:'취소됨'};
 let dashboardLimits={manuscript_mb:200,manuscript_pages:300,reference_file_mb:200,request_mb:800};
 let serverStorage={capacity_bytes:800*1048576,used_bytes:0,remaining_bytes:800*1048576,percentage:0};
@@ -288,21 +350,115 @@ const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt
 const size=value=>value>1048576?(value/1048576).toFixed(1)+' MB':Math.ceil(value/1024)+' KB';
 const date=value=>value?new Date(value).toLocaleString('ko-KR'):'-';
 function message(id,text,error=false){const node=document.getElementById(id);node.textContent=text;node.className='message'+(error?' error':'');node.style.display='block'}
+let curriculumInitialized=false;
+function currentSubSubject(){const el=document.getElementById('sub-subject-select');return el.style.display==='none'?'':el.value}
+function populateCurriculumSelectors(){
+  const schoolSelect=document.getElementById('school-level-select');
+  if(!curriculumInitialized){
+    schoolSelect.innerHTML='<option value="">학교급 선택</option>'+Object.keys(curriculumTaxonomy).map(level=>`<option value="${esc(level)}">${esc(level)}</option>`).join('');
+    curriculumInitialized=true;
+  }
+  updateSubjectOptions();
+}
+function updateSubjectOptions(){
+  const schoolLevel=document.getElementById('school-level-select').value;
+  const subjectSelect=document.getElementById('subject-select');
+  const subjects=curriculumTaxonomy[schoolLevel]||{};
+  const prevSubject=subjectSelect.value;
+  subjectSelect.innerHTML='<option value="">과목 선택</option>'+Object.keys(subjects).map(subject=>`<option value="${esc(subject)}">${esc(subject)}</option>`).join('');
+  if(Object.keys(subjects).includes(prevSubject))subjectSelect.value=prevSubject;
+  updateSubSubjectOptions();
+}
+function updateSubSubjectOptions(){
+  const schoolLevel=document.getElementById('school-level-select').value;
+  const subject=document.getElementById('subject-select').value;
+  const subSelect=document.getElementById('sub-subject-select');
+  const subLabel=document.getElementById('sub-subject-label');
+  const entry=(curriculumTaxonomy[schoolLevel]||{})[subject];
+  const subList=entry&&entry.sub_subjects;
+  if(subList&&subList.length){
+    const prevSub=subSelect.value;
+    subSelect.innerHTML='<option value="">세부 과목 선택</option>'+subList.map(item=>`<option value="${esc(item.name)}">${esc(item.name)}${item.available?'':' (미등록)'}</option>`).join('');
+    if(subList.some(item=>item.name===prevSub))subSelect.value=prevSub;
+    subSelect.style.display='';subLabel.style.display='';
+  } else {
+    subSelect.innerHTML='';subSelect.style.display='none';subLabel.style.display='none';
+  }
+  updateCurriculumAvailability();
+}
+function updateCurriculumAvailability(){
+  updateStepsBar();
+  const schoolLevel=document.getElementById('school-level-select').value;
+  const subject=document.getElementById('subject-select').value;
+  const subSubject=currentSubSubject();
+  const note=document.getElementById('curriculum-availability');
+  if(!schoolLevel||!subject){note.textContent='';return}
+  const entry=(curriculumTaxonomy[schoolLevel]||{})[subject];
+  if(!entry){note.textContent='';return}
+  if(entry.sub_subjects){
+    if(!subSubject){note.textContent='';return}
+    const found=entry.sub_subjects.find(item=>item.name===subSubject);
+    note.textContent=(found&&found.available)?'':'선택한 교육과정 PDF가 아직 등록되지 않았습니다. 관리자에게 문의하세요.';
+  } else {
+    note.textContent=entry.available?'':'선택한 교육과정 PDF가 아직 등록되지 않았습니다. 관리자에게 문의하세요.';
+  }
+}
+function updateStepsBar(){
+  const schoolLevel=document.getElementById('school-level-select').value;
+  const subject=document.getElementById('subject-select').value;
+  const subSubject=currentSubSubject();
+  const entry=(curriculumTaxonomy[schoolLevel]||{})[subject];
+  const step2Done=!!(schoolLevel&&subject&&(!(entry&&entry.sub_subjects)||subSubject));
+  const fileChosen=!!document.getElementById('manuscript-file-input').files.length;
+  const step2=document.getElementById('step2'),step3=document.getElementById('step3');
+  step2.classList.toggle('done',step2Done);step2.classList.toggle('active',!step2Done);
+  step3.classList.toggle('active',step2Done);step3.classList.toggle('done',step2Done&&fileChosen);
+}
+document.getElementById('school-level-select').addEventListener('change',updateSubjectOptions);
+document.getElementById('subject-select').addEventListener('change',updateSubSubjectOptions);
+document.getElementById('sub-subject-select').addEventListener('change',updateCurriculumAvailability);
 function jobProgressHtml(x){
   if((x.status!=='running'&&x.status!=='cancelling')||!x.total_page)return '';
   const percent=Math.min(100,Math.round((x.current_page/x.total_page)*100));
   return `<div class="job-progress"><div class="job-progress-track"><div class="job-progress-fill" style="width:${percent}%"></div></div><span class="job-progress-text">${x.current_page}/${x.total_page}쪽 · ${percent}%</span></div>`;
 }
-function referenceHtml(items){if(!items.length)return '<div class="empty">아직 등록되지 않았습니다.</div>';return items.map(x=>`<div class="file-row"><div class="file-info"><b>${esc(x.original_name)}</b><span>${size(x.size_bytes)}</span></div><button class="file-delete" type="button" data-reference-id="${esc(x.id)}" data-reference-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 삭제" title="이 파일 삭제">×</button></div>`).join('')}
-async function load(){const response=await fetch('/api/dashboard',{cache:'no-store'});const data=await response.json();dashboardLimits={...dashboardLimits,...(data.limits||{})};serverStorage={...serverStorage,...(data.storage||{})};renderStorage(serverStorage.used_bytes,serverStorage.capacity_bytes,'서버 PDF 저장 공간');for(const kind of Object.keys(labels))document.getElementById(kind+'-state').innerHTML=referenceHtml(data.references[kind]||[]);document.getElementById('limit-note').textContent=`원고 1개당 최대 ${dashboardLimits.manuscript_mb}MB · ${dashboardLimits.manuscript_pages}쪽`;document.getElementById('upload-limit-banner').innerHTML=`<b>PDF 업로드 제한</b><br>서버 전체 저장 용량 ${size(serverStorage.capacity_bytes)} · 파일 1개당 최대 ${dashboardLimits.reference_file_mb}MB · 원고 최대 ${dashboardLimits.manuscript_pages}쪽 · PDF 파일만 등록할 수 있습니다.`;const rows=data.jobs.map(x=>`<div class="job"><div class="job-main"><b>${esc(x.original_name)}</b><div class="job-actions"><span class="status ${esc(x.status)}">${esc(statusLabels[x.status]||x.status)}</span>${(x.status==='queued'||x.status==='running')?`<button class="job-cancel" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 분석 취소">취소</button>`:''}${x.status==='cancelling'?`<button class="job-cancel is-cancelling" type="button" disabled>취소 중…</button>`:''}${x.status==='cancelled'?`<button class="job-retry" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 원고 다시 분석 시작">다시 분석 시작</button>`:''}${(x.status==='completed'||x.status==='failed'||x.status==='cancelled')?`<button class="file-delete job-delete" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 분석 이력 삭제" title="이 분석 이력 삭제">×</button>`:''}</div></div>${jobProgressHtml(x)}<div class="job-meta">${size(x.size_bytes)}${x.work_titles?` · 곡명: ${esc(x.work_titles)}`:''} · ${date(x.created_at)}${x.error?`<br><span style="color:var(--coral)">${esc(x.error)}</span>`:''}</div>${x.status==='completed'?`<div class="job-links"><a class="result" href="/results/${x.id}" target="_blank" rel="noopener">결과 보기</a>${x.diff_path?` · <a class="result" href="/diff/${x.id}" target="_blank" rel="noopener">이전 버전과 비교</a>`:''}</div>`:''}</div>`).join('');document.getElementById('jobs').innerHTML=rows||'<div class="job-empty">분석한 원고가 없습니다.</div>'}
+function referenceHtml(items){if(!items.length)return '<div class="empty">아직 등록되지 않았습니다.</div>';return items.map(x=>`<div class="file-row"><div class="file-icon">${pdfIconSvg}</div><div class="file-info"><b>${esc(x.original_name)}</b><span>${size(x.size_bytes)}</span></div><button class="file-delete" type="button" data-reference-id="${esc(x.id)}" data-reference-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 삭제" title="이 파일 삭제">×</button></div>`).join('')}
+async function load(){const response=await fetch('/api/dashboard',{cache:'no-store'});const data=await response.json();dashboardLimits={...dashboardLimits,...(data.limits||{})};serverStorage={...serverStorage,...(data.storage||{})};curriculumTaxonomy=data.curricula||{};populateCurriculumSelectors();renderStorage(serverStorage.used_bytes,serverStorage.capacity_bytes,'서버 PDF 저장 공간');for(const kind of Object.keys(labels))document.getElementById(kind+'-state').innerHTML=referenceHtml(data.references[kind]||[]);document.getElementById('upload-limit-banner').innerHTML=`<b>PDF 업로드 제한</b><br>서버 전체 저장 용량 ${size(serverStorage.capacity_bytes)} · 파일 1개당 최대 ${dashboardLimits.reference_file_mb}MB · 원고 최대 ${dashboardLimits.manuscript_pages}쪽 · PDF 파일만 등록할 수 있습니다.`;const rows=data.jobs.map(x=>`<div class="job"><div class="job-main"><b>${esc(x.original_name)}</b><div class="job-actions"><span class="status ${esc(x.status)}">${esc(statusLabels[x.status]||x.status)}</span>${(x.status==='queued'||x.status==='running')?`<button class="job-cancel" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 분석 취소">취소</button>`:''}${x.status==='cancelling'?`<button class="job-cancel is-cancelling" type="button" disabled>취소 중…</button>`:''}${x.status==='cancelled'?`<button class="job-retry" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 원고 다시 분석 시작">다시 분석 시작</button>`:''}${(x.status==='completed'||x.status==='failed'||x.status==='cancelled')?`<button class="file-delete job-delete" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 분석 이력 삭제" title="이 분석 이력 삭제">×</button>`:''}</div></div>${jobProgressHtml(x)}<div class="job-meta">${size(x.size_bytes)}${x.work_titles?` · 곡명: ${esc(x.work_titles)}`:''} · ${date(x.created_at)}${x.error?`<br><span style="color:var(--coral)">${esc(x.error)}</span>`:''}</div>${x.status==='completed'?`<div class="job-links"><a class="result" href="/results/${x.id}" target="_blank" rel="noopener">결과 보기</a>${x.diff_path?` · <a class="result" href="/diff/${x.id}" target="_blank" rel="noopener">이전 버전과 비교</a>`:''}</div>`:''}</div>`).join('');document.getElementById('jobs').innerHTML=rows||'<div class="job-empty">분석한 원고가 없습니다.</div>'}
 function validateFiles(files,totalLimitMb){if(!files.length)throw new Error('PDF 파일을 선택해 주세요.');const oneLimit=dashboardLimits.reference_file_mb*1048576;for(const file of files){if(file.size>oneLimit)throw new Error(`${file.name}: 파일 1개 제한 ${dashboardLimits.reference_file_mb}MB를 초과했습니다.`);if(!file.name.toLowerCase().endsWith('.pdf'))throw new Error(`${file.name}: PDF 파일만 등록할 수 있습니다.`)}const total=files.reduce((sum,file)=>sum+file.size,0);if(total>totalLimitMb*1048576)throw new Error(`선택한 파일의 전체 용량이 ${totalLimitMb}MB를 초과했습니다.`);if(total>serverStorage.remaining_bytes)throw new Error(`서버 저장 공간이 부족합니다. 현재 남은 용량은 ${size(serverStorage.remaining_bytes)}입니다.`);return total}
-function renderStorage(used,capacity,title){const percent=capacity?Math.min(100,Math.round(used/capacity*100)):0,remaining=Math.max(0,capacity-used);document.getElementById('upload-progress-bar').style.background=`conic-gradient(var(--sky) 0 ${percent}%, rgba(35,38,45,.1) ${percent}% 100%)`;document.getElementById('upload-progress-percent').textContent=percent+'%';document.getElementById('upload-progress-title').textContent=title;document.getElementById('upload-progress-detail').textContent=`업로드된 용량 ${size(used)} / 총 ${size(capacity)} · 남은 용량 ${size(remaining)}`}
+function renderStorage(used,capacity,title){const percent=capacity?Math.min(100,Math.round(used/capacity*100)):0,remaining=Math.max(0,capacity-used);document.getElementById('upload-progress-bar').style.background=`conic-gradient(var(--sky) 0 ${percent}%, rgba(37,99,235,.14) ${percent}% 100%)`;document.getElementById('upload-progress-percent').textContent=percent+'%';document.getElementById('upload-progress-title').textContent=title;document.getElementById('upload-progress-detail').textContent=`업로드된 용량 ${size(used)} / 총 ${size(capacity)} · 남은 용량 ${size(remaining)}`}
 function showUploadProgress(loaded,total){renderStorage(Math.min(serverStorage.capacity_bytes,serverStorage.used_bytes+loaded),serverStorage.capacity_bytes,'서버 PDF 저장 공간 · 업로드 반영 중')}
 function showSelectedFiles(input){const files=[...input.files];if(!files.length)return;const total=files.reduce((sum,file)=>sum+file.size,0);renderStorage(Math.min(serverStorage.capacity_bytes,serverStorage.used_bytes+total),serverStorage.capacity_bytes,`서버 PDF 저장 공간 · ${files.length}개 업로드 후 예상`)}
 function upload(url,body,totalBytes){return new Promise((resolve,reject)=>{const xhr=new XMLHttpRequest();xhr.open('POST',url);xhr.responseType='json';xhr.upload.onprogress=event=>showUploadProgress(event.loaded,event.lengthComputable?event.total:totalBytes);xhr.onerror=()=>reject(new Error('업로드 중 네트워크 오류가 발생했습니다.'));xhr.onload=()=>{const data=xhr.response||{};if(xhr.status<200||xhr.status>=300)reject(new Error(data.error||'업로드 실패'));else{showUploadProgress(totalBytes,totalBytes);resolve(data)}};showUploadProgress(0,totalBytes);xhr.send(body)})}
 document.querySelectorAll('.reference-form').forEach(form=>form.addEventListener('submit',async event=>{event.preventDefault();const button=form.querySelector('button'),files=[...form.elements.files.files];button.disabled=true;try{const total=validateFiles(files,dashboardLimits.request_mb),body=new FormData(form);body.set('kind',form.dataset.kind);await upload('/api/references',body,total);form.reset();await load()}catch(error){message('reference-message',error.message,true)}finally{button.disabled=false}}));
-document.getElementById('manuscript-form').addEventListener('submit',async event=>{event.preventDefault();const form=event.currentTarget,button=form.querySelector('button'),files=[form.elements.file.files[0]].filter(Boolean);button.disabled=true;message('manuscript-message','파일을 올리고 분석 준비 중입니다.');try{const total=validateFiles(files,dashboardLimits.manuscript_mb),data=await upload('/api/manuscripts',new FormData(form),total);message('manuscript-message',`${data.pages}쪽 원고 분석을 시작했습니다. 완료되면 오른쪽에 결과 보기가 나타납니다.`);form.reset();await load()}catch(error){message('manuscript-message',error.message,true)}finally{button.disabled=false}});
+document.getElementById('manuscript-form').addEventListener('submit',async event=>{event.preventDefault();const form=event.currentTarget,button=form.querySelector('button'),files=[form.elements.file.files[0]].filter(Boolean);const schoolLevel=document.getElementById('school-level-select').value,subject=document.getElementById('subject-select').value,subSubject=currentSubSubject();button.disabled=true;message('manuscript-message','파일을 올리고 분석 준비 중입니다.');try{if(!schoolLevel||!subject)throw new Error('학교급과 과목을 선택해 주세요.');const entry=(curriculumTaxonomy[schoolLevel]||{})[subject];if(entry&&entry.sub_subjects&&!subSubject)throw new Error('세부 과목을 선택해 주세요.');const total=validateFiles(files,dashboardLimits.manuscript_mb),body=new FormData(form);body.set('school_level',schoolLevel);body.set('subject',subject);body.set('sub_subject',subSubject);const data=await upload('/api/manuscripts',body,total);message('manuscript-message',`${data.pages}쪽 원고 분석을 시작했습니다. 완료되면 오른쪽에 결과 보기가 나타납니다.`);form.reset();updateDropzoneText();updateStepsBar();await load()}catch(error){message('manuscript-message',error.message,true)}finally{button.disabled=false}});
 document.querySelectorAll('input[type=file]').forEach(input=>input.addEventListener('change',()=>showSelectedFiles(input)));
+const manuscriptDropzoneWrap=document.getElementById('manuscript-dropzone-wrap');
+const manuscriptDropzone=document.getElementById('manuscript-dropzone');
+const manuscriptFileInput=document.getElementById('manuscript-file-input');
+const manuscriptDropzoneText=document.getElementById('manuscript-dropzone-text');
+const manuscriptDropzoneClear=document.getElementById('manuscript-dropzone-clear');
+function updateDropzoneText(){
+  const file=manuscriptFileInput.files[0];
+  if(file){
+    manuscriptDropzone.classList.add('has-file');manuscriptDropzoneWrap.classList.add('has-file');
+    manuscriptDropzoneText.textContent=`${file.name} · ${size(file.size)} · 선택 완료`;
+  } else {
+    manuscriptDropzone.classList.remove('has-file');manuscriptDropzoneWrap.classList.remove('has-file');
+    manuscriptDropzoneText.textContent='PDF 파일을 드래그하거나 클릭하여 업로드하세요.';
+  }
+}
+manuscriptDropzone.addEventListener('dragover',event=>{event.preventDefault();manuscriptDropzone.classList.add('dragover')});
+manuscriptDropzone.addEventListener('dragleave',()=>manuscriptDropzone.classList.remove('dragover'));
+manuscriptDropzone.addEventListener('drop',event=>{
+  event.preventDefault();manuscriptDropzone.classList.remove('dragover');
+  const file=event.dataTransfer.files&&event.dataTransfer.files[0];
+  if(file){manuscriptFileInput.files=event.dataTransfer.files;updateDropzoneText();showSelectedFiles(manuscriptFileInput);updateStepsBar()}
+});
+manuscriptFileInput.addEventListener('change',()=>{updateDropzoneText();updateStepsBar()});
+manuscriptDropzoneClear.addEventListener('click',event=>{
+  event.preventDefault();event.stopPropagation();
+  manuscriptFileInput.value='';updateDropzoneText();updateStepsBar();
+});
 document.addEventListener('click',async event=>{const button=event.target.closest('.file-delete:not(.job-delete)');if(!button)return;const name=button.dataset.referenceName;if(!confirm(`${name} 파일만 삭제할까요? 컴퓨터의 원본 PDF는 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/references/${encodeURIComponent(button.dataset.referenceId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'파일 삭제 실패');message('reference-message',data.message);await load()}catch(error){message('reference-message',error.message,true);button.disabled=false}});
 document.addEventListener('click',async event=>{const button=event.target.closest('.job-delete');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 분석 이력을 삭제할까요? 업로드한 원고 사본과 분석 결과 파일이 함께 삭제됩니다. 컴퓨터의 원본 파일은 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 이력 삭제 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false}});
 document.addEventListener('click',async event=>{const button=event.target.closest('.job-cancel:not(.is-cancelling)');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 분석을 취소할까요?`))return;button.disabled=true;button.textContent='취소 중…';button.classList.add('is-cancelling');try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}/cancel`,{method:'POST'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 취소 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false;button.textContent='취소';button.classList.remove('is-cancelling')}});
