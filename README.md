@@ -50,7 +50,7 @@ pdfplumber와 PDFium 백엔드를 사용합니다.
 
 ## 팀용 업로드 프로그램
 
-`team-serve`는 교육과정, 이전 개정 교과서, 평가리스트를 기준 자료로 한 번
+`team-serve`는 교육과정, 이전 개정 교과서, 편수자료를 기준 자료로 한 번
 등록하고 원고 PDF만 반복해서 업로드하는 웹 화면을 제공합니다. 기준 파일의
 해시·버전과 원고별 분석 이력은 `team_data/team.db`에 저장되고, 실제 PDF와
 결과는 `team_data/uploads`, `team_data/results`에 보관됩니다.

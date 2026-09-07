@@ -114,7 +114,7 @@ class CurriculumAuditTests(unittest.TestCase):
         self.assertGreaterEqual(score, 0)
         self.assertLessEqual(score, 1)
 
-    def test_missing_standard_is_only_shown_in_curriculum_comparison(self):
+    def test_missing_standard_recommends_matched_curriculum_text_verbatim(self):
         components = detect_manuscript_components([
             "대취타와 취타 · 두 악곡의 특징을 비교하여 설명할 수 있다.\n"
             "1. 두 악곡을 비교해 보자."
@@ -126,7 +126,9 @@ class CurriculumAuditTests(unittest.TestCase):
             }]
         }
         result = _recommendations(components, alignment, ["대취타와 취타"])
-        self.assertIsNone(result["achievement_standard"])
+        # 성취기준 문구는 새로 짓지 않고 교육과정 원문을 그대로 추천한다.
+        self.assertIn("12감비01-01", result["achievement_standard"]["suggestion"])
+        self.assertIn("음악의 특징을 비교·분석하여 설명한다", result["achievement_standard"]["suggestion"])
         self.assertIn("수정하지 않고", result["curriculum_policy"])
         self.assertIn("공통점과 차이점", result["learning_goal"]["suggestion"])
         self.assertTrue(result["learning_goal"]["curriculum_basis"])

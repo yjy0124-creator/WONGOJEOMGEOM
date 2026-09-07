@@ -186,31 +186,45 @@ def detect_manuscript_components(pages: list[str]) -> dict[str, Any]:
             activities.append({"page": page_no, "number": number, "text": item_text, "method": "활동 표제 블록 감지"})
             captured_activity_keys.add(re.sub(r"\s+", "", body))
 
-        # 표제가 없는 활동은 번호 또는 학생 행동 지시형 어미로 보완한다.
+        # 번호가 붙은 활동은 줄 시작에서 찾는다 (번호는 PDF에서도 대체로 줄 시작에 온다).
         page_activity_number = 0
-        for line in raw.splitlines():
+        for line in text.split("\n"):
             normalized = re.sub(r"\s+", " ", line).strip()
             match = re.match(r"^(\d{1,2})[.)]\s*(.+)", normalized)
-            if match:
-                number = int(match.group(1))
-                body = match.group(2).strip()
-                method = "번호 활동 감지"
-            else:
-                body = normalized
-                if not re.search(r"(?:해\s*보자|보자)\s*[.!?]?\s*$", body):
-                    continue
-                page_activity_number += 1
-                number = page_activity_number
-                method = "지시문 종결형 감지"
-            if len(body) >= 6 and re.search(r"보자|해 보|적어|설명|비교|토의|토론|감상|연주|작성|발표|조사|이야기", body):
-                if any(key and (key in re.sub(r"\s+", "", body) or re.sub(r"\s+", "", body) in key)
-                       for key in captured_activity_keys):
-                    continue
-                page_activity_number = max(page_activity_number, number)
-                activities.append({
-                    "page": page_no, "number": number,
-                    "text": f"{number}. {body}", "method": method,
-                })
+            if not match:
+                continue
+            number, body = int(match.group(1)), match.group(2).strip()
+            if len(body) < 6:
+                continue
+            key = re.sub(r"\s+", "", body)
+            if any(existing and (existing in key or key in existing) for existing in captured_activity_keys):
+                continue
+            page_activity_number = max(page_activity_number, number)
+            activities.append({"page": page_no, "number": number, "text": f"{number}. {body}", "method": "번호 활동 감지"})
+            captured_activity_keys.add(key)
+
+        # 번호도 [활동 n] 표제도 없는 지시문은 PDF의 줄바꿈 위치(쉼표 뒤 등)에 기대면
+        # 활동 문장의 앞부분이 잘리거나 통째로 누락된다 — 페이지 전체를 한 문단으로
+        # 이어 붙인 뒤, 마침표(다른 문장과의 경계)와 청유형 종결 표현만을 기준으로
+        # 문장 단위를 다시 찾는다.
+        flattened = re.sub(r"\s*\n\s*", " ", text)
+        activity_ending = r"(?:해\s*보자|보자|해\s*봅시다|봅시다)"
+        for match in re.finditer(rf"[^.!?]{{6,300}}?{activity_ending}", flattened):
+            body = re.sub(r"\s+", " ", match.group(0)).strip(" ·-–—,")
+            body = re.sub(r"^\d{1,2}[.)]\s*", "", body)  # 번호 활동 감지에서 이미 처리된 항목과 중복되지 않도록 번호 접두를 뗀다
+            if len(body) < 6:
+                continue
+            if not re.search(r"보자|해 보|적어|설명|비교|토의|토론|감상|연주|작성|발표|조사|이야기|봅시다", body):
+                continue
+            key = re.sub(r"\s+", "", body)
+            if any(existing and (existing in key or key in existing) for existing in captured_activity_keys):
+                continue
+            page_activity_number += 1
+            activities.append({
+                "page": page_no, "number": page_activity_number,
+                "text": f"{page_activity_number}. {body}", "method": "지시문 종결형 감지",
+            })
+            captured_activity_keys.add(key)
 
     explicit_standards = _unique(explicit_standards)
     learning_goals = _unique(learning_goals)
@@ -356,7 +370,7 @@ def _review_body_text(pages: list[str], components: dict[str, Any],
                 reason = item.get("description") or "표준 표기와 다를 수 있습니다."
                 if candidate:
                     reason += f" → 추천: {candidate}"
-                issues.append({"type": "맞춤법(전문 검사기)", "reason": reason})
+                issues.append({"type": "맞춤법('바른 한글')", "reason": reason})
                 if candidate:
                     start, end = item["start"] + shift, item["end"] + shift
                     if 0 <= start <= end <= len(suggested):
@@ -400,9 +414,10 @@ def _review_body_text(pages: list[str], components: dict[str, Any],
         "pages": page_items,
         "policy": CURRICULUM_TEXT_POLICY,
         "basis": {
-            "method": "로컬 편집 규칙 검사 + 전문 맞춤법 검사기(가능할 때)",
-            "checks": ["PDF 줄바꿈 복원", "주요 띄어쓰기", "문장 호응·중복 표현", "긴 연결 문장", "기존 교과서 용어 표기", "전문 맞춤법 검사기 대조"],
-            "limitation": "전문 맞춤법 검사기(비공식 공개 API) 호출이 실패하면 그 문장은 로컬 규칙 검사 결과만 반영됩니다.",
+            "method": "로컬 편집 규칙 검사 + '바른 한글' 맞춤법 검사기(가능할 때)",
+            "checks": ["PDF 줄바꿈 복원", "주요 띄어쓰기", "문장 호응·중복 표현", "긴 연결 문장", "편수자료 표준 용어 대조", "'바른 한글' 맞춤법 검사기 대조"],
+            "provider": "맞춤법 검사는 부산대학교 인공지능연구실과 (주)나라인포테크가 공동 개발한 '바른 한글' 서비스로 수행했습니다.",
+            "limitation": "'바른 한글' 호출이 실패하면 그 문장은 로컬 규칙 검사 결과만 반영됩니다.",
         },
         "note": "학습 목표를 제외한 설명형 본문과 활동 문장을 함께 검토했습니다. 명칭은 기존 교과서의 동일 표기 여부를 확인한 보조 결과입니다.",
     }
@@ -617,23 +632,24 @@ def similarity(first: str, second: str) -> float:
     return round(min(1.0, char_score * .72 + token_score * .28), 4)
 
 
-def _similarity_explanation(first: str, second: str, score: float,
+def _similarity_explanation(first: str, second: str, shared_count: int,
                             comparison_type: str) -> dict[str, Any]:
+    """겹치는 핵심어 개수로 심각도를 가른다.
+
+    문자열 유사도 점수는 카테고리 성격의 '겹치는 수행 방식'까지 합산되어 핵심어가
+    3개만 겹쳐도 점수가 쉽게 0.72 이상으로 올라가 버려, 실제로는 흔한 표현 몇 개만
+    겹친 문장도 항상 '매우 유사'로 강조되는 문제가 있었다. 핵심어 개수(정확히 일치하는
+    단어)만으로 4개 이상은 수정이 필요한 수준, 3개는 주의가 필요한 수준으로 나눈다.
+    """
     shared_keywords = sorted(_tokens(first) & _tokens(second), key=lambda value: (-len(value), value))[:8]
     action_words = ("감상", "비교", "분석", "설명", "표현", "연주", "노래", "토론", "토의", "조사", "작성", "발표")
     shared_actions = [word for word in action_words if word in first and word in second]
-    if score >= .72:
+    if shared_count >= 4:
         verdict = "표현과 내용이 매우 유사함" if comparison_type == "content" else "활동 구조와 수행 행동이 매우 유사함"
-        interpretation = "핵심어뿐 아니라 문장 표현과 배열도 많이 겹쳐 출처와 독자성을 확인해야 합니다."
-    elif score >= .50:
-        verdict = "유사함"
-        interpretation = "핵심 내용과 표현 방식이 상당 부분 겹쳐 사람이 원문을 대조해야 합니다."
-    elif score >= .32:
-        verdict = "일부 요소만 유사함"
-        interpretation = "일부 핵심어 또는 수행 행동만 겹치며 문장 전체가 유사하다는 뜻은 아닙니다."
+        interpretation = "정확히 일치하는 핵심어가 4개 이상 겹쳐 출처와 독자성을 확인해야 합니다."
     else:
-        verdict = "유사하지 않음"
-        interpretation = "의미 있게 겹치는 표현이 부족해 유사 문장으로 판단하지 않았습니다."
+        verdict = "일부 표현이 유사함"
+        interpretation = "핵심어 3개가 겹치지만 그 밖의 표현은 다를 수 있어, 우연한 겹침인지 주의 깊게 확인하세요."
     return {
         "verdict": verdict,
         "interpretation": interpretation,
@@ -1226,6 +1242,21 @@ def _recommendations(components: dict[str, Any], alignment: dict[str, Any],
         "generation_method": "등록된 기존 교과서의 실제 활동 표본을 유형별로 골라 대상만 원고 주제로 재구성",
         "curriculum_policy": CURRICULUM_TEXT_POLICY,
     }
+    if top and not components["achievement_standards"]["included"]:
+        # 성취기준 문구 자체는 교육과정 원문 그대로만 쓴다(CURRICULUM_TEXT_POLICY) —
+        # 새 문장을 짓지 않고, 원고 내용과 가장 일치하는 성취기준 코드·원문을
+        # 그대로 추천해 원고에 명시하도록 안내한다.
+        result["achievement_standard"] = {
+            "current_text": None,
+            "suggestion": f"[{top['code']}] {top['text']}",
+            "reason": (
+                f"원고에 성취기준이 명시되어 있지 않아, 원고 내용과 일치도가 가장 높은"
+                f"({top['score'] * 100:.1f}%) 교육과정 성취기준을 그대로 추천합니다."
+            ),
+            "curriculum_basis": f"[{top['code']}] {top['text']}",
+            "matched_keywords": top.get("matched_keywords", []),
+            "generation_method": "교육과정 성취기준 원문 그대로 인용(수정 없음)",
+        }
     if top and (not components["learning_goals"]["included"] or len(top.get("matched_keywords", [])) < 3):
         goal_templates = {
             "12감비01-01": f"{topic_eul} 감상하고, 악기 편성과 {rhythm_term}의 공통점과 차이점을 비교하여 설명할 수 있다.",
@@ -1344,8 +1375,32 @@ def _recommendations(components: dict[str, Any], alignment: dict[str, Any],
     return result
 
 
+_REFERENCE_PHOTO_IDEAS_BY_GENRE = {
+    "국악": "전통 악기 편성이나 실제 공연 장면을 보여주는 사진",
+    "오페라": "오페라 공연 장면이나 등장인물·무대 디자인을 보여주는 사진",
+    "뮤지컬": "뮤지컬 공연 장면 사진",
+    "예술가곡": "작곡가 초상이나 곡이 만들어진 시대적 배경을 보여주는 사진",
+    "클래식 기악곡": "연주에 쓰이는 악기(편성)나 작곡가 초상 사진",
+    "가요·대중음악": "유행하던 시대의 분위기를 보여주는 사진",
+}
+
+
+def _reference_photo_suggestion(topic: str, piece_type: str, genre: str | None) -> str:
+    """참고 사진·삽화 항목이 비어 있을 때, 제재곡 갈래·유형에 맞는 구체적인 소재를 제안한다."""
+    idea = _REFERENCE_PHOTO_IDEAS_BY_GENRE.get(genre or "")
+    if not idea:
+        idea = (
+            "부르는 모습이나 가사와 관련된 배경을 보여주는 사진" if piece_type == "가창곡" else
+            "연주 장면이나 쓰이는 악기를 보여주는 사진" if piece_type == "연주곡" else
+            "작곡가·시대적 배경·공연 장면 중 본문 이해에 도움이 되는 사진"
+        )
+    return f"‘{topic}’의 {idea}"
+
+
 def _completion_score(components: dict[str, Any], alignment: dict[str, Any],
-                      rendered_pages: list[dict[str, Any]], pages: list[str]) -> dict[str, Any]:
+                      rendered_pages: list[dict[str, Any]], pages: list[str],
+                      topic: str | None = None, piece_type: str | None = None,
+                      genre: str | None = None) -> dict[str, Any]:
     weights = {
         "achievement_standard": 15, "learning_goal": 15, "activities": 15,
         "music_score": 20, "reference_photo": 15, "body_text": 20,
@@ -1388,12 +1443,15 @@ def _completion_score(components: dict[str, Any], alignment: dict[str, Any],
         missing = round(detail["maximum"] - detail["earned"], 1)
         if missing <= 0:
             continue
+        photo_action = "본문 이해를 돕는 사진 또는 삽화를 출처와 함께 추가합니다."
+        if topic:
+            photo_action += f" 예: {_reference_photo_suggestion(topic, piece_type or '감상곡', genre)}."
         actions = {
             "성취기준": "연계할 성취기준 코드와 문장을 원고의 단원 정보에 명시하고 사람이 최종 확인합니다.",
             "학습 목표": "성취기준과 연결되는 학생 행동 중심의 학습 목표를 추가합니다.",
             "활동": "학습 목표를 확인할 수 있는 학생 수행 활동을 추가합니다.",
             "악보": "제재곡 악보를 배치하고 악보 출처·마디 번호·연주 안내를 확인합니다.",
-            "참고 사진·삽화": "본문 이해를 돕는 사진 또는 삽화를 출처와 함께 추가합니다.",
+            "참고 사진·삽화": photo_action,
             "본문 텍스트": "제재의 배경·음악적 특징을 설명하는 본문 텍스트를 추가합니다.",
         }
         to_reach_100.append({
@@ -1401,13 +1459,18 @@ def _completion_score(components: dict[str, Any], alignment: dict[str, Any],
             "action": actions[detail["name"]],
             "reason": f"이 항목의 최대 {detail['maximum']}점 중 {detail['earned']}점만 반영되었습니다.",
         })
+    unmet_names = [detail["name"] for detail in details if detail["earned"] < detail["maximum"]]
+    if unmet_names:
+        explanation = f"현재 완성도 {total:.1f}%, {len(weights)}개 평가 항목 중 {', '.join(unmet_names)} 미충족"
+    else:
+        explanation = f"현재 완성도 {total:.1f}%, {len(weights)}개 평가 항목 모두 충족"
     return {
         "percentage": min(100, total),
         "breakdown": earned,
         "weights": weights,
         "details": details,
         "to_reach_100": to_reach_100,
-        "explanation": f"현재 완성도는 {total:.1f}%입니다. 6개 평가 항목의 획득 점수를 합산했으며 미충족 항목은 자동으로 감점했습니다.",
+        "explanation": explanation,
         "note": "성취기준·학습 목표·활동·악보·참고 사진·본문 텍스트의 유무만 합산한 편집 구성 점검 지표이며 교육적 품질의 절대 평가가 아닙니다.",
     }
 
@@ -1839,30 +1902,21 @@ def _compare_activity_similarity(pages: list[str], components: dict[str, Any],
             if score > best_score:
                 best, best_score, best_basis = candidate, score, basis
         max_score = max(max_score, best_score)
-        if best_score >= .72:
-            status = "매우 유사"
-            similar_count += 1
-        elif best_score >= .50:
-            status = "유사"
-            similar_count += 1
-        elif best_score >= .32:
-            status = "부분 유사"
-        else:
-            status = "유사도 낮음"
-        if best_score >= .72:
-            verdict, interpretation = "핵심 활동이 매우 유사함", "같은 곡·장르·수행 방식이 다수 겹칩니다."
-        elif best_score >= .50:
-            verdict, interpretation = "핵심 활동이 유사함", "곡, 장르 또는 수행 방식의 중심 내용이 상당 부분 겹칩니다."
-        elif best_score >= .32:
-            verdict, interpretation = "일부 핵심 요소만 유사함", "일부 중심 요소만 같으며 문장 종결 표현은 판단에 사용하지 않았습니다."
-        else:
-            verdict, interpretation = "핵심 활동이 유사하지 않음", "같은 곡·장르·수행 방식의 결합이 충분히 겹치지 않습니다."
         # 전문 로직(같은 곡·장르·악기 계열)은 그대로 두되, 정확히 일치하는 핵심어가
         # 3개 이상일 때만 화면에 노출한다.
         if len(best_basis.get("shared_keywords", [])) < 3:
             continue
-        match = ({"file": best["file"], "page": best["page"], "text": best["text"]}
-                 if best and best_score >= .32 else None)
+        # 겹치는 핵심어 개수로 심각도를 가른다 — 4개 이상은 수정이 필요한 수준,
+        # 표시 기준(3개)만 겨우 넘긴 경우는 주의만 요하는 수준으로 낮춰 잡는다.
+        shared_count = len(best_basis["shared_keywords"])
+        if shared_count >= 4:
+            status = "매우 유사"
+            verdict, interpretation = "핵심 활동이 매우 유사함", "같은 곡·장르·수행 방식과 핵심어가 4개 이상 겹칩니다."
+        else:
+            status = "유사도 주의"
+            verdict, interpretation = "일부 핵심 요소가 유사함", "핵심어 3개가 겹치지만 그 밖의 요소는 다를 수 있어 주의 깊게 확인하세요."
+        similar_count += 1
+        match = {"file": best["file"], "page": best["page"], "text": best["text"]}
         fingerprint = _fingerprint(
             "activity_similarity", activity["text"],
             (match or {}).get("file", ""), str((match or {}).get("page", "")),
@@ -1871,7 +1925,7 @@ def _compare_activity_similarity(pages: list[str], components: dict[str, Any],
             "manuscript_text": activity["text"], "status": status,
             "score": round(best_score, 4),
             "match": match,
-            "review_required": best_score >= .50,
+            "review_required": True,
             "verdict": verdict, "interpretation": interpretation,
             "comparison_focus": "같은 곡 · 같은 장르 · 같은 악기 계열 · 실제 수행 방식",
             **best_basis,
@@ -1978,21 +2032,15 @@ def _compare_textbook_similarity(pages: list[str], components: dict[str, Any],
         if not best or not best_basis:
             continue
         max_score = max(max_score, best_score)
-        if best_score >= .72:
-            status = "매우 유사"
-            similar_count += 1
-        elif best_score >= .50:
-            status = "유사"
-            similar_count += 1
-        elif best_score >= .32:
-            status = "부분 유사"
-        else:
-            status = "유사도 낮음"
+        # 겹치는 핵심어 개수로 심각도를 가른다 — 4개 이상은 수정이 필요한 수준,
+        # 표시 기준(3개)만 겨우 넘긴 경우는 주의만 요하는 수준으로 낮춰 잡는다.
+        shared_count = len(best_basis["shared_keywords"])
+        status = "매우 유사" if shared_count >= 4 else "유사도 주의"
+        similar_count += 1
         explanation = _similarity_explanation(
-            source["text"], best["text"] if best else "", best_score, "content"
+            source["text"], best["text"], shared_count, "content"
         )
-        match = ({"file": best["file"], "page": best["page"], "text": best["text"]}
-                 if best and best_score >= .32 else None)
+        match = {"file": best["file"], "page": best["page"], "text": best["text"]}
         fingerprint = _fingerprint(
             "textbook_similarity", source["text"],
             (match or {}).get("file", ""), str((match or {}).get("page", "")),
@@ -2001,7 +2049,7 @@ def _compare_textbook_similarity(pages: list[str], components: dict[str, Any],
             "manuscript_text": source["text"], "status": status,
             "score": round(best_score, 4),
             "match": match,
-            "review_required": best_score >= .50,
+            "review_required": True,
             **explanation,
             "shared_keywords": best_basis["shared_keywords"],
             "shared_meanings": best_basis["shared_meanings"],
@@ -2304,7 +2352,11 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
                 {"step": 4, "name": "교육과정 비교", "result": f"{page_alignment['label']} · 최고 {page_alignment['top_score'] * 100:.1f}%"},
             ],
         })
-    completion = _completion_score(components, alignment, rendered_pages, manuscript_pages)
+    completion = _completion_score(
+        components, alignment, rendered_pages, manuscript_pages,
+        topic=document_topic, piece_type=_infer_piece_type(manuscript_pages),
+        genre=_infer_genre("\n".join(manuscript_pages)),
+    )
     result: dict[str, Any] = {
         "schema_version": "1.0.0",
         "created_at": datetime.now(timezone.utc).isoformat(),
