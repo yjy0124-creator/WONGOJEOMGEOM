@@ -156,7 +156,35 @@
     .status{display:inline-flex;align-items:center;padding:3px 10px;border-radius:99px;font-size:10.5px;font-weight:800;flex:none;white-space:nowrap}
     .status.completed{background:rgba(34,150,94,.13);color:#1f7a4d}
     .status.running,.status.queued{background:rgba(205,154,68,.18);color:#8a6011}
+    .job-progress{display:flex;align-items:center;gap:8px;margin-top:6px}
+    .job-progress-track{flex:1;height:5px;background:rgba(35,38,45,.08);border-radius:99px;overflow:hidden}
+    .job-progress-fill{height:100%;background:var(--sky);border-radius:99px;transition:width .3s ease}
+    .job-progress-text{font-size:10px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
     .status.failed{background:rgba(221,106,92,.14);color:#b7392c}
+    .status.cancelled{background:rgba(108,112,120,.14);color:var(--muted)}
+    .status.cancelling{background:rgba(205,154,68,.18);color:#8a6011}
+    .job-cancel{
+      flex:none;padding:3px 10px;border-radius:99px;border:1px solid rgba(221,106,92,.35);background:rgba(255,255,255,.5);
+      color:var(--coral);font-size:10.5px;font-weight:700;cursor:pointer;
+      transition:background .15s var(--ease),transform .15s var(--ease);
+    }
+    .job-cancel:hover,.job-cancel:focus{background:rgba(221,106,92,.14)}
+    .job-cancel:active{transform:scale(.95)}
+    .job-cancel:disabled{opacity:.7;cursor:default;transform:none}
+    .job-cancel.is-cancelling{border-color:rgba(108,112,120,.35);color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+    .job-cancel.is-cancelling::before{
+      content:'';width:8px;height:8px;border-radius:50%;flex:none;
+      border:1.5px solid rgba(108,112,120,.35);border-top-color:var(--muted);
+      animation:job-spin .7s linear infinite;
+    }
+    @keyframes job-spin{to{transform:rotate(360deg)}}
+    .job-retry{
+      flex:none;padding:3px 10px;border-radius:99px;border:1px solid rgba(91,143,209,.35);background:rgba(255,255,255,.5);
+      color:var(--sky);font-size:10.5px;font-weight:700;cursor:pointer;
+      transition:background .15s var(--ease),transform .15s var(--ease);
+    }
+    .job-retry:hover,.job-retry:focus{background:rgba(91,143,209,.14)}
+    .job-retry:active{transform:scale(.95)}
     a.result{color:var(--sky);font-weight:800;text-decoration:none;font-size:11px}
     a.result:hover{color:var(--lavender);text-decoration:underline}
     .job-empty{padding:40px 10px;text-align:center;color:var(--muted);font-size:12px}
@@ -253,15 +281,20 @@
 </div>
 <script>
 const labels={curriculum:'교육과정',textbook:'교과서',evaluation:'평가리스트'};
-const statusLabels={queued:'대기 중',running:'분석 중',completed:'완료',failed:'실패'};
+const statusLabels={queued:'대기 중',running:'분석 중',cancelling:'취소 중…',completed:'완료',failed:'실패',cancelled:'취소됨'};
 let dashboardLimits={manuscript_mb:200,manuscript_pages:300,reference_file_mb:200,request_mb:800};
 let serverStorage={capacity_bytes:800*1048576,used_bytes:0,remaining_bytes:800*1048576,percentage:0};
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const size=value=>value>1048576?(value/1048576).toFixed(1)+' MB':Math.ceil(value/1024)+' KB';
 const date=value=>value?new Date(value).toLocaleString('ko-KR'):'-';
 function message(id,text,error=false){const node=document.getElementById(id);node.textContent=text;node.className='message'+(error?' error':'');node.style.display='block'}
+function jobProgressHtml(x){
+  if((x.status!=='running'&&x.status!=='cancelling')||!x.total_page)return '';
+  const percent=Math.min(100,Math.round((x.current_page/x.total_page)*100));
+  return `<div class="job-progress"><div class="job-progress-track"><div class="job-progress-fill" style="width:${percent}%"></div></div><span class="job-progress-text">${x.current_page}/${x.total_page}쪽 · ${percent}%</span></div>`;
+}
 function referenceHtml(items){if(!items.length)return '<div class="empty">아직 등록되지 않았습니다.</div>';return items.map(x=>`<div class="file-row"><div class="file-info"><b>${esc(x.original_name)}</b><span>${size(x.size_bytes)}</span></div><button class="file-delete" type="button" data-reference-id="${esc(x.id)}" data-reference-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 삭제" title="이 파일 삭제">×</button></div>`).join('')}
-async function load(){const response=await fetch('/api/dashboard',{cache:'no-store'});const data=await response.json();dashboardLimits={...dashboardLimits,...(data.limits||{})};serverStorage={...serverStorage,...(data.storage||{})};renderStorage(serverStorage.used_bytes,serverStorage.capacity_bytes,'서버 PDF 저장 공간');for(const kind of Object.keys(labels))document.getElementById(kind+'-state').innerHTML=referenceHtml(data.references[kind]||[]);document.getElementById('limit-note').textContent=`원고 1개당 최대 ${dashboardLimits.manuscript_mb}MB · ${dashboardLimits.manuscript_pages}쪽`;document.getElementById('upload-limit-banner').innerHTML=`<b>PDF 업로드 제한</b><br>서버 전체 저장 용량 ${size(serverStorage.capacity_bytes)} · 파일 1개당 최대 ${dashboardLimits.reference_file_mb}MB · 원고 최대 ${dashboardLimits.manuscript_pages}쪽 · PDF 파일만 등록할 수 있습니다.`;const rows=data.jobs.map(x=>`<div class="job"><div class="job-main"><b>${esc(x.original_name)}</b><div class="job-actions"><span class="status ${esc(x.status)}">${esc(statusLabels[x.status]||x.status)}</span>${(x.status==='completed'||x.status==='failed')?`<button class="file-delete job-delete" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 분석 이력 삭제" title="이 분석 이력 삭제">×</button>`:''}</div></div><div class="job-meta">${size(x.size_bytes)}${x.work_titles?` · 곡명: ${esc(x.work_titles)}`:''} · ${date(x.created_at)}${x.error?`<br><span style="color:var(--coral)">${esc(x.error)}</span>`:''}</div>${x.status==='completed'?`<div class="job-links"><a class="result" href="/results/${x.id}" target="_blank" rel="noopener">결과 보기</a>${x.diff_path?` · <a class="result" href="/diff/${x.id}" target="_blank" rel="noopener">이전 버전과 비교</a>`:''}</div>`:''}</div>`).join('');document.getElementById('jobs').innerHTML=rows||'<div class="job-empty">분석한 원고가 없습니다.</div>'}
+async function load(){const response=await fetch('/api/dashboard',{cache:'no-store'});const data=await response.json();dashboardLimits={...dashboardLimits,...(data.limits||{})};serverStorage={...serverStorage,...(data.storage||{})};renderStorage(serverStorage.used_bytes,serverStorage.capacity_bytes,'서버 PDF 저장 공간');for(const kind of Object.keys(labels))document.getElementById(kind+'-state').innerHTML=referenceHtml(data.references[kind]||[]);document.getElementById('limit-note').textContent=`원고 1개당 최대 ${dashboardLimits.manuscript_mb}MB · ${dashboardLimits.manuscript_pages}쪽`;document.getElementById('upload-limit-banner').innerHTML=`<b>PDF 업로드 제한</b><br>서버 전체 저장 용량 ${size(serverStorage.capacity_bytes)} · 파일 1개당 최대 ${dashboardLimits.reference_file_mb}MB · 원고 최대 ${dashboardLimits.manuscript_pages}쪽 · PDF 파일만 등록할 수 있습니다.`;const rows=data.jobs.map(x=>`<div class="job"><div class="job-main"><b>${esc(x.original_name)}</b><div class="job-actions"><span class="status ${esc(x.status)}">${esc(statusLabels[x.status]||x.status)}</span>${(x.status==='queued'||x.status==='running')?`<button class="job-cancel" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 분석 취소">취소</button>`:''}${x.status==='cancelling'?`<button class="job-cancel is-cancelling" type="button" disabled>취소 중…</button>`:''}${x.status==='cancelled'?`<button class="job-retry" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 원고 다시 분석 시작">다시 분석 시작</button>`:''}${(x.status==='completed'||x.status==='failed'||x.status==='cancelled')?`<button class="file-delete job-delete" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 분석 이력 삭제" title="이 분석 이력 삭제">×</button>`:''}</div></div>${jobProgressHtml(x)}<div class="job-meta">${size(x.size_bytes)}${x.work_titles?` · 곡명: ${esc(x.work_titles)}`:''} · ${date(x.created_at)}${x.error?`<br><span style="color:var(--coral)">${esc(x.error)}</span>`:''}</div>${x.status==='completed'?`<div class="job-links"><a class="result" href="/results/${x.id}" target="_blank" rel="noopener">결과 보기</a>${x.diff_path?` · <a class="result" href="/diff/${x.id}" target="_blank" rel="noopener">이전 버전과 비교</a>`:''}</div>`:''}</div>`).join('');document.getElementById('jobs').innerHTML=rows||'<div class="job-empty">분석한 원고가 없습니다.</div>'}
 function validateFiles(files,totalLimitMb){if(!files.length)throw new Error('PDF 파일을 선택해 주세요.');const oneLimit=dashboardLimits.reference_file_mb*1048576;for(const file of files){if(file.size>oneLimit)throw new Error(`${file.name}: 파일 1개 제한 ${dashboardLimits.reference_file_mb}MB를 초과했습니다.`);if(!file.name.toLowerCase().endsWith('.pdf'))throw new Error(`${file.name}: PDF 파일만 등록할 수 있습니다.`)}const total=files.reduce((sum,file)=>sum+file.size,0);if(total>totalLimitMb*1048576)throw new Error(`선택한 파일의 전체 용량이 ${totalLimitMb}MB를 초과했습니다.`);if(total>serverStorage.remaining_bytes)throw new Error(`서버 저장 공간이 부족합니다. 현재 남은 용량은 ${size(serverStorage.remaining_bytes)}입니다.`);return total}
 function renderStorage(used,capacity,title){const percent=capacity?Math.min(100,Math.round(used/capacity*100)):0,remaining=Math.max(0,capacity-used);document.getElementById('upload-progress-bar').style.background=`conic-gradient(var(--sky) 0 ${percent}%, rgba(35,38,45,.1) ${percent}% 100%)`;document.getElementById('upload-progress-percent').textContent=percent+'%';document.getElementById('upload-progress-title').textContent=title;document.getElementById('upload-progress-detail').textContent=`업로드된 용량 ${size(used)} / 총 ${size(capacity)} · 남은 용량 ${size(remaining)}`}
 function showUploadProgress(loaded,total){renderStorage(Math.min(serverStorage.capacity_bytes,serverStorage.used_bytes+loaded),serverStorage.capacity_bytes,'서버 PDF 저장 공간 · 업로드 반영 중')}
@@ -272,6 +305,8 @@ document.getElementById('manuscript-form').addEventListener('submit',async event
 document.querySelectorAll('input[type=file]').forEach(input=>input.addEventListener('change',()=>showSelectedFiles(input)));
 document.addEventListener('click',async event=>{const button=event.target.closest('.file-delete:not(.job-delete)');if(!button)return;const name=button.dataset.referenceName;if(!confirm(`${name} 파일만 삭제할까요? 컴퓨터의 원본 PDF는 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/references/${encodeURIComponent(button.dataset.referenceId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'파일 삭제 실패');message('reference-message',data.message);await load()}catch(error){message('reference-message',error.message,true);button.disabled=false}});
 document.addEventListener('click',async event=>{const button=event.target.closest('.job-delete');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 분석 이력을 삭제할까요? 업로드한 원고 사본과 분석 결과 파일이 함께 삭제됩니다. 컴퓨터의 원본 파일은 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 이력 삭제 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false}});
+document.addEventListener('click',async event=>{const button=event.target.closest('.job-cancel:not(.is-cancelling)');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 분석을 취소할까요?`))return;button.disabled=true;button.textContent='취소 중…';button.classList.add('is-cancelling');try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}/cancel`,{method:'POST'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 취소 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false;button.textContent='취소';button.classList.remove('is-cancelling')}});
+document.addEventListener('click',async event=>{const button=event.target.closest('.job-retry');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 원고를 다시 분석할까요?`))return;button.disabled=true;try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}/retry`,{method:'POST'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 다시 시작 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false}});
 document.getElementById('reset-all').addEventListener('click',async event=>{if(!confirm('프로그램에 등록한 기준 PDF 복사본과 모든 원고 분석 이력을 삭제할까요? 컴퓨터의 원본 PDF는 삭제되지 않습니다.'))return;const button=event.currentTarget;button.disabled=true;try{const response=await fetch('/api/reset',{method:'POST',headers:{'X-Reset-Confirm':'RESET_ALL'}});const data=await response.json();if(!response.ok)throw new Error(data.error||'초기화 실패');message('reference-message',data.message);await load()}catch(error){message('reference-message',error.message,true)}finally{button.disabled=false}});
 load();setInterval(load,5000);
 </script>

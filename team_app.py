@@ -167,6 +167,10 @@ class TeamStore:
                 db.execute("ALTER TABLE audit_jobs ADD COLUMN work_titles TEXT NOT NULL DEFAULT ''")
             if "diff_path" not in columns:
                 db.execute("ALTER TABLE audit_jobs ADD COLUMN diff_path TEXT")
+            if "current_page" not in columns:
+                db.execute("ALTER TABLE audit_jobs ADD COLUMN current_page INTEGER NOT NULL DEFAULT 0")
+            if "total_page" not in columns:
+                db.execute("ALTER TABLE audit_jobs ADD COLUMN total_page INTEGER NOT NULL DEFAULT 0")
 
     def references(self) -> list[dict[str, Any]]:
         with closing(self.connect()) as db:
@@ -244,13 +248,21 @@ class TeamStore:
 
     def update_job(self, job_id: str, *, status: str, result_path: str | None = None,
                    error: str | None = None, diff_path: str | None = None) -> None:
-        completed = _utc_now() if status in {"completed", "failed"} else None
+        completed = _utc_now() if status in {"completed", "failed", "cancelled"} else None
         with closing(self.connect()) as db:
             db.execute(
                 "UPDATE audit_jobs SET status=?,result_path=?,error=?,completed_at=?,diff_path=? WHERE id=?",
                 (status, result_path, error, completed, diff_path, job_id),
             )
         self._push_db()
+
+    def update_job_progress(self, job_id: str, current_page: int, total_page: int) -> None:
+        """분석 도중 실시간 진행률만 갱신한다. 매 페이지마다 호출되므로 원격 저장소 동기화는 생략한다."""
+        with closing(self.connect()) as db:
+            db.execute(
+                "UPDATE audit_jobs SET current_page=?,total_page=? WHERE id=?",
+                (current_page, total_page, job_id),
+            )
 
     def previous_completed_job(self, original_name: str, exclude_job_id: str) -> dict[str, Any] | None:
         """같은 파일명으로 먼저 완료된 가장 최근 분석(재분석 비교 대상)을 찾는다."""
@@ -303,7 +315,7 @@ class TeamStore:
         if not row:
             raise ValueError("삭제할 분석 이력을 찾지 못했습니다.")
         item = dict(row)
-        if item["status"] in ("queued", "running"):
+        if item["status"] in ("queued", "running", "cancelling"):
             raise ValueError("분석 중인 원고는 삭제할 수 없습니다. 완료 후 다시 시도해 주세요.")
 
         manuscript_root = (self.uploads / "manuscripts").resolve()
@@ -387,7 +399,7 @@ class TeamStore:
         """업로드 복사본, 분석 결과와 목록을 초기화한다. 원본 파일은 건드리지 않는다."""
         with closing(self.connect()) as db:
             active = db.execute(
-                "SELECT COUNT(*) FROM audit_jobs WHERE status IN ('queued','running')"
+                "SELECT COUNT(*) FROM audit_jobs WHERE status IN ('queued','running','cancelling')"
             ).fetchone()[0]
         if active:
             raise ValueError("분석 중인 원고가 있어 초기화할 수 없습니다. 완료 후 다시 시도해 주세요.")
@@ -435,10 +447,66 @@ def _pdf_page_count(path: Path) -> int:
     return len(PdfReader(str(path)).pages)
 
 
+class _JobCancelled(Exception):
+    pass
+
+
 class TeamApplication:
     def __init__(self, data_root: Path):
         self.store = TeamStore(data_root)
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="manuscript-audit")
+        self._cancel_requested: set[str] = set()
+        self._cancel_lock = threading.Lock()
+
+    def cancel(self, job_id: str) -> dict[str, Any]:
+        job = self.store.job(job_id)
+        if not job:
+            raise ValueError("취소할 분석 작업을 찾지 못했습니다.")
+        if job["status"] not in ("queued", "running"):
+            raise ValueError("이미 끝난 작업은 취소할 수 없습니다.")
+        with self._cancel_lock:
+            self._cancel_requested.add(job_id)
+        # 실제 작업 스레드가 취소를 알아채기까지는 다음 진행률 확인 지점까지 걸리므로,
+        # 화면에는 즉시 "취소 중"으로 보여 사용자가 반응이 없다고 느끼지 않게 한다.
+        self.store.update_job(job_id, status="cancelling")
+        return job
+
+    def retry(self, job_id: str) -> str:
+        job = self.store.job(job_id)
+        if not job:
+            raise ValueError("다시 시작할 분석 이력을 찾지 못했습니다.")
+        if job["status"] != "cancelled":
+            raise ValueError("취소된 분석만 다시 시작할 수 있습니다.")
+        source = Path(job["stored_path"])
+        blob_store.pull_if_missing(source, self.store._blob_key(source))
+        if not source.is_file():
+            raise ValueError("원본 원고 파일을 찾지 못해 다시 시작할 수 없습니다.")
+        # 새 job이 원본과 다른 자기 자신만의 사본을 갖도록 새 토큰 폴더로 복사한다.
+        # stored_path를 그대로 공유하면, 취소된 예전 이력을 삭제할 때 아직 실행 중인
+        # 새 작업의 원고 파일까지 함께 지워질 수 있다.
+        target = self.store.uploads / "manuscripts" / uuid.uuid4().hex / source.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+        blob_store.push(target, self.store._blob_key(target))
+        new_job_id = self.store.create_job(
+            job["original_name"], target, job["sha256"], job["size_bytes"],
+            job.get("target_level") or "고등학교 1학년", job.get("work_titles") or "",
+        )
+        self.submit(new_job_id)
+        return new_job_id
+
+    def _is_cancel_requested(self, job_id: str) -> bool:
+        with self._cancel_lock:
+            return job_id in self._cancel_requested
+
+    def _clear_cancel_requested(self, job_id: str) -> None:
+        with self._cancel_lock:
+            self._cancel_requested.discard(job_id)
+
+    def _check_cancel(self, job_id: str, current: int, total: int) -> None:
+        if self._is_cancel_requested(job_id):
+            raise _JobCancelled()
+        self.store.update_job_progress(job_id, current, total)
 
     def submit(self, job_id: str) -> None:
         # Vercel 서버리스 함수는 응답 이후 백그라운드 스레드 지속을 보장하지 않으므로,
@@ -454,6 +522,10 @@ class TeamApplication:
 
     def _run_audit(self, job_id: str) -> None:
         job = self.store.job(job_id)
+        if self._is_cancel_requested(job_id):
+            self._clear_cancel_requested(job_id)
+            self.store.update_job(job_id, status="cancelled", error="사용자가 취소했습니다.")
+            return
         curriculum = self.store.active_reference("curriculum")
         if not job or not curriculum:
             self.store.update_job(job_id, status="failed", error="등록된 교육과정이 없습니다.")
@@ -477,6 +549,7 @@ class TeamApplication:
                 job.get("target_level") or "고등학교 1학년",
                 work_titles=[title.strip() for title in re.split(r"[,\n]", job.get("work_titles") or "") if title.strip()],
                 suppressed_fingerprints=self.store.false_positive_fingerprints(),
+                on_page_progress=lambda current, total: self._check_cancel(job_id, current, total),
             )
             diff_path = None
             previous = self.store.previous_completed_job(job["original_name"], job_id)
@@ -496,8 +569,12 @@ class TeamApplication:
             for file_path in result.parent.rglob("*"):
                 if file_path.is_file():
                     blob_store.push(file_path, self.store._blob_key(file_path))
+        except _JobCancelled:
+            self.store.update_job(job_id, status="cancelled", error="사용자가 취소했습니다.")
         except Exception as exc:
             self.store.update_job(job_id, status="failed", error=f"{type(exc).__name__}: {exc}")
+        finally:
+            self._clear_cancel_requested(job_id)
 
 
 def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
@@ -613,6 +690,9 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
 
         def do_POST(self) -> None:  # noqa: N802
             try:
+                path = unquote(urlparse(self.path).path)
+                cancel_match = re.fullmatch(r"/api/jobs/([0-9a-f]{32})/cancel", path)
+                retry_match = re.fullmatch(r"/api/jobs/([0-9a-f]{32})/retry", path)
                 if self.path == "/api/references":
                     self._upload_references()
                 elif self.path == "/api/manuscripts":
@@ -624,6 +704,14 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
                         raise ValueError("초기화 확인 값이 올바르지 않습니다.")
                     application.store.reset_all()
                     self._send_json({"message": "등록 자료와 원고 분석 이력을 초기화했습니다."})
+                elif cancel_match:
+                    job = application.cancel(cancel_match.group(1))
+                    self._send_json({"message": f"{job['original_name']} 분석 취소를 요청했습니다.",
+                                     "id": job["id"]})
+                elif retry_match:
+                    new_job_id = application.retry(retry_match.group(1))
+                    self._send_json({"message": "원고 분석을 다시 시작했습니다.",
+                                     "job_id": new_job_id}, 202)
                 else:
                     self.send_error(404)
             except ValueError as exc:

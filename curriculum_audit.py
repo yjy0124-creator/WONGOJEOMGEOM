@@ -11,7 +11,7 @@ import re
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import speller_adapter
 
@@ -2198,13 +2198,20 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
                      target_level: str = "고등학교 1학년",
                      related_works: dict[str, str] | None = None,
                      work_titles: list[str] | None = None,
-                     suppressed_fingerprints: set[str] | None = None) -> Path:
+                     suppressed_fingerprints: set[str] | None = None,
+                     on_page_progress: Callable[[int, int], None] | None = None) -> Path:
     if target_level not in TARGET_LEVELS:
         raise ValueError(f"지원하지 않는 학습자 수준입니다: {target_level}")
     manuscript, curriculum = manuscript.resolve(), curriculum.resolve()
+    # 쪽 단위 진행률(on_page_progress)은 원래 본문 쪽 검사 반복문에서만 불렸는데,
+    # 그 앞의 PDF 렌더링·유사도 비교 같은 준비 단계가 실제로는 더 오래 걸릴 수 있어
+    # 그 사이에 취소를 눌러도 반영되지 않았다. (0, 0)으로 같은 콜백을 호출해 취소
+    # 확인 지점을 늘리되, total_page=0이라 진행률 표시줄에는 영향을 주지 않는다.
+    checkpoint = (lambda: on_page_progress(0, 0)) if on_page_progress else (lambda: None)
     activities_adapter = _load_activities_adapter(ai_module)
     manuscript_pages = _extract_pages(manuscript)
     curriculum_pages = _extract_pages(curriculum)
+    checkpoint()
     components = detect_manuscript_components(manuscript_pages)
     standards = extract_curriculum_standards(curriculum_pages)
     alignment = match_curriculum(components, manuscript_pages, standards)
@@ -2213,9 +2220,11 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
     destination = output_root.resolve() / document_id
     destination.mkdir(parents=True, exist_ok=True)
     rendered_pages = _render_pages_and_images(manuscript, destination)
+    checkpoint()
     layout_reference = _analyze_layout_references(
         textbook_dir, output_root.resolve() / "layout_reference.json"
     )
+    checkpoint()
     term_reference = _reference_term_counts(
         textbook_dir, output_root.resolve() / "term_reference.json",
         [item["text"] for item in layout_reference.get("activity_readability", {}).get("examples", [])],
@@ -2226,13 +2235,16 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
     textbook_content = _load_textbook_content(
         textbook_dir, output_root.resolve() / "textbook_content_cache.json"
     )
+    checkpoint()
     layout_reference["learning_goal_examples"] = textbook_content.get("learning_goal_examples", [])
     textbook_similarity = _compare_textbook_similarity(
         manuscript_pages, components, textbook_content, suppressed_fingerprints
     )
+    checkpoint()
     activity_similarity = _compare_activity_similarity(
         manuscript_pages, components, textbook_content, suppressed_fingerprints
     )
+    checkpoint()
     # 원고 1쪽에서 찾은 제목을 문서 전체의 기본 주제로 고정해, 제목이 다시 표기되지
     # 않는 이어지는 쪽에서 엉뚱한 문장을 주제로 잘못 추측하는 것을 막는다.
     document_topic = _infer_topic(manuscript_pages)
@@ -2258,6 +2270,8 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
         })
     page_audits = []
     for page_no, page_text in enumerate(manuscript_pages, 1):
+        if on_page_progress:
+            on_page_progress(page_no, len(manuscript_pages))
         page_components = {
             key: _component_for_page(value, page_no) for key, value in components.items()
         }
