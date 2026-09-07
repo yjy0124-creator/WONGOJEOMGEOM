@@ -2501,10 +2501,13 @@ AUDIT_HTML = r'''<!doctype html>
 <style>
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 :root{
-  --bg:#F5F6F8; --surface:#FFFFFF; --surface-2:#FBFBFC;
+  --bg:radial-gradient(120% 90% at 8% 8%, #cfe7ff 0%, rgba(207,231,255,0) 55%),
+      radial-gradient(110% 90% at 95% 100%, #fff0bf 0%, rgba(255,240,191,0) 60%),
+      linear-gradient(135deg,#eef6ff 0%,#f7fbff 45%,#fffaf0 100%);
+  --surface:#FFFFFF; --surface-2:#FBFBFC;
   --border:rgba(16,24,40,.07); --border-strong:rgba(16,24,40,.12);
   --text-1:#1A1D23; --text-2:#4B5160; --text-3:#8A8F9C;
-  --blue:#3B66E0; --blue-bg:#EFF3FF; --blue-border:#C6D4FA;
+  --blue:#3182F6; --blue-bg:#EAF2FF; --blue-border:#BFDBFE;
   --red:#DC2626; --red-bg:#FFF1F1; --red-border:#FBCACA;
   --amber:#EA580C; --amber-bg:#FFF3EA; --amber-border:#FED7AA;
   --green:#16794C; --green-bg:#EEFBF3; --green-border:#C3ECD6;
@@ -2512,6 +2515,7 @@ AUDIT_HTML = r'''<!doctype html>
   --cat-achievement:#7C3AED; --cat-achievement-bg:#F5F3FF; --cat-achievement-border:#DDD6FE;
   --cat-activity:#0F766E; --cat-activity-bg:#F0FDFA; --cat-activity-border:#99F6E4;
   --cat-expression:#475569; --cat-expression-bg:#F1F5F9; --cat-expression-border:#CBD5E1;
+  --cat-goal:#4F46E5; --cat-goal-bg:#EEF2FF; --cat-goal-border:#C7D2FE;
   --selected-border:#8B93A3; --selected-bg:#F3F4F6;
   --shadow-sm:0 1px 2px rgba(16,24,40,.05);
   --shadow-md:0 1px 3px rgba(16,24,40,.07),0 1px 2px rgba(16,24,40,.04);
@@ -2523,6 +2527,7 @@ AUDIT_HTML = r'''<!doctype html>
 html,body{margin:0;padding:0}
 body{
   background:var(--bg);
+  background-attachment:fixed;
   font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
   color:var(--text-1);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
 }
@@ -2540,10 +2545,16 @@ h1{font-size:21.5px;font-weight:800;letter-spacing:-.02em;margin:0}
 .metric-label{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);font-weight:600;margin-bottom:7px}
 .dot{width:7px;height:7px;border-radius:50%;flex:none}
 .dot-blue{background:var(--blue)} .dot-red{background:var(--red)} .dot-neutral{background:var(--text-3)}
-.metric-value{font-size:24.5px;font-weight:800;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.metric-value{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.metric-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.metric-pill{font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;display:inline-flex;align-items:center}
+.metric-pill.pill-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+.metric-pill.pill-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.metric-pill.pill-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.metric-pill.pill-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 .metric-sub{font-size:12.5px;color:var(--text-3);margin-top:5px;line-height:1.4}
 .progress-track{height:5px;background:#EDEEF2;border-radius:999px;margin-top:7px;overflow:hidden}
-.progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#6E97FF,#3B66E0)}
+.progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#6bb0ff,#3182F6)}
 .metric-card.alert{background:linear-gradient(180deg,#FFF6F6 0%,#FFFFFF 55%);border:1px solid var(--red-border)}
 .metric-card.alert::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,#EF4444,#B91C1C);border-radius:var(--radius) 0 0 var(--radius)}
 .metric-card.alert .metric-value{color:var(--red)}
@@ -2556,9 +2567,9 @@ h1{font-size:21.5px;font-weight:800;letter-spacing:-.02em;margin:0}
 .panel-title{font-size:14.5px;font-weight:700}
 .panel-title-sub{font-size:12.5px;color:var(--text-3);font-weight:500}
 
-.left-panel-body{padding:14px;flex:1;min-height:0;display:flex;flex-direction:column}
-.preview-thumb{border:1px solid var(--border);border-radius:10px;overflow:auto;box-shadow:var(--shadow-sm);background:#fff;display:flex;align-items:center;justify-content:center;position:relative;flex:1;min-height:0}
-.preview-thumb img{width:100%;height:100%;object-fit:contain;display:block;transform-origin:center center}
+.left-panel-body{padding:14px 14px 24px;flex:1;min-height:0;display:flex;flex-direction:column}
+.preview-thumb{border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm);background:#fff;display:flex;align-items:center;justify-content:center;position:relative;flex:1;min-height:0}
+.preview-thumb img{width:100%;height:100%;object-fit:contain;display:block;transform-origin:center center;user-select:none}
 .preview-nav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:13.5px;color:var(--text-2)}
 .nav-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--blue-border);background:var(--blue-bg);box-shadow:var(--shadow-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:700}
 .nav-btn:hover:not(:disabled){background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:var(--shadow-md)}
@@ -2577,47 +2588,49 @@ h1{font-size:21.5px;font-weight:800;letter-spacing:-.02em;margin:0}
 .status-counts .count-fix{color:var(--red)}
 .status-counts .count-review{color:var(--amber)}
 .status-counts .count-ok{color:var(--green)}
-.variant-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:12px 18px 0}
-.variant-tabs:empty{display:none;padding:0}
-.variant-tab{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text-2);cursor:pointer}
+.item-variant-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 6px}
+.variant-tab{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text-2);cursor:pointer}
 .variant-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
 
-.checklist-body{padding:8px 14px 14px;flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable}
+.checklist-body{padding:8px 14px 28px;flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable}
 .checklist-body::-webkit-scrollbar{width:6px}
 .checklist-body::-webkit-scrollbar-track{background:transparent}
 .checklist-body::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:999px}
 .checklist-body::-webkit-scrollbar-thumb:hover{background:var(--text-3)}
-.section-label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text-2);padding:12px 8px 8px}
-.section-label .count{color:var(--text-3);font-weight:600}
-.section-label.sl-fix{color:var(--red)}
-.section-label.sl-review{color:var(--amber)}
-.section-label.sl-ok{color:var(--green)}
-.section-toggle{margin-left:auto;font-size:13px;color:var(--blue);font-weight:600;cursor:pointer}
+.cat-label{display:flex;align-items:center;gap:9px;padding:16px 4px 9px}
+.cat-label:first-child{padding-top:4px}
+.cat-icon{width:23px;height:23px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex:none}
+.cat-icon svg{width:13px;height:13px}
+.cat-icon.cat-goal{background:var(--cat-goal-bg);color:var(--cat-goal)}
+.cat-icon.cat-standard{background:var(--cat-achievement-bg);color:var(--cat-achievement)}
+.cat-icon.cat-body{background:var(--cat-expression-bg);color:var(--cat-expression)}
+.cat-icon.cat-activity{background:var(--cat-activity-bg);color:var(--cat-activity)}
+.cat-icon.cat-similarity{background:var(--cat-similarity-bg);color:var(--cat-similarity)}
+.cat-name{font-size:14px;font-weight:700;color:var(--text-1)}
+.cat-count{font-size:12.5px;color:var(--text-3);font-weight:600}
 
 .item-card{border:1px solid var(--border-strong);border-radius:10px;padding:10px 13px;margin-bottom:9px;background:var(--surface);cursor:pointer;transition:box-shadow .15s ease,border-color .15s ease,transform .1s ease;position:relative}
 .item-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
-.item-card.selected{border:1.5px solid var(--selected-border);box-shadow:0 0 0 3px rgba(16,24,40,.08),var(--shadow-md)}
+.item-card.selected{border:1.5px solid var(--blue);box-shadow:0 0 0 3px rgba(59,102,224,.14),var(--shadow-md);background:var(--blue-bg)}
 .item-card.fp-dim{opacity:.5}
 .item-card.severity-high{border-left:3px solid var(--red);background:linear-gradient(180deg,var(--red-bg) 0%,var(--surface) 65%)}
 .item-card.severity-med{border-left:3px solid var(--amber);background:linear-gradient(180deg,var(--amber-bg) 0%,var(--surface) 65%)}
 .item-card.severity-pass{border-left:3px solid var(--green);background:linear-gradient(180deg,var(--green-bg) 0%,var(--surface) 65%)}
-.item-card.selected.severity-high,.item-card.selected.severity-med,.item-card.selected.severity-pass{background:var(--selected-bg)}
+.item-card.selected.severity-high,.item-card.selected.severity-med,.item-card.selected.severity-pass{background:var(--blue-bg)}
 .item-row1{display:flex;align-items:center;gap:8px;margin-bottom:3px}
 .item-tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;flex:none}
-.tag-similarity{background:var(--cat-similarity-bg);color:var(--cat-similarity);border:1px solid var(--cat-similarity-border)}
-.tag-achievement{background:var(--cat-achievement-bg);color:var(--cat-achievement);border:1px solid var(--cat-achievement-border)}
-.tag-activity{background:var(--cat-activity-bg);color:var(--cat-activity);border:1px solid var(--cat-activity-border)}
-.tag-expression{background:var(--cat-expression-bg);color:var(--cat-expression);border:1px solid var(--cat-expression-border)}
-.item-title{font-size:14.5px;font-weight:700;color:var(--text-1);letter-spacing:-.01em;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag-tier-fix{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.tag-tier-review{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.tag-tier-ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.item-title{font-size:15px;font-weight:700;color:var(--text-1);letter-spacing:-.01em;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .item-loc{font-size:12px;color:var(--text-3);font-weight:600;white-space:nowrap;flex:none}
 .item-row2{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.item-desc{font-size:13px;color:var(--text-2);font-weight:400;letter-spacing:-.01em;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item-desc{font-size:13px;color:var(--text-3);font-weight:400;letter-spacing:-.01em;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .item-actions{flex:none}
 .mini-link{font-size:13px;font-weight:600;color:var(--blue);background:none;border:none;padding:2px 0;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
 .mini-link:hover{text-decoration:underline}
 .mini-link svg{transition:transform .15s ease}
 .mini-link:hover svg{transform:translateX(2px)}
-.collapsed-section{border:1px dashed var(--border-strong);border-radius:12px;padding:12px 16px;margin-bottom:10px;font-size:13.5px;color:var(--text-3);display:flex;align-items:center;justify-content:space-between;cursor:pointer}
 
 .right-panel-body{padding:18px 20px 20px;flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable}
 .right-panel-body::-webkit-scrollbar{width:6px}
@@ -2627,9 +2640,21 @@ h1{font-size:21.5px;font-weight:800;letter-spacing:-.02em;margin:0}
 .issue-status-pill{font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);white-space:nowrap}
 .issue-status-pill.review{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}
 .issue-status-pill.ok{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
-.issue-title{font-size:17px;font-weight:800;letter-spacing:-.02em;margin:12px 0 16px;line-height:1.4}
+.issue-banner{border-radius:12px;padding:16px 18px;margin:12px 0 18px;display:flex;gap:12px;align-items:flex-start}
+.issue-banner.fix{background:var(--red-bg);border:1px solid var(--red-border)}
+.issue-banner.review{background:var(--amber-bg);border:1px solid var(--amber-border)}
+.issue-banner.ok{background:var(--green-bg);border:1px solid var(--green-border)}
+.issue-banner-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.issue-banner.fix .issue-banner-icon{background:var(--red)}
+.issue-banner.review .issue-banner-icon{background:var(--amber)}
+.issue-banner.ok .issue-banner-icon{background:var(--green)}
+.issue-banner-title{font-size:16.5px;font-weight:800;letter-spacing:-.02em;line-height:1.35}
+.issue-banner.fix .issue-banner-title{color:var(--red)}
+.issue-banner.review .issue-banner-title{color:var(--amber)}
+.issue-banner.ok .issue-banner-title{color:var(--green)}
+.issue-banner-sub{font-size:12.5px;color:var(--text-2);margin-top:4px;line-height:1.4}
 .block{margin-bottom:18px}
-.block-label{font-size:13px;font-weight:700;color:var(--text-2);margin-bottom:8px}
+.block-label{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:8px}
 .block-text{font-size:14px;color:var(--text-1);line-height:1.6;font-weight:400;letter-spacing:-.01em}
 .block-text ul{margin:8px 0 0;padding-left:18px}
 .quote-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.6;color:#5C4113;margin-top:8px;font-weight:400;letter-spacing:-.01em;position:relative}
@@ -2675,6 +2700,9 @@ mark{background:#FDE68A;padding:0 2px;border-radius:3px}
         <button type="button" class="zoom-btn" id="zoom-out">−</button>
         <span id="zoom-level">100%</span>
         <button type="button" class="zoom-btn" id="zoom-in">+</button>
+        <button type="button" class="zoom-btn" id="preview-popout" title="새 창에서 원고 크게 보기" aria-label="새 창에서 원고 크게 보기">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><line x1="19" y1="19" x2="15.3" y2="15.3"></line></svg>
+        </button>
       </div>
       <div class="file-meta">
         <div class="file-name" id="page-filename"></div>
@@ -2687,7 +2715,6 @@ mark{background:#FDE68A;padding:0 2px;border-radius:3px}
       <div style="font-weight:700;font-size:14.5px">점검 항목 <span style="color:var(--text-3);font-weight:600" id="queue-total"></span></div>
       <div class="status-counts" id="status-counts"></div>
     </div>
-    <div class="variant-tabs" id="variant-tabs"></div>
     <div class="checklist-body" id="checklist-body"></div>
   </section>
   <aside class="panel" id="detail-panel"></aside>
@@ -2695,17 +2722,18 @@ mark{background:#FDE68A;padding:0 2px;border-radius:3px}
 </div>
 <script id="audit-data" type="application/json">__AUDIT_DATA__</script><script>
 (()=>{const data=JSON.parse(document.getElementById('audit-data').textContent);
-let page=1,selectedId=null,currentIssues=[],variantByPage={},reviewExpanded=false,okExpanded=false,previewZoom=1;
+const BASE_ZOOM=1.05;
+let page=1,selectedId=null,currentIssues=[],variantByActivity={},previewZoom=BASE_ZOOM,panX=0,panY=0;
 const $=id=>document.getElementById(id);
 const cleanFileName=name=>String(name||'').replace(/^[0-9a-f]{8,16}_/i,'').replace(/_/g,' ');
 const stripEmbeddedFileNames=s=>String(s??'').replace(/[0-9a-f]{8,16}_[^\s,'")]+?\.pdf/gi,m=>cleanFileName(m));
 const esc=s=>stripEmbeddedFileNames(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const bulletList=items=>`<ul>${items.filter(Boolean).map(t=>`<li>${t}</li>`).join('')}</ul>`;
 const names={achievement_standards:'성취기준',learning_goals:'학습 목표',activities:'활동'};
-const buckets={achievement_standards:'성취기준',learning_goals:'표현',activities:'활동 구성'};
-const completionBuckets={'성취기준':'성취기준','학습 목표':'성취기준','활동':'활동 구성','악보':'활동 구성','참고 사진·삽화':'활동 구성','본문 텍스트':'표현'};
+const buckets={achievement_standards:'성취기준',learning_goals:'학습 목표',activities:'활동 구성'};
+const completionBuckets={'성취기준':'성취기준','학습 목표':'학습 목표','활동':'활동 구성','악보':'활동 구성','참고 사진·삽화':'활동 구성','본문 텍스트':'본문'};
 const tierLabel=t=>t==='fix'?'수정 필요':t==='review'?'검토 필요':'통과';
-const catTagClass=c=>c==='유사도'?'tag-similarity':c==='성취기준'?'tag-achievement':c==='활동 구성'?'tag-activity':'tag-expression';
+const tierTagClass=t=>t==='fix'?'tag-tier-fix':t==='review'?'tag-tier-review':'tag-tier-ok';
 const tierSeverityClass=t=>t==='fix'?'severity-high':t==='review'?'severity-med':'severity-pass';
 
 let fp=new Set();
@@ -2714,17 +2742,51 @@ function fpBtn(section,text,fingerprint){if(!fingerprint)return '';const marked=
 document.addEventListener('click',async event=>{const btn=event.target.closest('.fp-btn');if(!btn)return;event.stopPropagation();const fingerprint=btn.dataset.fp,section=btn.dataset.section,text=btn.dataset.text;btn.disabled=true;try{if(fp.has(fingerprint)){await fetch(`/api/false-positives/${encodeURIComponent(fingerprint)}`,{method:'DELETE'});fp.delete(fingerprint)}else{await fetch('/api/false-positives',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fingerprint,section,manuscript_text:text})});fp.add(fingerprint)}render()}catch(e){}finally{btn.disabled=false}});
 document.addEventListener('click',event=>{const btn=event.target.closest('.mini-btn[data-copy]');if(!btn)return;event.stopPropagation();const text=btn.dataset.copy||'';if(navigator.clipboard){navigator.clipboard.writeText(text).catch(()=>{})}const original=btn.textContent;btn.textContent='복사됨';btn.classList.add('copied');setTimeout(()=>{btn.textContent=original;btn.classList.remove('copied')},1400)});
 
-function goToPage(n){if(n<1||n>data.manuscript.page_count)return;page=n;selectedId=null;reviewExpanded=false;okExpanded=false;previewZoom=1;render()}
+function goToPage(n){if(n<1||n>data.manuscript.page_count)return;page=n;selectedId=null;previewZoom=BASE_ZOOM;panX=0;panY=0;render()}
 function initPages(){$('page-prev').onclick=()=>goToPage(page-1);$('page-next').onclick=()=>goToPage(page+1)}
+function clampPan(){
+  const container=$('page-image').parentElement;
+  const maxX=container.clientWidth*(previewZoom-BASE_ZOOM)/2;
+  const maxY=container.clientHeight*(previewZoom-BASE_ZOOM)/2;
+  panX=Math.max(-maxX,Math.min(maxX,panX));
+  panY=Math.max(-maxY,Math.min(maxY,panY));
+}
 function applyZoom(){
-  $('page-image').style.transform=`scale(${previewZoom})`;
+  clampPan();
+  const img=$('page-image');
+  img.style.transform=`translate(${panX}px,${panY}px) scale(${previewZoom})`;
+  img.style.cursor=previewZoom>BASE_ZOOM?'grab':'default';
   $('zoom-level').textContent=`${Math.round(previewZoom*100)}%`;
-  $('zoom-out').disabled=previewZoom<=1;
+  $('zoom-out').disabled=previewZoom<=BASE_ZOOM;
   $('zoom-in').disabled=previewZoom>=3;
 }
 function initZoom(){
   $('zoom-in').onclick=()=>{previewZoom=Math.min(3,+(previewZoom+0.25).toFixed(2));applyZoom()};
-  $('zoom-out').onclick=()=>{previewZoom=Math.max(1,+(previewZoom-0.25).toFixed(2));applyZoom()};
+  $('zoom-out').onclick=()=>{previewZoom=Math.max(BASE_ZOOM,+(previewZoom-0.25).toFixed(2));if(previewZoom<=BASE_ZOOM){panX=0;panY=0}applyZoom()};
+  $('preview-popout').onclick=()=>{
+    const src=$('page-image').src;
+    if(!src)return;
+    window.open(src,'_blank','noopener,noreferrer');
+  };
+  const img=$('page-image');
+  let dragging=false,startX=0,startY=0,startPanX=0,startPanY=0;
+  img.addEventListener('mousedown',event=>{
+    if(previewZoom<=BASE_ZOOM)return;
+    dragging=true;startX=event.clientX;startY=event.clientY;startPanX=panX;startPanY=panY;
+    img.style.cursor='grabbing';
+    event.preventDefault();
+  });
+  window.addEventListener('mousemove',event=>{
+    if(!dragging)return;
+    panX=startPanX+(event.clientX-startX);
+    panY=startPanY+(event.clientY-startY);
+    applyZoom();
+  });
+  window.addEventListener('mouseup',()=>{
+    if(!dragging)return;
+    dragging=false;
+    img.style.cursor=previewZoom>BASE_ZOOM?'grab':'default';
+  });
   applyZoom();
 }
 function renderPagePreview(p){
@@ -2744,7 +2806,7 @@ function componentIssue(key,item){
   const bucket=buckets[key];
   const list=item.items.length?`<ul>${item.items.map(x=>`<li>${esc(x.text)}</li>`).join('')}</ul>`:'';
   const countText=item.included?`현재 쪽 ${item.count}개${Number.isFinite(item.document_count)?` · 전체 원고 ${item.document_count}개`:''}`:`현재 쪽 미포함${Number.isFinite(item.document_count)?` · 전체 원고 ${item.document_count}개`:''}`;
-  return {tier:item.included?'ok':'fix',cat:bucket,loc:`p.${page}`,
+  return {tier:item.included?'ok':'fix',cat:bucket,group:names[key],loc:`p.${page}`,
     title:item.included?`${names[key]} 확인됨`:`${names[key]}을(를) 찾지 못함`,
     summary:item.included?(item.items[0]?item.items[0].text:''):'이 페이지에서 찾지 못했습니다.',
     reasonLabel:item.included?'확인 내용':'왜 수정이 필요한가',
@@ -2760,14 +2822,14 @@ function componentIssue(key,item){
 function bodyReviewIssues(p){
   const b=p.body_text_review,flagged=b.items.filter(x=>x.status!=='적절');
   const bodyTerms=x=>(x.terminology||[]).length?`<div class="term-check">명칭 표기 확인<ul>${x.terminology.map(t=>`<li><b>${esc(t.term)}</b> · ${esc(t.status)} — ${esc(t.reason)}</li>`).join('')}</ul></div>`:'';
-  const basisText=`검사 항목: ${esc(b.basis.checks.join(' · '))}<br>${esc(b.basis.limitation)}<br>${esc(b.note)}<br><b>${esc(b.policy)}</b>`;
+  const basisText=`검사 항목: ${esc(b.basis.checks.join(' · '))}<br>${esc(b.basis.provider)}<br>${esc(b.basis.limitation)}<br>${esc(b.note)}<br><b>${esc(b.policy)}</b>`;
   if(!flagged.length){
-    return [{tier:'ok',cat:'표현',loc:`p.${page} · 본문`,title:'본문 맞춤법 검사 완료',
+    return [{tier:'ok',cat:'본문',group:'본문 맞춤법',loc:`p.${page} · 본문`,title:'본문 맞춤법 검사 완료',
       summary:`${b.items.length}문장 확인 · 수정 제안 없음`,
-      reasonLabel:'확인 내용',reasonHtml:`이 페이지의 설명형 본문 문장 ${b.items.length}개를 검사했고, 수정이 필요한 문장은 없었습니다.`,
+      reasonLabel:'확인 내용',reasonHtml:`이 페이지의 설명형 본문 문장 ${b.items.length}개를 검사했고, 수정이 필요한 문장은 없었습니다.<ul>${b.items.map(x=>`<li>${esc(x.current_text)}</li>`).join('')}</ul>`,
       quotes:[],suggestLabel:'판정 방식',recommendHtml:'',confidenceHtml:'',basisHtml:basisText,hasAction:false}];
   }
-  return flagged.map((x,i)=>({tier:'fix',cat:'표현',loc:`p.${page} · 본문`,
+  return flagged.map((x,i)=>({tier:'fix',cat:'본문',group:'본문 맞춤법',loc:`p.${page} · 본문`,
     title:`본문 맞춤법 수정 제안 ${i+1}`,
     summary:x.issues.length?x.issues.map(i2=>i2.type).join(' · '):(x.suggested_text||x.current_text),
     dimmed:x.fingerprint?fp.has(x.fingerprint):false,
@@ -2791,7 +2853,7 @@ function similarityIssues(p){
   const combined=[...ts.items.map(x=>({...x,kind:'본문'})),...as.items.map(x=>({...x,kind:'활동'}))];
   const flagged=combined.filter(x=>x.review_required);
   if(!flagged.length){
-    return [{tier:'ok',cat:'유사도',loc:`p.${page}`,title:'기존 교과서 비교 완료',
+    return [{tier:'ok',cat:'본문',group:'기존 교과서 유사도',loc:`p.${page}`,title:'기존 교과서 비교 완료',
       summary:`${combined.length}건 비교 · 검토 필요 없음`,
       reasonLabel:'확인 내용',reasonHtml:`이 페이지의 본문·활동 ${combined.length}건을 기존 교과서와 비교했고, 핵심어 3개 이상 겹치는 항목은 없었습니다.`,
       quotes:[],suggestLabel:'판정 방식',recommendHtml:'',confidenceHtml:'',basisHtml:esc(ts.note),hasAction:false}];
@@ -2799,11 +2861,17 @@ function similarityIssues(p){
   const kindTotal={};flagged.forEach(x=>{kindTotal[x.kind]=(kindTotal[x.kind]||0)+1});
   const kindSeen={};
   return flagged.map(x=>{
-    const sharedAll=[...(x.shared_keywords||[]),...(x.shared_meanings||[]),...(x.shared_works||[]),...(x.shared_genres||[]),...(x.shared_instruments||[]),...(x.shared_instrument_families||[]),...(x.shared_actions||[])];
-    const highSeverity=x.score>=0.7;
+    const literalWords=[...(x.shared_keywords||[]),...(x.shared_actions||[]),...(x.shared_works||[]),...(x.shared_genres||[]),...(x.shared_instruments||[]),...(x.shared_instrument_families||[])];
+    const semanticTags=x.shared_meanings||[];
+    const sharedAll=[...literalWords,...semanticTags];
+    const highSeverity=x.status==='매우 유사';
     kindSeen[x.kind]=(kindSeen[x.kind]||0)+1;
     const idxLabel=kindTotal[x.kind]>1?`${kindSeen[x.kind]} · `:'';
-    return {tier:highSeverity?'fix':'review',cat:'유사도',loc:`p.${page} · ${x.kind}`,
+    const confidenceParts=[];
+    confidenceParts.push(literalWords.length?`겹치는 단어: ${esc(literalWords.join(', '))}`:'겹치는 단어 없음');
+    if(semanticTags.length)confidenceParts.push(`겹치는 수행 방식(문자 일치 아닌 의미상 분류): ${esc(semanticTags.join(', '))}`);
+    confidenceParts.push(`유사도 점수 ${(x.score*100).toFixed(1)}%`);
+    return {tier:highSeverity?'fix':'review',cat:x.kind==='활동'?'활동 구성':'본문',group:'기존 교과서 유사도',loc:`p.${page} · ${x.kind}`,
       title:`${x.kind} 유사도 ${idxLabel}${(x.score*100).toFixed(1)}% · ${x.verdict}`,
       summary:x.manuscript_text,
       dimmed:x.fingerprint?fp.has(x.fingerprint):false,
@@ -2811,8 +2879,8 @@ function similarityIssues(p){
       reasonHtml:esc(x.interpretation),
       quotes:renderSimilarityQuotes(x),
       suggestLabel:'권장 수정안',
-      recommendHtml:sharedAll.length?`겹치는 표현(${esc(sharedAll.join('·'))})을 다른 어휘로 바꿔 쓰거나, 인용이라면 출처를 명시하세요.`:'',
-      confidenceHtml:`공유 핵심어 ${sharedAll.length}개 일치 · 유사도 점수 ${(x.score*100).toFixed(1)}% — 실제 문자열 비교 결과입니다.`,
+      recommendHtml:literalWords.length?`겹치는 단어(${esc(literalWords.join('·'))})를 다른 어휘로 바꿔 쓰거나, 인용이라면 출처를 명시하세요.`:'',
+      confidenceHtml:confidenceParts.join(' · '),
       basisHtml:esc(ts.note),
       hasAction:sharedAll.length>0,actionLabel:'수정안 보기'};
   });
@@ -2821,7 +2889,7 @@ function similarityIssues(p){
 function curriculumAlignmentIssue(p){
   const a=p.curriculum_alignment,basis=a.decision_basis||{};
   const matchesHtml=a.top_matches.map(m=>`<div class="match"><b>[${esc(m.code)}] ${esc(m.text)}</b><br>일치도 ${(m.score*100).toFixed(1)}% · 핵심어 ${esc((m.matched_keywords||[]).join(', ')||'없음')}<br><span class="note">원고 근거: ${esc((m.evidence||{}).text||'없음')}</span>${m.explanation?`<br><br><span class="note">성취기준 해설</span><br>${esc(m.explanation)}`:''}${(m.application_considerations||[]).length?`<br><br><span class="note">적용 시 고려 사항</span><ul>${m.application_considerations.slice(0,3).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}</div>`).join('');
-  return {tier:a.label==='해당'?'ok':'review',cat:'성취기준',loc:`p.${page}`,
+  return {tier:a.label==='해당'?'ok':'review',cat:'성취기준',group:'성취기준',loc:`p.${page}`,
     title:`교과 성취기준 연계 · ${a.label} (${(a.top_score*100).toFixed(1)}%)`,
     summary:basis.interpretation||a.note,
     reasonLabel:'통합 판정 근거',
@@ -2833,21 +2901,54 @@ function curriculumAlignmentIssue(p){
 
 function recommendIssues(p){
   const r=p.recommendations,list=[];
-  const variants=r.activity_variants,vi=(variants&&variants.length>1)?(variantByPage[page]||0):0;
-  const activeActivities=(variants&&variants.length>1)?variants[vi].activities:(r.activities||[]);
+  const variants=r.activity_variants,hasVariants=variants&&variants.length>1;
+  // 각 활동은 서로 다른 강조점(감상/비평/표현 등)을 맡도록 되어 있어, 안 전환은
+  // 활동마다 따로 골라야 한다 — 페이지 전체에 하나의 안만 고르면 활동 하나를
+  // 바꿀 때 나머지 활동까지 같이 바뀌어 버린다.
+  const perActivityVi=variantByActivity[page]||{};
+  // 안(activity_variants)마다 keep/trim 활동은 문구가 같고 새로 추가된 활동만 달라지는
+  // 경우가 많아, 실제로 안에 따라 내용이 달라지는 활동에만 안 전환 탭을 붙인다.
+  const variantDependentIndex=new Set();
+  const maxLen=hasVariants?Math.max(...variants.map(v=>v.activities.length)):(r.activities||[]).length;
+  if(hasVariants){
+    for(let i=0;i<maxLen;i++){
+      const texts=new Set(variants.map(v=>(v.activities[i]||{}).suggestion||''));
+      if(texts.size>1)variantDependentIndex.add(i);
+    }
+  }
+  const activeActivities=[];
+  for(let i=0;i<maxLen;i++){
+    const vi=hasVariants?(perActivityVi[i]||0):0;
+    const item=hasVariants?variants[vi].activities[i]:(r.activities||[])[i];
+    if(item)activeActivities.push(item);
+  }
   if(r.ai_activity_review){
     const fit=r.ai_activity_review.standard_fit||{};
-    list.push({tier:'review',cat:'표현',loc:`p.${page}`,title:'AI 검토 요약 확인',
+    list.push({tier:'review',cat:'활동 구성',group:'활동',loc:`p.${page}`,title:'AI 검토 요약 확인',
       summary:fit.fit_level?`성취기준 부합도: ${fit.fit_level}`:'',
       reasonLabel:'확인 내용',
-      reasonHtml:`의도 파악: ${esc(r.ai_activity_review.intent_analysis||'')}<br>성취기준 부합도: ${esc(fit.fit_level||'')} — ${esc(fit.reason||'')}`,
+      reasonHtml:`의도 파악: ${esc(r.ai_activity_review.intent_analysis||'')}<br><br>성취기준 부합도: ${esc(fit.fit_level||'')} — ${esc(fit.reason||'')}`,
       quotes:[],suggestLabel:'권장 조치',recommendHtml:'',confidenceHtml:'',basisHtml:'AI(Claude) 기반 기존 활동 검토·재구성 결과입니다.',
       hasAction:false});
+  }
+  if(r.achievement_standard){
+    const a=r.achievement_standard;
+    list.push({tier:'fix',cat:'성취기준',group:'성취기준',loc:`p.${page} · 성취기준`,
+      title:'성취기준 명시 필요',
+      summary:a.suggestion,
+      reasonLabel:'왜 수정이 필요한가',
+      reasonHtml:esc(a.reason),
+      quotes:[],
+      suggestLabel:'권장 조치 · 교육과정 원문 그대로 추가',
+      recommendHtml:esc(a.suggestion),recommendCopy:a.suggestion,
+      confidenceHtml:(a.matched_keywords||[]).length?`일치 키워드 ${a.matched_keywords.length}개(${esc(a.matched_keywords.join('·'))})`:'',
+      basisHtml:bulletList([esc(a.reason),`교육과정 근거(원문): ${esc(a.curriculum_basis)}`,`생성 방식: ${esc(a.generation_method)}`]),
+      hasAction:true,actionLabel:'수정안 보기'});
   }
   if(r.learning_goal){
     const g=r.learning_goal,unchanged=(g.suggestion||'').trim()===(g.current_text||'').trim();
     const kw=(g.matched_keywords||[]),ref=(g.reference_examples||[]);
-    list.push({tier:unchanged?'ok':'review',cat:'표현',loc:`p.${page} · 학습 목표`,
+    list.push({tier:unchanged?'ok':'review',cat:'학습 목표',group:'학습 목표',loc:`p.${page} · 학습 목표`,
       title:unchanged?'학습 목표 확인됨':'학습 목표 추천 문구 검토',
       summary:g.suggestion,
       reasonLabel:unchanged?'확인 내용':'왜 검토가 필요한가',
@@ -2861,23 +2962,25 @@ function recommendIssues(p){
   }
   activeActivities.forEach((x,i)=>{
     const unchanged=(x.suggestion||'').trim()===(x.current_text||'').trim()||/^\[유지\]/.test(x.reason||'');
-    list.push({tier:unchanged?'ok':'review',cat:'활동 구성',loc:`p.${page} · 활동 ${i+1}`,activityIndex:i+1,
+    list.push({tier:unchanged?'ok':'review',cat:'활동 구성',group:'활동',loc:`p.${page} · 활동 ${i+1}`,activityIndex:i+1,
       title:unchanged?`활동 ${i+1} 확인됨`:`활동 ${i+1} 추천 문구 검토`,
       summary:x.suggestion,
       reasonLabel:unchanged?'확인 내용':'왜 검토가 필요한가',
-      reasonHtml:`현재 문구: ${esc(x.current_text||'없음')}`,
-      quotes:[],suggestLabel:'권장 수정안',
+      reasonHtml:bulletList([esc(x.reason||'설명이 제공되지 않았습니다.'),x.reference_example?`참고한 교과서 활동 문장 흐름: ${esc(x.reference_example.text)} (${esc(cleanFileName(x.reference_example.file))} ${x.reference_example.page}쪽)`:'']),
+      quotes:[{label:'현재 문구',html:esc(x.current_text||'없음')}],suggestLabel:'권장 수정안',
       recommendHtml:esc(x.suggestion),recommendCopy:x.suggestion,
       confidenceHtml:'',
-      basisHtml:bulletList([esc(x.reason),x.curriculum_basis?`교육과정 근거(원문): ${esc(x.curriculum_basis)}`:'',x.reference_example?`참고한 교과서 활동 문장 흐름: ${esc(x.reference_example.text)} (${esc(cleanFileName(x.reference_example.file))} ${x.reference_example.page}쪽)`:'']),
-      hasAction:!unchanged,actionLabel:'수정안 보기'});
+      basisHtml:x.curriculum_basis?`교육과정 근거(원문): ${esc(x.curriculum_basis)}`:'연계된 교육과정 근거가 없습니다.',
+      hasAction:!unchanged,actionLabel:'수정안 보기',
+      variantOptions:variantDependentIndex.has(i)?variants.map((v,vi2)=>({vi:vi2,label:v.label||('안 '+(vi2+1)),active:vi2===(perActivityVi[i]||0)})):null,
+      variantActivityIndex:variantDependentIndex.has(i)?i:null});
   });
   return list;
 }
 
 function repertoireIssues(p){
   const rr=p.repertoire_review;
-  return (rr.items||[]).map(x=>({tier:'review',cat:'유사도',loc:`p.${page}`,
+  return (rr.items||[]).map(x=>({tier:'review',cat:'본문',group:'기존 교과서 유사도',loc:`p.${page}`,
     title:`기존 교과서에 같은 곡 있음 · ${x.keyword}`,
     summary:x.matches.length?`${x.matches.length}건 참고 교과서에서 확인`:'',
     reasonLabel:'왜 검토가 필요한가',
@@ -2890,7 +2993,7 @@ function repertoireIssues(p){
 
 function activityIdeaIssues(p){
   const ai=p.activity_idea_review;
-  return (ai.items||[]).map(x=>({tier:'review',cat:'활동 구성',loc:`p.${page}`,
+  return (ai.items||[]).map(x=>({tier:'review',cat:'활동 구성',group:'활동',loc:`p.${page}`,
     title:'새로운 활동 아이디어 제안',summary:x.suggestion,
     reasonLabel:'왜 검토가 필요한가',reasonHtml:`현재 활동: ${esc(x.current_text)}`,
     quotes:[],suggestLabel:'권장 수정안',recommendHtml:esc(x.suggestion),recommendCopy:x.suggestion,
@@ -2905,7 +3008,7 @@ function completionIssues(){
   return c.details.filter(d=>!skip.has(d.name)).map(d=>{
     const tier=d.earned>=d.maximum?'ok':(d.earned>0?'review':'fix');
     const toReach=(c.to_reach_100||[]).find(x=>x.name===d.name);
-    return {tier,cat:completionBuckets[d.name]||'표현',loc:'문서 전체',title:`완성도 · ${d.name}`,summary:d.reason,
+    return {tier,cat:completionBuckets[d.name]||'본문',group:d.name,loc:'문서 전체',title:`완성도 · ${d.name}`,summary:d.reason,
       reasonLabel:'확인 내용',reasonHtml:esc(d.reason),
       quotes:[],suggestLabel:'권장 조치',
       recommendHtml:toReach?esc(toReach.action):'',
@@ -2916,11 +3019,24 @@ function completionIssues(){
 
 function buildIssues(p){
   const list=[];
-  ['achievement_standards','learning_goals','activities'].forEach(key=>list.push(componentIssue(key,p.components[key])));
+  const recommend=recommendIssues(p);
+  // 학습 목표·활동은 AI 추천 카드가 이미 개별로 확인/검토 상태를 보여주므로,
+  // 그 경우 componentIssue의 단순 존재 확인 카드를 또 띄우면 같은 항목이
+  // 통과·검토 필요 양쪽에 중복으로 보인다 — 추천 카드가 있을 때만 생략한다.
+  const hasAchievementStandardCard=recommend.some(x=>x.group==='성취기준'&&x.loc.includes('성취기준'));
+  const hasLearningGoalCard=recommend.some(x=>x.group==='학습 목표');
+  const hasActivityCard=recommend.some(x=>x.group==='활동'&&x.activityIndex);
+  ['achievement_standards','learning_goals','activities'].forEach(key=>{
+    const item=p.components[key];
+    if(key==='achievement_standards'&&!item.included&&hasAchievementStandardCard)return;
+    if(key==='learning_goals'&&item.included&&hasLearningGoalCard)return;
+    if(key==='activities'&&item.included&&hasActivityCard)return;
+    list.push(componentIssue(key,item));
+  });
   list.push(...bodyReviewIssues(p));
   list.push(...similarityIssues(p));
   list.push(curriculumAlignmentIssue(p));
-  list.push(...recommendIssues(p));
+  list.push(...recommend);
   list.push(...repertoireIssues(p));
   list.push(...activityIdeaIssues(p));
   if(page===1)list.push(...completionIssues());
@@ -2930,30 +3046,54 @@ function buildIssues(p){
 function renderMetrics(p,issues){
   const c=data.completion;
   const actionCount=issues.filter(x=>x.tier==='fix'||x.tier==='review').length;
+  const fixCount=issues.filter(x=>x.tier==='fix').length;
   const simItems=[...p.textbook_similarity.items,...p.activity_textbook_similarity.items];
   const maxSim=simItems.length?Math.max(...simItems.map(x=>x.score)):0;
   const simFlag=simItems.some(x=>x.review_required);
+  const alignLabel=p.curriculum_alignment.label;
+  const alignPill=alignLabel==='해당'?'pill-blue':alignLabel==='해당 없음'?'pill-red':'pill-amber';
+  const completionPill=c.percentage>=100?'pill-green':'pill-blue';
+  const simPill=simFlag?'pill-red':'pill-blue';
+  const actionPill=fixCount>0?'pill-red':actionCount>0?'pill-amber':'pill-green';
+  const actionText=fixCount>0?`수정 필요 ${fixCount}건`:actionCount>0?`검토 필요 ${actionCount}건`:'통과';
   $('metrics-bar').innerHTML=`
-    <div class="metric-card"><div class="metric-label"><span class="dot dot-blue"></span>전체 완성도</div><div class="metric-value">${c.percentage}%</div><div class="progress-track"><div class="progress-fill" style="width:${c.percentage}%"></div></div><div class="metric-sub">${esc(c.explanation)}</div></div>
-    <div class="metric-card"><div class="metric-label"><span class="dot dot-blue"></span>교과 성취기준 연계</div><div class="metric-value">${(p.curriculum_alignment.top_score*100).toFixed(1)}%</div><div class="metric-sub">${esc(p.curriculum_alignment.label)} · 이 페이지 기준</div></div>
-    <div class="metric-card${simFlag?' alert':''}"><div class="metric-label"><span class="dot ${simFlag?'dot-red':'dot-blue'}"></span>교과서 유사도</div><div class="metric-value">${(maxSim*100).toFixed(1)}%${simFlag?' · 검토 필요':''}</div><div class="metric-sub">이 페이지 본문·활동 비교 중 최고값</div></div>
-    <div class="metric-card"><div class="metric-label"><span class="dot dot-neutral"></span>조치 필요</div><div class="metric-value">${actionCount}건</div><div class="metric-sub">이 페이지 · 전체 ${issues.length}건 중</div></div>`;
-}
-
-function renderVariantTabs(p){
-  const variants=p.recommendations.activity_variants;
-  if(!variants||variants.length<=1){$('variant-tabs').innerHTML='';return}
-  const vi=variantByPage[page]||0;
-  $('variant-tabs').innerHTML=variants.map((v,i)=>`<button type="button" class="variant-tab${i===vi?' active':''}" data-vi="${i}">${esc(v.label||('안 '+(i+1)))}</button>`).join('');
-  document.querySelectorAll('.variant-tab').forEach(btn=>btn.onclick=()=>{variantByPage[page]=Number(btn.dataset.vi);selectedId=null;render()});
+    <div class="metric-card"><div class="metric-label"><span class="dot dot-blue"></span>전체 완성도</div>
+      <div class="metric-top"><div class="metric-value">${c.percentage}%</div><span class="metric-pill ${completionPill}">${c.percentage}% 완료</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:${c.percentage}%"></div></div><div class="metric-sub">${esc(c.explanation)}</div></div>
+    <div class="metric-card"><div class="metric-label"><span class="dot dot-blue"></span>교과 성취기준 연계</div>
+      <div class="metric-top"><div class="metric-value">${(p.curriculum_alignment.top_score*100).toFixed(1)}%</div><span class="metric-pill ${alignPill}">${(p.curriculum_alignment.top_score*100).toFixed(1)}% ${esc(alignLabel)}</span></div>
+      <div class="metric-sub">교과 성취기준과 내용 연계 비율</div></div>
+    <div class="metric-card${simFlag?' alert':''}"><div class="metric-label"><span class="dot ${simFlag?'dot-red':'dot-blue'}"></span>교과서 유사도</div>
+      <div class="metric-top"><div class="metric-value">${(maxSim*100).toFixed(1)}%</div><span class="metric-pill ${simPill}">${(maxSim*100).toFixed(1)}% ${simFlag?'검토 필요':'유사'}</span></div>
+      <div class="metric-sub">이 페이지 본문·활동 비교 중 최고값</div></div>
+    <div class="metric-card"><div class="metric-label"><span class="dot dot-neutral"></span>조치 필요</div>
+      <div class="metric-top"><div class="metric-value">${actionCount}건</div><span class="metric-pill ${actionPill}">${esc(actionText)}</span></div>
+      <div class="metric-sub">이 페이지 · 전체 ${issues.length}건 중</div></div>`;
 }
 
 function cardHtml(x){
-  const badge=`${esc(x.cat)}${x.activityIndex?` · ${x.activityIndex}`:''}`;
+  const variantTabsHtml=x.variantOptions?`<div class="item-variant-tabs" data-activity-index="${x.variantActivityIndex}">${x.variantOptions.map(o=>`<button type="button" class="variant-tab${o.active?' active':''}" data-vi="${o.vi}">${esc(o.label)}</button>`).join('')}</div>`:'';
   return `<div class="item-card ${tierSeverityClass(x.tier)}${x.id===selectedId?' selected':''}${x.dimmed?' fp-dim':''}" data-id="${esc(x.id)}">
-    <div class="item-row1"><span class="item-tag ${catTagClass(x.cat)}">${badge}</span><span class="item-title">${esc(x.title)}</span><span class="item-loc">${esc(x.loc)}</span></div>
+    <div class="item-row1"><span class="item-tag ${tierTagClass(x.tier)}">${esc(tierLabel(x.tier))}</span><span class="item-title">${esc(x.title)}</span><span class="item-loc">${esc(x.loc)}</span></div>
+    ${variantTabsHtml}
     <div class="item-row2"><span class="item-desc">${esc(x.summary||'')}</span>${x.hasAction?`<button type="button" class="mini-link">${esc(x.actionLabel||'수정안 보기')}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>`:''}</div>
   </div>`;
+}
+
+const CATEGORY_ORDER=['학습 목표','성취기준','본문 맞춤법','활동','기존 교과서 유사도'];
+const CATEGORY_LABEL={'학습 목표':'학습 목표','성취기준':'성취기준','본문 맞춤법':'본문','활동':'활동','기존 교과서 유사도':'기존 교과서 유사도'};
+const CATEGORY_CLASS={'학습 목표':'cat-goal','성취기준':'cat-standard','본문 맞춤법':'cat-body','활동':'cat-activity','기존 교과서 유사도':'cat-similarity'};
+const CATEGORY_ICON={
+  '학습 목표':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></svg>',
+  '성취기준':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  '본문 맞춤법':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/></svg>',
+  '활동':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  '기존 교과서 유사도':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>',
+};
+const CATEGORY_FALLBACK_BY_CAT={'성취기준':'성취기준','학습 목표':'학습 목표','본문':'본문 맞춤법','활동 구성':'활동'};
+function categoryKeyFor(x){
+  if(CATEGORY_ORDER.includes(x.group))return x.group;
+  return CATEGORY_FALLBACK_BY_CAT[x.cat]||'본문 맞춤법';
 }
 
 function renderChecklist(){
@@ -2963,30 +3103,26 @@ function renderChecklist(){
   if(!currentIssues.some(x=>x.id===selectedId))selectedId=currentIssues[0]?currentIssues[0].id:null;
 
   $('queue-total').textContent=`${currentIssues.length}건`;
-  $('status-counts').innerHTML=`<span class="count-fix"><span class="dot dot-red"></span>수정 필요 ${fix.length}</span><span class="count-review"><span class="dot" style="background:var(--amber)"></span>검토 필요 ${review.length}</span><span class="count-ok"><span class="dot" style="background:var(--green)"></span>통과 ${ok.length}</span>`;
+  $('status-counts').innerHTML=`<span class="count-ok"><span class="dot" style="background:var(--green)"></span>통과 ${ok.length}</span><span class="count-review"><span class="dot" style="background:var(--amber)"></span>검토 필요 ${review.length}</span><span class="count-fix"><span class="dot dot-red"></span>수정 필요 ${fix.length}</span>`;
 
-  let html=`<div class="section-label sl-fix">수정 필요 <span class="count">· ${fix.length}건</span></div>`;
-  html+=fix.length?fix.map(cardHtml).join(''):'<div class="note" style="padding:0 8px 8px">해당 없음</div>';
-
-  html+=`<div class="section-label sl-review">검토 필요 <span class="count">· ${review.length}건</span></div>`;
-  if(review.length){
-    html+=cardHtml(review[0]);
-    if(review.length>1){
-      html+=`<div class="collapsed-section" data-toggle="review-rest"><span>${reviewExpanded?'검토 필요 항목 접기':`검토 필요 항목 ${review.length-1}건 더 보기`}</span><span class="section-toggle" data-toggle="review-rest">${reviewExpanded?'접기':'펼치기'}</span></div>`;
-      html+=`<div data-group-body="review-rest" style="display:${reviewExpanded?'':'none'}">${review.slice(1).map(cardHtml).join('')}</div>`;
-    }
-  } else {
-    html+='<div class="note" style="padding:0 8px 8px">해당 없음</div>';
-  }
-
-  if(ok.length){
-    html+=`<div class="collapsed-section" data-toggle="ok-all"><span>${okExpanded?'통과 항목 접기':`통과 항목 ${ok.length}건`}</span><span class="section-toggle" data-toggle="ok-all">${okExpanded?'접기':'펼치기'}</span></div>`;
-    html+=`<div data-group-body="ok-all" style="display:${okExpanded?'':'none'}">${ok.map(cardHtml).join('')}</div>`;
-  }
+  let html='';
+  CATEGORY_ORDER.forEach(group=>{
+    const items=currentIssues.filter(x=>categoryKeyFor(x)===group);
+    if(!items.length)return;
+    html+=`<div class="cat-label"><div class="cat-icon ${CATEGORY_CLASS[group]||'cat-body'}">${CATEGORY_ICON[group]||''}</div><span class="cat-name">${esc(CATEGORY_LABEL[group]||group)}</span><span class="cat-count">· ${items.length}건</span></div>`;
+    html+=items.map(cardHtml).join('');
+  });
+  if(!html)html='<div class="note" style="padding:0 8px 8px">해당 없음</div>';
 
   $('checklist-body').innerHTML=html;
   document.querySelectorAll('.item-card').forEach(el=>el.onclick=()=>{selectedId=el.dataset.id;renderChecklist()});
-  document.querySelectorAll('[data-toggle]').forEach(el=>el.onclick=event=>{event.stopPropagation();const key=el.dataset.toggle;if(key==='review-rest')reviewExpanded=!reviewExpanded;else okExpanded=!okExpanded;renderChecklist()});
+  document.querySelectorAll('.item-variant-tabs .variant-tab').forEach(el=>el.onclick=event=>{
+    event.stopPropagation();
+    const activityIndex=Number(el.closest('.item-variant-tabs').dataset.activityIndex);
+    variantByActivity[page]=variantByActivity[page]||{};
+    variantByActivity[page][activityIndex]=Number(el.dataset.vi);
+    selectedId=null;render();
+  });
   renderDetail(currentIssues.find(x=>x.id===selectedId));
 }
 
@@ -2996,15 +3132,23 @@ function renderDetail(issue){
   const copyBtn=issue.recommendCopy?`<button type="button" class="mini-btn" data-copy="${esc(issue.recommendCopy)}">복사</button>`:'';
   const recommendBlock=issue.recommendHtml?`<div class="block"><div class="block-label">${esc(issue.suggestLabel||'권장 수정안')}</div><div class="recommend-box"><span>${issue.recommendHtml}</span>${copyBtn}</div></div>`:'';
   const confidenceBlock=issue.confidenceHtml?`<div class="block"><div class="block-label">AI 판정 신뢰도</div><div class="confidence-box">${issue.confidenceHtml}</div></div>`:'';
+  const bannerIcon=issue.tier==='fix'
+    ?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>'
+    :issue.tier==='review'
+    ?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.8 1c0 1.7-2.3 2.2-2.3 3.6"/><path d="M12 17h.01"/></svg>'
+    :'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
   $('detail-panel').innerHTML=`
     <div class="panel-header"><div class="panel-title">선택한 이슈</div><span class="issue-status-pill ${issue.tier}">${tierLabel(issue.tier)}</span></div>
     <div class="right-panel-body" id="right-panel-body">
-      <div class="issue-title">${esc(issue.title)}</div>
+      <div class="issue-banner ${issue.tier}">
+        <div class="issue-banner-icon">${bannerIcon}</div>
+        <div><div class="issue-banner-title">${esc(issue.title)}</div>${issue.summary?`<div class="issue-banner-sub">${esc(issue.summary)}</div>`:''}</div>
+      </div>
       <div class="block"><div class="block-label">${esc(issue.reasonLabel)}</div><div class="block-text">${issue.reasonHtml}</div>${quotesHtml}</div>
       ${recommendBlock}
       ${confidenceBlock}
       <div class="divider"></div>
-      <div class="block" style="margin-bottom:0"><div class="block-label">판정 근거</div><div class="block-text" style="color:var(--text-2)">${issue.basisHtml}</div></div>
+      <div class="block" style="margin-bottom:0"><div class="block-label">판정 근거</div><div class="block-text">${issue.basisHtml}</div></div>
     </div>
     <div class="scroll-fade" id="detail-scroll-fade"></div>`;
   const body=$('right-panel-body');
@@ -3021,7 +3165,6 @@ function render(){
   $('page-sub').textContent=`p. ${page} / ${data.manuscript.page_count}`;
   renderPagePreview(p);
   $('audit-title').textContent=`${page}쪽 교육과정 점검`;
-  renderVariantTabs(p);
   currentIssues=buildIssues(p);
   renderMetrics(p,currentIssues);
   renderChecklist();
