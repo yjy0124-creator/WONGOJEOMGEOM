@@ -1,6 +1,8 @@
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from team_app import (
     CURRICULUM_TAXONOMY,
@@ -40,6 +42,25 @@ class TeamAppTests(unittest.TestCase):
             _curriculum_file_path(root, "중학교", "한문"),
             root / "curricula" / "중학교" / "한문" / "한문.pdf",
         )
+
+    def test_curriculum_file_path_falls_back_to_bundled_copy_when_frozen(self):
+        # exe로 배포할 때는 team_data/curricula 폴더를 따로 넘기지 않아도 되도록,
+        # 등록된 사본이 data_root에 없으면 exe에 동봉된 사본으로 대체한다 — 단
+        # PyInstaller로 묶여 실행 중일 때만(개발 환경에서는 그대로 미등록 취급).
+        with tempfile.TemporaryDirectory() as temporary:
+            data_root = Path(temporary) / "team_data"
+            bundle_root = Path(temporary) / "bundle"
+            bundled_file = bundle_root / "team_data" / "curricula" / "초등학교" / "음악" / "음악.pdf"
+            bundled_file.parent.mkdir(parents=True, exist_ok=True)
+            bundled_file.write_bytes(b"%PDF-1.4\n")
+
+            unfrozen = _curriculum_file_path(data_root, "초등학교", "음악")
+            self.assertFalse(unfrozen.is_file())
+
+            with patch.object(sys, "frozen", True, create=True), \
+                 patch("curriculum_audit._resource_path", lambda name: bundle_root / name):
+                frozen = _curriculum_file_path(data_root, "초등학교", "음악")
+            self.assertEqual(frozen, bundled_file)
 
     def test_curriculum_sub_subjects_only_for_configured_high_school_subjects(self):
         self.assertEqual(_curriculum_sub_subjects("고등학교", "음악"), ["음악", "음악 감상과 비평"])

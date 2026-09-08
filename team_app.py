@@ -116,9 +116,26 @@ def _curriculum_sub_subjects(school_level: str, subject: str) -> list[str] | Non
     return config.get("sub_subjects", {}).get(subject)
 
 
+def _bundled_curriculum_path(school_level: str, subject: str, sub_subject: str = "") -> Path | None:
+    """PyInstaller로 묶은 exe 안에 동봉된 교육과정 PDF 경로.
+
+    exe를 나눠줄 때 team_data/curricula 폴더를 따로 복사해줄 필요가 없도록,
+    TeamAudit.spec이 빌드 시 이 폴더를 통째로 실행 파일 안에 담아둔다. 스크립트로
+    바로 실행하는 개발 환경에는 동봉된 사본이 없으므로 이 폴백은 건너뛴다.
+    """
+    if not getattr(sys, "frozen", False):
+        return None
+    from curriculum_audit import _resource_path
+    path = _resource_path("team_data/curricula") / school_level / subject / f"{sub_subject or subject}.pdf"
+    return path if path.is_file() else None
+
+
 def _curriculum_file_path(data_root: Path, school_level: str, subject: str, sub_subject: str = "") -> Path:
     base = data_root / "curricula" / school_level / subject
-    return base / f"{sub_subject or subject}.pdf"
+    path = base / f"{sub_subject or subject}.pdf"
+    if path.is_file():
+        return path
+    return _bundled_curriculum_path(school_level, subject, sub_subject) or path
 
 
 def _curriculum_taxonomy_status(data_root: Path) -> dict[str, dict[str, Any]]:
