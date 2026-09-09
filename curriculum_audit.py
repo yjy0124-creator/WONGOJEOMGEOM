@@ -6,6 +6,7 @@ import functools
 import hashlib
 import html
 import importlib
+import io
 import json
 import math
 import re
@@ -208,13 +209,13 @@ def detect_manuscript_components(pages: list[str]) -> dict[str, Any]:
         # 이어 붙인 뒤, 마침표(다른 문장과의 경계)와 청유형 종결 표현만을 기준으로
         # 문장 단위를 다시 찾는다.
         flattened = re.sub(r"\s*\n\s*", " ", text)
-        activity_ending = r"(?:해\s*보자|보자|해\s*봅시다|봅시다)"
+        activity_ending = r"(?:해\s*보자|보자|해\s*봅시다|봅시다|해\s*보세요|보세요)"
         for match in re.finditer(rf"[^.!?]{{6,300}}?{activity_ending}", flattened):
             body = re.sub(r"\s+", " ", match.group(0)).strip(" ·-–—,")
             body = re.sub(r"^\d{1,2}[.)]\s*", "", body)  # 번호 활동 감지에서 이미 처리된 항목과 중복되지 않도록 번호 접두를 뗀다
             if len(body) < 6:
                 continue
-            if not re.search(r"보자|해 보|적어|설명|비교|토의|토론|감상|연주|작성|발표|조사|이야기|봅시다", body):
+            if not re.search(r"보자|해 보|적어|설명|비교|토의|토론|감상|연주|작성|발표|조사|이야기|봅시다|보세요", body):
                 continue
             key = re.sub(r"\s+", "", body)
             if any(existing and (existing in key or key in existing) for existing in captured_activity_keys):
@@ -283,19 +284,15 @@ def _body_sentences(pages: list[str], components: dict[str, Any]) -> list[dict[s
 
 def _review_body_text(pages: list[str], components: dict[str, Any],
                       suppressed_fingerprints: set[str] | None = None) -> dict[str, Any]:
-    """설명형 본문과 활동 문장의 맞춤법·문법·용어 표기·문장 난이도를 보조 점검한다.
+    """설명형 본문 문장의 맞춤법·문법·용어 표기·문장 난이도를 보조 점검한다.
 
-    활동 문장은 '~해 보자'처럼 청유형으로 끝나 본문 문장 판정 규칙(다.로 끝남)을
-    통과하지 못하므로, 문장 선별과 무관하게 원문 그대로 검사 대상에 더한다.
+    '~해 보자'처럼 청유형으로 끝나는 활동 문장은 활동 비교(기존 원고 활동 비교) 쪽
+    검사 대상이므로 여기서는 다루지 않는다.
     """
     suppressed_fingerprints = suppressed_fingerprints or set()
     page_items: dict[int, list[dict[str, Any]]] = {page_no: [] for page_no in range(1, len(pages) + 1)}
     official_terms = _official_music_terms()
-    activity_sentences = [
-        {"page": activity["page"], "text": activity["text"]}
-        for activity in components["activities"]["items"]
-    ]
-    for item in _body_sentences(pages, components) + activity_sentences:
+    for item in _body_sentences(pages, components):
         current = item["text"]
         suggested = current
         issues = []
@@ -2408,9 +2405,8 @@ def _render_html(result: dict[str, Any]) -> str:
 
 
 _DIFF_SECTIONS = {
-    "body_text_review": ("본문 맞춤법 검사", "current_text"),
-    "textbook_similarity": ("기존 교과서 본문 비교", "manuscript_text"),
-    "activity_textbook_similarity": ("기존 교과서 활동 비교", "manuscript_text"),
+    "textbook_similarity": ("기존 원고 본문 비교", "manuscript_text"),
+    "activity_textbook_similarity": ("기존 원고 활동 비교", "manuscript_text"),
 }
 
 
@@ -2445,12 +2441,30 @@ def compare_audits(previous: dict[str, Any], current: dict[str, Any]) -> dict[st
         "completion_before": completion_before,
         "completion_after": completion_after,
         "completion_delta": round(completion_after - completion_before, 1),
+        "completion_changes": _completion_detail_changes(previous, current),
         "page_count_before": previous.get("manuscript", {}).get("page_count", 0),
         "page_count_after": current.get("manuscript", {}).get("page_count", 0),
         "sections": sections,
         "section_labels": section_labels,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
+
+
+def _completion_detail_changes(previous: dict[str, Any], current: dict[str, Any]) -> list[dict[str, Any]]:
+    """완성도 체크리스트 항목(성취기준·학습 목표·활동·악보·참고 사진·본문 텍스트) 중
+    충족 여부가 바뀐 항목만 추려낸다. 총점(%) 하나만으로는 사진 한 장이 새로
+    들어와서 오른 것인지, 다른 항목 때문인지 구분할 수 없어서 항목 단위로 따로 본다.
+    """
+    before_by_name = {d["name"]: d for d in previous.get("completion", {}).get("details", [])}
+    after_by_name = {d["name"]: d for d in current.get("completion", {}).get("details", [])}
+    changes = []
+    for name, after_detail in after_by_name.items():
+        before_detail = before_by_name.get(name)
+        before_met = bool(before_detail) and before_detail["earned"] >= before_detail["maximum"]
+        after_met = after_detail["earned"] >= after_detail["maximum"]
+        if before_met != after_met:
+            changes.append({"name": name, "resolved": after_met})
+    return changes
 
 
 def _render_diff_html(diff: dict[str, Any]) -> str:
@@ -2466,6 +2480,120 @@ def compare_manuscript_audits(previous_json: Path, current_json: Path, destinati
     diff_path = Path(destination) / "diff.html"
     diff_path.write_text(_render_diff_html(diff), encoding="utf-8")
     return diff_path
+
+
+DOCX_SECTIONS = {
+    "completion": "완성도 요약",
+    "images": "쪽 이미지",
+    "achievement_standard": "성취기준",
+    "learning_goal": "학습 목표",
+    "activities": "활동",
+    "body_text": "본문 맞춤법 검사",
+    "similarity": "기존 교과서 유사도 비교",
+}
+
+
+def generate_docx_report(json_path: Path, sections: set[str] | None = None) -> bytes:
+    """audit.json 하나로 쪽별 이미지·유사도 근거까지 포함한 워드 문서를 만들어 바이트로 반환한다.
+
+    화면(AUDIT_HTML)은 이슈를 클릭해야 상세 근거가 오른쪽 패널에 나타나는 방식이라
+    그대로 인쇄하면 선택한 항목 하나만 찍힌다. 여기서는 audit.json에 이미 있는 쪽별
+    데이터를 처음부터 끝까지 순서대로 풀어써서, 클릭 없이도 문서 하나로 전체 내용을
+    확인할 수 있게 한다. sections를 넘기면 DOCX_SECTIONS 키 중 고른 항목만 담고,
+    생략하면(None) 전체를 담는다.
+    """
+    from docx import Document
+    from docx.shared import Inches
+
+    include = sections if sections is not None else set(DOCX_SECTIONS)
+    result = json.loads(Path(json_path).read_text(encoding="utf-8"))
+    base = Path(json_path).parent
+    manuscript = result.get("manuscript", {})
+    completion = result.get("completion", {})
+
+    doc = Document()
+    doc.add_heading(f"{manuscript.get('filename', '원고')} 점검 결과", level=0)
+    doc.add_paragraph(f"완성도 {completion.get('percentage', 0)}% · 총 {manuscript.get('page_count', 0)}쪽")
+    if "completion" in include:
+        for detail in completion.get("details", []):
+            mark = "충족" if detail.get("earned", 0) >= detail.get("maximum", 0) else "미충족"
+            doc.add_paragraph(
+                f"{detail.get('name', '')}: {mark} ({detail.get('earned', 0)}/{detail.get('maximum', 0)}점) — "
+                f"{detail.get('reason', '')}",
+                style="List Bullet",
+            )
+
+    for page in result.get("page_audits", []):
+        doc.add_heading(f"{page.get('page')}쪽", level=1)
+        if "images" in include:
+            image_path = base / page.get("page_image", "")
+            if image_path.is_file():
+                try:
+                    doc.add_picture(str(image_path), width=Inches(5.5))
+                except Exception:
+                    pass
+
+        recommendations = page.get("recommendations") or {}
+        standard = recommendations.get("achievement_standard")
+        if standard and "achievement_standard" in include:
+            doc.add_heading("성취기준", level=2)
+            doc.add_paragraph(standard.get("suggestion") or "")
+            if standard.get("reason"):
+                doc.add_paragraph(standard["reason"])
+
+        goal = recommendations.get("learning_goal")
+        if goal and "learning_goal" in include:
+            doc.add_heading("학습 목표", level=2)
+            doc.add_paragraph(f"현재: {goal.get('current_text') or '없음'}")
+            if goal.get("suggestion"):
+                doc.add_paragraph(f"추천: {goal['suggestion']}")
+
+        activities = recommendations.get("activities") or []
+        if activities and "activities" in include:
+            doc.add_heading("활동", level=2)
+            for index, activity in enumerate(activities, start=1):
+                doc.add_heading(f"활동 {index}", level=3)
+                if activity.get("current_text"):
+                    doc.add_paragraph(f"현재: {activity['current_text']}")
+                if activity.get("suggestion"):
+                    doc.add_paragraph(f"추천 문구: {activity['suggestion']}")
+                if activity.get("reason"):
+                    doc.add_paragraph(activity["reason"])
+                if activity.get("curriculum_basis"):
+                    doc.add_paragraph(f"교육과정 근거: {activity['curriculum_basis']}")
+
+        if "body_text" in include:
+            body_items = page.get("body_text_review", {}).get("items", [])
+            flagged = [item for item in body_items if item.get("status") == "수정 제안"]
+            if flagged:
+                doc.add_heading("본문 맞춤법 검사", level=2)
+                for item in flagged:
+                    doc.add_paragraph(item.get("current_text", ""), style="List Bullet")
+                    for issue in item.get("issues", []):
+                        doc.add_paragraph(f"{issue.get('type', '')}: {issue.get('reason', '')}")
+                    if item.get("suggested_text"):
+                        doc.add_paragraph(f"수정 제안: {item['suggested_text']}")
+
+        if "similarity" in include:
+            for section_key, label in (
+                ("textbook_similarity", "기존 교과서 본문 비교"),
+                ("activity_textbook_similarity", "기존 교과서 활동 비교"),
+            ):
+                items = page.get(section_key, {}).get("items", [])
+                if not items:
+                    continue
+                doc.add_heading(label, level=2)
+                for item in items:
+                    doc.add_paragraph(item.get("manuscript_text", ""), style="List Bullet")
+                    keywords = ", ".join(item.get("shared_keywords", []))
+                    doc.add_paragraph(f"판정: {item.get('status', '')}" + (f" · 겹치는 핵심어: {keywords}" if keywords else ""))
+                    match = item.get("match") or {}
+                    if match:
+                        doc.add_paragraph(f"근거(기존 교과서): {match.get('file', '')} {match.get('page', '')}쪽 — {match.get('text', '')}")
+
+    buffer = io.BytesIO()
+    doc.save(buffer)
+    return buffer.getvalue()
 
 
 DIFF_HTML = r'''<!doctype html>
@@ -2484,13 +2612,19 @@ h1{font-size:32px;letter-spacing:-.03em;margin:0 0 8px}
 .diff-col{margin-bottom:10px}
 .diff-col ul{margin:6px 0 0;padding-left:20px;line-height:1.6}
 .note{color:var(--muted);font-size:12px;margin-top:8px}
+.completion-changes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.chip{border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;border:1px solid}
+.chip.resolved{color:var(--ok);border-color:var(--ok);background:#e9f5ef}
+.chip.regressed{color:var(--warn);border-color:var(--warn);background:#fbecec}
 </style></head><body><main class="shell" id="app"></main>
 <script id="diff-data" type="application/json">__DIFF_DATA__</script><script>
 (()=>{const data=JSON.parse(document.getElementById('diff-data').textContent);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const delta=data.completion_delta,deltaText=`${delta>=0?'+':''}${delta}%p`;
 const list=items=>items.length?`<ul>${items.map(x=>`<li>${esc(x.text)}</li>`).join('')}</ul>`:'<div class="note">없음</div>';
+const changes=data.completion_changes||[];
+const completionChanges=changes.length?`<div class="completion-changes">${changes.map(c=>`<span class="chip ${c.resolved?'resolved':'regressed'}">${esc(c.name)} ${c.resolved?'충족됨':'미충족으로 바뀜'}</span>`).join('')}</div>`:'';
 const sections=Object.entries(data.section_labels).map(([key,label])=>{const s=data.sections[key];return `<section class="diff-section"><h3>${esc(label)}</h3><div class="diff-col"><b>해결됨 (${s.resolved.length}건)</b>${list(s.resolved)}</div><div class="diff-col"><b>새로 발견 (${s.new.length}건)</b>${list(s.new)}</div><div class="note">유지된 항목 ${s.unchanged_count}건</div></section>`}).join('');
-document.getElementById('app').innerHTML=`<h1>원고 재분석 비교</h1><div class="sub">${esc(data.previous_filename)} → ${esc(data.current_filename)}</div><div class="score-badges"><div class="badge">완성도 변화<b>${data.completion_before}% → ${data.completion_after}% (${deltaText})</b></div><div class="badge">쪽수<b>${data.page_count_before}쪽 → ${data.page_count_after}쪽</b></div></div>${sections}`;
+document.getElementById('app').innerHTML=`<h1>원고 재분석 비교</h1><div class="sub">${esc(data.previous_filename)} → ${esc(data.current_filename)}</div><div class="score-badges"><div class="badge">완성도 변화<b>${data.completion_before}% → ${data.completion_after}% (${deltaText})</b></div><div class="badge">쪽수<b>${data.page_count_before}쪽 → ${data.page_count_after}쪽</b></div></div>${completionChanges}${sections}`;
 })();
 </script></body></html>'''
 
@@ -2539,6 +2673,31 @@ button{font-family:inherit}
 .header{padding:22px 28px 20px}
 .breadcrumb{font-size:13.5px;color:var(--text-3);margin-bottom:6px}
 h1{font-size:21.5px;font-weight:800;letter-spacing:-.02em;margin:0}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.export-actions{display:flex;gap:8px;flex:none}
+.export-btn{
+  border:1px solid var(--border-strong);border-radius:999px;padding:8px 16px;font-size:12.5px;font-weight:700;
+  background:var(--surface);color:var(--text-2);cursor:pointer;text-decoration:none;white-space:nowrap;
+  display:inline-flex;align-items:center;box-shadow:var(--shadow-sm);
+}
+.export-btn:hover{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue)}
+.print-report{display:none}
+.export-modal-backdrop{
+  display:none;position:fixed;inset:0;background:rgba(16,24,40,.45);z-index:100;
+  align-items:center;justify-content:center;
+}
+.export-modal-backdrop.open{display:flex}
+.export-modal{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-lg);width:360px;max-width:92vw;padding:20px 22px}
+.export-modal h3{margin:0 0 4px;font-size:16px;font-weight:800}
+.export-modal .modal-sub{font-size:12.5px;color:var(--text-3);margin:0 0 14px}
+.export-modal-options{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+.export-modal-options label{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--text-1);cursor:pointer}
+.export-modal-actions{display:flex;justify-content:flex-end;gap:8px}
+.export-modal-actions button{
+  border-radius:999px;padding:8px 16px;font-size:12.5px;font-weight:700;cursor:pointer;border:1px solid var(--border-strong);
+  background:var(--surface);color:var(--text-2);
+}
+.export-modal-actions .primary{background:var(--blue);border-color:var(--blue);color:#fff}
 
 .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 28px 22px}
 .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 18px;box-shadow:var(--shadow-md);position:relative}
@@ -2675,6 +2834,21 @@ mark{background:#FDE68A;padding:0 2px;border-radius:3px}
 
 @media(max-width:1200px){.main-grid{grid-template-columns:260px 1fr}.panel:last-child{grid-column:1/-1}}
 @media(max-width:1100px){.summary-grid{grid-template-columns:repeat(2,1fr)}.main-grid{grid-template-columns:1fr}.shell{margin:0;border-radius:0}}
+
+.print-page{page-break-before:always}
+.print-page:first-of-type{page-break-before:auto}
+.print-page img{max-width:100%;height:auto;margin:8px 0 14px;display:block}
+.print-issue{border:1px solid var(--border-strong);border-radius:8px;padding:10px 12px;margin-bottom:10px;break-inside:avoid}
+.print-issue-head{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:13.5px}
+.print-issue-head b{flex:1;min-width:0}
+.print-block{margin-top:6px;font-size:12.5px;line-height:1.5}
+.print-block b{display:block;margin-bottom:2px;color:var(--text-2);font-size:11.5px}
+@media print{
+  body>*:not(.print-report){display:none !important}
+  .print-report{display:block !important}
+  body{background:#fff}
+  .print-issue{break-inside:avoid}
+}
 </style></head><body>
 <div class="shell">
 <div class="topbar">
@@ -2683,7 +2857,13 @@ mark{background:#FDE68A;padding:0 2px;border-radius:3px}
 </div>
 <div class="header">
   <div class="breadcrumb">교과서 원고 점검</div>
-  <h1 id="audit-title"></h1>
+  <div class="header-row">
+    <h1 id="audit-title"></h1>
+    <div class="export-actions">
+      <button type="button" class="export-btn" id="export-print" data-mode="print">인쇄·PDF로 저장</button>
+      <button type="button" class="export-btn" id="export-docx" data-mode="docx">DOCX로 내보내기</button>
+    </div>
+  </div>
 </div>
 <div class="summary-grid" id="metrics-bar"></div>
 <div class="main-grid">
@@ -2719,6 +2899,18 @@ mark{background:#FDE68A;padding:0 2px;border-radius:3px}
   </section>
   <aside class="panel" id="detail-panel"></aside>
 </div>
+</div>
+<div class="print-report" id="print-report"></div>
+<div class="export-modal-backdrop" id="export-modal-backdrop">
+  <div class="export-modal">
+    <h3>추출할 항목을 선택하세요</h3>
+    <p class="modal-sub" id="export-modal-sub"></p>
+    <div class="export-modal-options" id="export-modal-options"></div>
+    <div class="export-modal-actions">
+      <button type="button" id="export-modal-cancel">취소</button>
+      <button type="button" class="primary" id="export-modal-confirm">내보내기</button>
+    </div>
+  </div>
 </div>
 <script id="audit-data" type="application/json">__AUDIT_DATA__</script><script>
 (()=>{const data=JSON.parse(document.getElementById('audit-data').textContent);
@@ -3169,7 +3361,91 @@ function render(){
   renderMetrics(p,currentIssues);
   renderChecklist();
 }
-initPages();initZoom();loadFp().then(render)})();
+
+function issueBlockHtml(x){
+  const basisBlock=x.basisHtml?`<div class="print-block"><b>판정 근거</b><div>${x.basisHtml}</div></div>`:'';
+  const recommendBlock=x.recommendHtml?`<div class="print-block"><b>${esc(x.suggestLabel||'권장 수정안')}</b><div>${x.recommendHtml}</div></div>`:'';
+  return `<div class="print-issue">
+    <div class="print-issue-head"><span class="item-tag ${tierTagClass(x.tier)}">${esc(tierLabel(x.tier))}</span><b>${esc(x.title)}</b><span class="item-loc">${esc(x.loc)}</span></div>
+    ${x.summary?`<div class="print-block">${esc(x.summary)}</div>`:''}
+    <div class="print-block"><b>${esc(x.reasonLabel||'설명')}</b><div>${x.reasonHtml||''}</div></div>
+    ${recommendBlock}
+    ${basisBlock}
+  </div>`;
+}
+
+const EXPORT_SECTIONS=[
+  {key:'completion',label:'완성도 요약'},
+  {key:'images',label:'쪽 이미지'},
+  {key:'achievement_standard',label:'성취기준'},
+  {key:'learning_goal',label:'학습 목표'},
+  {key:'activities',label:'활동'},
+  {key:'body_text',label:'본문 맞춤법 검사'},
+  {key:'similarity',label:'기존 교과서 유사도 비교'},
+];
+const CATEGORY_TO_SECTION={
+  '학습 목표':'learning_goal','성취기준':'achievement_standard','본문 맞춤법':'body_text',
+  '활동':'activities','기존 교과서 유사도':'similarity',
+};
+
+function buildPrintReport(sections){
+  // 화면은 이슈를 클릭해야 근거가 보이고 한 번에 한 쪽만 보여주지만, 인쇄본은
+  // 클릭 없이도 전체를 한 번에 볼 수 있어야 하므로 모든 쪽을 순서대로 풀어써서
+  // 별도 컨테이너에 미리 그려 둔다 — 실제로 인쇄할 때만 화면 대신 이 내용이 보인다.
+  // sections를 넘기면(모달에서 고른 항목) 그 항목만 담고, 생략하면 전체를 담는다.
+  const include=key=>!sections||sections.has(key);
+  const savedPage=page;
+  const pagesHtml=data.page_audits.map((p,index)=>{
+    page=index+1;
+    const issues=buildIssues(p).filter(x=>include(CATEGORY_TO_SECTION[categoryKeyFor(x)]||'body_text'));
+    const imageHtml=include('images')?`<img src="${encodeURI(p.page_image)}" alt="원고 ${p.page}쪽">`:'';
+    const html=`<section class="print-page">
+      <h2>${p.page}쪽</h2>
+      ${imageHtml}
+      ${issues.map(issueBlockHtml).join('')}
+    </section>`;
+    return html;
+  }).join('');
+  page=savedPage;
+  const c=data.completion;
+  const detailsHtml=include('completion')?`<ul>${(c.details||[]).map(d=>{
+    const met=d.earned>=d.maximum;
+    return `<li>${esc(d.name)}: ${met?'충족':'미충족'} (${d.earned}/${d.maximum}점) — ${esc(d.reason||'')}</li>`;
+  }).join('')}</ul>`:'';
+  $('print-report').innerHTML=`
+    <h1>${esc(data.manuscript.filename)} 점검 결과</h1>
+    <p>완성도 ${c.percentage}% · 총 ${data.manuscript.page_count}쪽</p>
+    ${detailsHtml}
+    ${pagesHtml}`;
+}
+
+let exportMode=null;
+function openExportModal(mode){
+  exportMode=mode;
+  $('export-modal-sub').textContent=mode==='print'
+    ?'선택한 항목만 인쇄·PDF 결과에 포함됩니다.'
+    :'선택한 항목만 DOCX 파일에 포함됩니다.';
+  $('export-modal-options').innerHTML=EXPORT_SECTIONS.map(s=>
+    `<label><input type="checkbox" value="${s.key}" checked>${esc(s.label)}</label>`
+  ).join('');
+  $('export-modal-backdrop').classList.add('open');
+}
+function closeExportModal(){$('export-modal-backdrop').classList.remove('open')}
+$('export-print').onclick=()=>openExportModal('print');
+$('export-docx').onclick=()=>openExportModal('docx');
+$('export-modal-cancel').onclick=closeExportModal;
+$('export-modal-backdrop').onclick=event=>{if(event.target.id==='export-modal-backdrop')closeExportModal()};
+$('export-modal-confirm').onclick=()=>{
+  const selected=new Set([...document.querySelectorAll('#export-modal-options input:checked')].map(el=>el.value));
+  closeExportModal();
+  if(exportMode==='print'){
+    buildPrintReport(selected);
+    window.print();
+  }else{
+    location.href=`export.docx?sections=${[...selected].join(',')}`;
+  }
+};
+initPages();initZoom();loadFp().then(()=>{render();buildPrintReport()})})();
 </script></body></html>'''
 
 

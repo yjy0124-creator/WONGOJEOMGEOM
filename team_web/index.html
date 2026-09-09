@@ -34,6 +34,7 @@
       border-bottom:1px solid var(--line);
     }
     .logo{height:15px;width:auto;display:block}
+    .chrome-right{display:flex;align-items:center;gap:10px}
     .chrome .addr{
       font-size:11.5px;color:var(--muted);background:var(--page-bg);
       padding:4px 16px;border-radius:99px;border:1px solid var(--line);
@@ -42,10 +43,10 @@
       flex:none;display:flex;align-items:center;gap:10px;padding:14px 22px;flex-wrap:wrap;
       border-bottom:1px solid var(--line);
     }
-    .brand-group{display:flex;align-items:center;gap:10px;overflow:hidden;flex-wrap:wrap}
+    .brand-group{display:flex;flex-direction:column;align-items:flex-start;gap:2px;overflow:hidden}
     .brand{font-weight:800;font-size:24px;letter-spacing:-.02em;white-space:nowrap;color:var(--ink)}
-    .brand-desc{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .right-group{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+    .brand-desc{font-size:12px;color:var(--muted)}
+    .right-group{display:flex;align-items:center;gap:14px;margin-left:auto;flex:none}
     .reset-all{
       border:1px solid var(--border);border-radius:99px;padding:9px 16px;font-family:inherit;font-size:11.5px;font-weight:700;
       background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap;
@@ -53,35 +54,38 @@
     }
     .reset-all:hover{background:rgba(220,38,38,.1);border-color:rgba(220,38,38,.35);color:var(--coral);transform:translateY(-1px)}
     .reset-all:active{transform:translateY(0) scale(.96)}
-    .widget{
-      display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;
-      padding:8px 14px;flex:none;border:1px solid var(--border);
+    .widget.compact{
+      display:flex;align-items:center;gap:6px;background:var(--page-bg);border-radius:99px;
+      padding:3px 12px 3px 4px;flex:none;border:1px solid var(--line);font-size:11px;white-space:nowrap;
     }
-    .widget .ring{
-      width:30px;height:30px;border-radius:50%;flex:none;
+    .widget.compact .ring{
+      width:14px;height:14px;border-radius:50%;flex:none;
       background:conic-gradient(var(--sky) 0 0%, #e2e8f0 0% 100%);
       display:flex;align-items:center;justify-content:center;
     }
-    .widget .ring::after{content:'';width:20px;height:20px;border-radius:50%;background:#fff}
-    .widget-text{display:flex;flex-direction:column;gap:2px;min-width:0}
-    .widget-text b{font-size:11px;color:var(--ink);font-weight:800;white-space:nowrap}
-    .widget-line{font-size:10.5px;color:var(--ink);font-weight:600;display:flex;gap:5px;align-items:baseline;white-space:nowrap;overflow:hidden}
-    .widget-line b{font-size:11.5px;color:var(--ink);font-weight:800}
+    .widget.compact .ring::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+    .widget.compact #upload-progress-title{font-weight:700;color:var(--ink)}
+    .widget.compact #upload-progress-percent{font-weight:800;color:var(--sky)}
+    .widget.compact #upload-progress-detail{color:var(--muted)}
 
-    .steps-bar{
-      flex:none;display:flex;align-items:center;justify-content:center;gap:10px;
-      padding:10px 22px;border-bottom:1px solid var(--line);font-size:11.5px;font-weight:700;color:var(--muted);
-    }
-    .steps-bar .step{display:flex;align-items:center;gap:6px}
-    .steps-bar .step .sn{width:18px;height:18px;border-radius:50%;background:#f1f5f9;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:10px;flex:none}
+    .steps-bar{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--muted);flex:none}
+    .steps-bar .step{display:flex;align-items:center;gap:5px}
+    .steps-bar .step .sn{width:16px;height:16px;border-radius:50%;background:#f1f5f9;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:9px;flex:none}
     .steps-bar .step.active{color:var(--ink)}
     .steps-bar .step.active .sn,.steps-bar .step.done .sn{background:var(--sky);color:#fff}
-    .steps-bar .arrow{color:#cbd5e1;font-size:11px}
+    .steps-bar .arrow{color:#cbd5e1;font-size:10px}
 
-    .content{flex:1;min-height:0;display:grid;grid-template-columns:.9fr 1.3fr 1fr;gap:16px;padding:18px 22px 6px}
-    .col{display:flex;flex-direction:column;min-height:0}
+    .content{
+      flex:1;min-height:0;display:grid;grid-template-columns:372px 537px 413px;
+      gap:16px;padding:18px 22px 6px;overflow-x:auto;
+    }
+    .col{display:flex;flex-direction:column;min-height:0;min-width:0}
     .row-title{display:flex;align-items:center;gap:8px;margin:0 0 10px;flex:none}
     .row-title h2{font-size:var(--h-size);font-weight:700;margin:0;letter-spacing:-.01em;color:var(--title)}
+    .section-number{
+      width:20px;height:20px;border-radius:50%;flex:none;background:var(--sky);color:#fff;
+      font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;
+    }
 
     .card{
       background:var(--card);border:1px solid var(--border);border-radius:14px;
@@ -89,7 +93,7 @@
     }
     .center-card{flex:1;min-height:0;padding:18px;display:flex;flex-direction:column;overflow-y:auto;background:var(--card-active);border-color:#dce8fd}
     .center-head{text-align:center;margin:0 0 10px;flex:none}
-    .center-head h2{font-size:19px;font-weight:800;margin:0 0 5px;letter-spacing:-.01em;color:var(--ink)}
+    .center-head h2{display:flex;align-items:center;justify-content:center;gap:8px;font-size:19px;font-weight:800;margin:0 0 5px;letter-spacing:-.01em;color:var(--ink)}
     .center-head p{font-size:11.5px;color:var(--muted);margin:0}
     .substep{display:flex;align-items:center;gap:8px;flex:none}
     .substep .sn{width:19px;height:19px;border-radius:6px;background:var(--sky);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
@@ -236,7 +240,10 @@
 
     .footer-note{flex:none;padding:4px 22px 10px;color:var(--muted);font-size:10.5px}
 
-    @media(max-width:1000px){.content{grid-template-columns:1fr}.history{min-height:320px}}
+    @media(max-width:1000px){
+      .content{grid-template-columns:1fr;overflow-x:hidden;overflow-y:auto}
+      .col{min-height:360px}
+    }
     @media(max-width:620px){body{padding:0}.window{border-radius:0}.menubar{padding:12px 16px}.content{padding:14px 16px 6px}}
   </style>
 </head>
@@ -244,7 +251,15 @@
 <div class="window">
   <div class="chrome">
     <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ4AAAAeCAYAAADdNaejAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABK9JREFUeNrsnDFy4jAUQEUm/brdKt4b0G0JnhwgMOMqzZoTLJwAOIGTEwQaV5kJOcAOpNwqzgnirbZlT5DVtwXY31+2jB1bJP4zCmAL2f56+vr/S6Tz9/vlGyPk6+9fHXjl59f8pU9UmfM6M34ezq0V2gj45xFVj9ketOHyMmT314GkDtzniJ9fSM7P+N8rXixeZ8ta0VrOaryWwwG8yzjf5eWZA9TNqHPHzzs5bax5HaPt2ha8IvAZApw8+O5a+FrwmoDPUYAvz3q28snAqws+U6GNVhqS8wavDfC98IDjJgM+NwwWsuFb8mBiU6KNaiQKbuKykAZKx7XfR0FeIA203vP+o4F8cGMo3Ud+uBmrM8PHzhsGX08/LPIPB7z0YsqCTnjiZSWJmqfo80Z8R3YNB7Xvh+3fX68k3+ija2xCOA73m7TsGAjbMxMwMLbldXzl+4+Ac1MZDtsDXcx5W3ED8gPVm+Fj56wVDMQgDGDoQeGEyre9ydHWJurABwTBDqwxPw+dPURQ5EkUUCWlQ9w7BtdSvGdTtG9IZxXbYwg+LX08XaFzBBRGjpXOS+tkQbcmoKN8U1MjzUwVZie3yD2fhSa3OfE1gm7nD6qKe0TK5oGpuReGsLq6CB5k4A5Q1m1QBLxvDQAAsFs8sFhpplyD8HOGYkraEHA4BcAeEJbOF+0PiT7oa2H1oqCGoaAGXIFJ6NulB+Mbo1e6klEt7/wtjy4tMQV0a4TOZ3pJj1CwlYDQ9l4RPD3JyFdpP9TDPlCxPdDHK2FBbjTT0woNzOnR6ZQa4dMVOirCXhJ1lkjRRabaLpGu2Mai0IDDt0LTVe9o8NKW6kKnTMQ+uAD4xJTif0Lo6hAM3gtR56XCTl6j4lT0HH3J++PAQ/DNK1b68gSh+6J4LCv4WIvSJSAKTkIL6QSxKZ7JJaZZSDN1CH84P50C8MF2p09okYJUsBGPWqP3TgF4usIi9JmuiXJ1WRBWb0zMaItCPl4NAllrF/xIja3eEwILYHkOl+QOz2AQ39FV0pYqO3+YJXPhe2YNoEmRfZB1JpDDhX8On56L9tFKREB01lQUk4h6F9piBxF5vNDBkmpbAaNTSjtLNyqqi7qXzHbw6Wr5hky+NISVPcypYyX8I1hSOmWJlvCs1JovvUHDzzvWxFqtvvCBcm3PYtRieHIKmxRcS323tEQDOgoSie102gbkUZR4ncSxpjYJ6A3fYWTjhO6oxPS6QTCDy4FXbi5OBL912Qaa3CSw23qk78jOj3yLCHa8r4g6/RMKXkpJuy0qmgpUI76r2NRyIb7ji3VLlah5kLB4tjfebyWKdlObCr6S6jPN0JFeC55+4jC1NcdxCV9twdLbiyDJ/FMcM1IWUr4pVEWmNeoPnu1PkftpwSsvaukhyHHZ3i0BhMzSjk5IB1k/P9hZ4GkVPh5MAWV3TVTRRlVST4ADvz1Qy+7flLR2H9LHC6M+sa5bxjRPSrZRpQRMYX1RPPu/2Ptt4YDj/nrER/+jsHzYWgJst7nWQ9InJYOdMuKK3168G3iVQCf9VxZNp1Dqu96KpVMpZdrbKg6cZt2NI6fazYeErhWtp9oqgGmha2Uv/wUYACEAx8+d16uvAAAAAElFTkSuQmCC" alt="YBM 로고">
-    <span class="addr">team-audit.local</span>
+    <div class="chrome-right">
+      <div class="widget compact" role="status">
+        <div class="ring" id="upload-progress-bar"></div>
+        <span id="upload-progress-title">서버 PDF 저장 공간</span>
+        <b id="upload-progress-percent">0%</b>
+        <span id="upload-progress-detail">저장 용량을 확인하고 있습니다.</span>
+      </div>
+      <span class="addr">team-audit.local</span>
+    </div>
   </div>
 
   <div class="menubar">
@@ -253,29 +268,21 @@
       <span class="brand-desc">기준 자료는 한 번 등록하고, 원고만 매번 올려 점검합니다. 교육과정·편수자료는 이미 시스템 등록이 완료되었습니다.</span>
     </div>
     <div class="right-group">
-      <button id="reset-all" class="reset-all" type="button">전체 초기화</button>
-      <div class="widget" role="status">
-        <div class="ring" id="upload-progress-bar"></div>
-        <div class="widget-text">
-          <b id="upload-progress-title">서버 PDF 저장 공간</b>
-          <div class="widget-line"><b id="upload-progress-percent">0%</b><span id="upload-progress-detail">저장 용량을 확인하고 있습니다.</span></div>
-        </div>
+      <div class="steps-bar">
+        <div class="step done" id="step1"><span class="sn">✓</span><span>기준자료 확인</span></div>
+        <span class="arrow">→</span>
+        <div class="step active" id="step2"><span class="sn">2</span><span>분석 대상 설정</span></div>
+        <span class="arrow">→</span>
+        <div class="step" id="step3"><span class="sn">3</span><span>원고 업로드·분석</span></div>
       </div>
+      <button id="reset-all" class="reset-all" type="button">전체 초기화</button>
     </div>
-  </div>
-
-  <div class="steps-bar">
-    <div class="step done" id="step1"><span class="sn">✓</span><span>기준자료 확인</span></div>
-    <span class="arrow">→</span>
-    <div class="step active" id="step2"><span class="sn">2</span><span>분석 대상 설정</span></div>
-    <span class="arrow">→</span>
-    <div class="step" id="step3"><span class="sn">3</span><span>원고 업로드·분석</span></div>
   </div>
 
   <div class="content">
     <div class="col">
-      <div class="row-title"><h2 id="reference-title">비교용 교과서 PDF</h2></div>
-      <p class="note">이전 개정 교과서 및 타 출판사 교과서 PDF를 등록합니다. 여러 PDF 파일 대량 선택 가능</p>
+      <div class="row-title"><span class="section-number">1</span><h2 id="reference-title">비교용 교과서 PDF</h2></div>
+      <p class="note">이전 개정 및 타 출판사 교과서 PDF를 등록합니다.</p>
       <div class="refs">
         <div class="card ref-card">
           <div class="state" id="textbook-state"></div>
@@ -291,7 +298,7 @@
     <div class="col">
       <div class="card center-card">
         <div class="center-head">
-          <h2>새 원고 분석</h2>
+          <h2><span class="section-number">2</span>새 원고 분석</h2>
           <p>교과서 원고를 업로드하면 교육과정과 비교하여 점검·분석합니다.</p>
         </div>
         <form id="manuscript-form">
@@ -329,7 +336,7 @@
     </div>
 
     <div class="col history">
-      <div class="row-title"><h2 id="history-title">원고 분석 이력</h2></div>
+      <div class="row-title"><span class="section-number">3</span><h2 id="history-title">원고 분석 이력</h2></div>
       <p class="note">파일명을 이전과 동일하게 올리면 자동으로 이전 버전과 비교됩니다.</p>
       <div class="card">
         <div class="jobs-wrap"><div id="jobs" class="job-list"></div></div>

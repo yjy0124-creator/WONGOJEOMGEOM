@@ -27,7 +27,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote, unquote, urlparse
+from urllib.parse import parse_qs, quote, unquote, urlparse
 
 import vercel_blob_store as blob_store
 
@@ -782,6 +782,34 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
                 self.send_response(302)
                 self.send_header("Location", "/result-files/" + quote(relative))
                 self.end_headers()
+                return
+            match = re.fullmatch(r"/result-files/(.+)/export\.docx", path)
+            if match:
+                json_target = (application.store.results / match.group(1) / "audit.json").resolve()
+                if application.store.results not in json_target.parents:
+                    self.send_error(403)
+                    return
+                blob_store.pull_if_missing(json_target, application.store._blob_key(json_target))
+                if not json_target.is_file():
+                    self.send_error(404, "분석 결과를 찾지 못했습니다.")
+                    return
+                pages_dir = json_target.parent / "pages"
+                if pages_dir.is_dir():
+                    for image_path in pages_dir.glob("*.png"):
+                        blob_store.pull_if_missing(image_path, application.store._blob_key(image_path))
+                from curriculum_audit import DOCX_SECTIONS, generate_docx_report
+                requested = parse_qs(parsed.query).get("sections")
+                sections = {s for s in requested[0].split(",") if s in DOCX_SECTIONS} if requested else None
+                data = generate_docx_report(json_target, sections)
+                self.send_response(200)
+                self.send_header(
+                    "Content-Type",
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                )
+                self.send_header("Content-Disposition", 'attachment; filename="report.docx"')
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
                 return
             if path.startswith("/result-files/"):
                 relative = path.removeprefix("/result-files/")

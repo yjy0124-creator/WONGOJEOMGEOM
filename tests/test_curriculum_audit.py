@@ -1,5 +1,9 @@
+import io
+import json
+import tempfile
 import unittest
 from collections import Counter
+from pathlib import Path
 
 from curriculum_audit import (
     _activity_semantic_similarity,
@@ -24,6 +28,7 @@ from curriculum_audit import (
     compare_audits,
     detect_manuscript_components,
     extract_curriculum_standards,
+    generate_docx_report,
     match_curriculum,
     similarity,
 )
@@ -195,7 +200,7 @@ class CurriculumAuditTests(unittest.TestCase):
         self.assertNotIn("징", boundary_basis["shared_instruments"])
         self.assertNotIn("타악기", boundary_basis["shared_instrument_families"])
 
-    def test_body_review_includes_activity_and_improves_explanation(self):
+    def test_body_review_excludes_activity_sentences(self):
         pages = [
             "두 악곡의 특징을 비교하여 설명할 수 있다.\n"
             "이 곡은 악기편성을 비교하는 데 알맞은 교향곡이다.\n"
@@ -204,13 +209,12 @@ class CurriculumAuditTests(unittest.TestCase):
         components = detect_manuscript_components(pages)
         result = _review_body_text(pages, components)
         items = result["pages"][1]
-        # 활동 문장도 맞춤법 검사 대상에 포함되어 본문 설명 문장과 함께 2건이 나온다.
-        self.assertEqual(len(items), 2)
-        explanation = next(x for x in items if "교향곡" in x["current_text"])
-        activity = next(x for x in items if x["current_text"].startswith("1."))
+        # 청유형으로 끝나는 활동 문장은 활동 비교 쪽에서 다루므로 본문 맞춤법 검사에는
+        # 설명형 본문 문장 1건만 남는다.
+        self.assertEqual(len(items), 1)
+        explanation = items[0]
+        self.assertIn("교향곡", explanation["current_text"])
         self.assertIn("악기 편성", explanation["suggested_text"])
-        self.assertIn("악기 편성", activity["suggested_text"])
-        self.assertNotIn("비교해 보자", items[0]["current_text"])
         # '교향곡'은 편수자료 공식 용어집에 등재된 표준 용어라 인식돼야 한다.
         self.assertTrue(any(term["term"] == "교향곡" for term in explanation["terminology"]))
 
@@ -433,11 +437,10 @@ class CurriculumAuditTests(unittest.TestCase):
                 "manuscript": {"filename": "원고.pdf", "page_count": page_count},
                 "completion": {"percentage": percentage},
                 "page_audits": [{
-                    "body_text_review": {"items": [
-                        {"current_text": text, "fingerprint": _fingerprint("body_text", text)}
+                    "textbook_similarity": {"items": [
+                        {"manuscript_text": text, "fingerprint": _fingerprint("textbook_similarity", text)}
                         for text in sentences
                     ]},
-                    "textbook_similarity": {"items": []},
                     "activity_textbook_similarity": {"items": []},
                 }],
             }
@@ -445,13 +448,98 @@ class CurriculumAuditTests(unittest.TestCase):
         previous = make_result(["해결될 문장이다.", "계속 남는 문장이다."], 60)
         current = make_result(["계속 남는 문장이다.", "새로 생긴 문장이다."], 75)
         diff = compare_audits(previous, current)
-        body = diff["sections"]["body_text_review"]
+        body = diff["sections"]["textbook_similarity"]
         self.assertEqual([item["text"] for item in body["resolved"]], ["해결될 문장이다."])
         self.assertEqual([item["text"] for item in body["new"]], ["새로 생긴 문장이다."])
         self.assertEqual(body["unchanged_count"], 1)
         self.assertEqual(diff["completion_before"], 60)
         self.assertEqual(diff["completion_after"], 75)
         self.assertEqual(diff["completion_delta"], 15)
+
+    def test_compare_audits_flags_completion_checklist_items_that_change(self):
+        # 완성도 총점(%)만 봐서는 사진 한 장이 새로 들어와서 오른 건지, 다른 항목
+        # 때문인지 구분이 안 된다 — 항목 단위(성취기준/사진 등)로 충족 여부가 바뀐
+        # 것만 따로 골라내는지 확인한다.
+        def make_result(details):
+            return {
+                "manuscript": {"filename": "원고.pdf", "page_count": 1},
+                "completion": {"percentage": 0, "details": details},
+                "page_audits": [],
+            }
+
+        previous = make_result([
+            {"name": "참고 사진·삽화", "earned": 0, "maximum": 15},
+            {"name": "활동", "earned": 15, "maximum": 15},
+            {"name": "성취기준", "earned": 15, "maximum": 15},
+        ])
+        current = make_result([
+            {"name": "참고 사진·삽화", "earned": 15, "maximum": 15},
+            {"name": "활동", "earned": 15, "maximum": 15},
+            {"name": "성취기준", "earned": 0, "maximum": 15},
+        ])
+        diff = compare_audits(previous, current)
+        changes = {item["name"]: item["resolved"] for item in diff["completion_changes"]}
+        self.assertEqual(changes, {"참고 사진·삽화": True, "성취기준": False})
+        self.assertNotIn("활동", changes)
+
+
+    _DOCX_FIXTURE = {
+        "manuscript": {"filename": "원고.pdf", "page_count": 1},
+        "completion": {"percentage": 80, "details": [
+            {"name": "성취기준", "earned": 15, "maximum": 15, "reason": "포함됨"},
+        ]},
+        "page_audits": [{
+            "page": 1, "page_image": "pages/page_0001.png",
+            "recommendations": {
+                "achievement_standard": None,
+                "learning_goal": {"current_text": "목표 없음", "suggestion": "추천 목표"},
+                "activities": [{
+                    "current_text": "기존 활동", "suggestion": "추천 활동",
+                    "reason": "이유", "curriculum_basis": "[코드] 근거",
+                }],
+            },
+            "body_text_review": {"items": [{
+                "current_text": "문제 문장", "status": "수정 제안",
+                "issues": [{"type": "맞춤법", "reason": "오탈자"}],
+                "suggested_text": "고친 문장",
+            }]},
+            "textbook_similarity": {"items": [{
+                "manuscript_text": "유사 문장", "status": "유사도 주의",
+                "shared_keywords": ["연주", "감상"],
+                "match": {"file": "기존교과서.pdf", "page": 3, "text": "원문 문장"},
+            }]},
+            "activity_textbook_similarity": {"items": []},
+        }],
+    }
+
+    def test_generate_docx_report_includes_page_content_and_similarity_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            json_path = Path(temporary) / "audit.json"
+            json_path.write_text(json.dumps(self._DOCX_FIXTURE, ensure_ascii=False), encoding="utf-8")
+            data = generate_docx_report(json_path)
+
+        self.assertTrue(data.startswith(b"PK"))
+        from docx import Document
+        full_text = "\n".join(p.text for p in Document(io.BytesIO(data)).paragraphs)
+        self.assertIn("추천 활동", full_text)
+        self.assertIn("고친 문장", full_text)
+        self.assertIn("원문 문장", full_text)
+        self.assertIn("연주, 감상", full_text)
+
+    def test_generate_docx_report_honors_selected_sections(self):
+        # 사용자가 '본문 맞춤법 검사'만 골랐다면 활동·유사도·완성도 요약은 문서에서
+        # 빠지고, 고른 항목의 내용만 남아야 한다.
+        with tempfile.TemporaryDirectory() as temporary:
+            json_path = Path(temporary) / "audit.json"
+            json_path.write_text(json.dumps(self._DOCX_FIXTURE, ensure_ascii=False), encoding="utf-8")
+            data = generate_docx_report(json_path, sections={"body_text"})
+
+        from docx import Document
+        full_text = "\n".join(p.text for p in Document(io.BytesIO(data)).paragraphs)
+        self.assertIn("고친 문장", full_text)
+        self.assertNotIn("추천 활동", full_text)
+        self.assertNotIn("원문 문장", full_text)
+        self.assertNotIn("포함됨", full_text)
 
     def test_select_reference_samples_ranks_by_relevance(self):
         examples = [
