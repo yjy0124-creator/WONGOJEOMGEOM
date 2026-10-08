@@ -246,6 +246,9 @@ class TeamStore:
                 );
                 """
             )
+            reference_columns = {row[1] for row in db.execute("PRAGMA table_info(reference_files)")}
+            if "display_name" not in reference_columns:
+                db.execute("ALTER TABLE reference_files ADD COLUMN display_name TEXT NOT NULL DEFAULT ''")
             columns = {row[1] for row in db.execute("PRAGMA table_info(audit_jobs)")}
             if "target_level" not in columns:
                 db.execute(
@@ -322,6 +325,31 @@ class TeamStore:
         self._push_db()
         return {"id": reference_id, "kind": kind, "original_name": original_name,
                 "sha256": sha256, "size_bytes": size_bytes, "duplicate": False}
+
+    def rename_textbook_display(self, reference_id: str, display_name: str) -> dict[str, Any]:
+        """Change only the list label for a textbook reference, never its stored filename."""
+        if not re.fullmatch(r"[0-9a-f]{32}", reference_id):
+            raise ValueError("자료 식별자가 올바르지 않습니다.")
+        display_name = re.sub(r"[\r\n\t]+", " ", str(display_name)).strip()
+        if not display_name or len(display_name) > 160:
+            raise ValueError("표시명은 1~160자로 입력해 주세요.")
+        with closing(self.connect()) as db:
+            row = db.execute(
+                "SELECT * FROM reference_files WHERE id=? AND active=1", (reference_id,)
+            ).fetchone()
+            if not row:
+                raise ValueError("수정할 비교용 교과서를 찾지 못했습니다.")
+            if row["kind"] != "textbook":
+                raise ValueError("비교용 교과서만 표시명을 수정할 수 있습니다.")
+            db.execute(
+                "UPDATE reference_files SET display_name=? WHERE id=?",
+                (display_name, reference_id),
+            )
+            updated = db.execute(
+                "SELECT * FROM reference_files WHERE id=?", (reference_id,)
+            ).fetchone()
+        self._push_db()
+        return dict(updated)
 
     def create_job(self, original_name: str, stored_path: Path, sha256: str,
                    size_bytes: int, target_level: str = "고등학교 1학년",
@@ -638,7 +666,8 @@ class TeamApplication:
             from curriculum_audit import audit_manuscript, compare_manuscript_audits
             manuscript_path = Path(job["stored_path"])
             blob_store.pull_if_missing(manuscript_path, self.store._blob_key(manuscript_path))
-            blob_store.pull_if_missing(curriculum_path, self.store._blob_key(curriculum_path))
+            if curriculum_path.is_relative_to(self.store.root):
+                blob_store.pull_if_missing(curriculum_path, self.store._blob_key(curriculum_path))
             for name in self._CACHE_FILE_NAMES:
                 blob_store.pull_if_missing(self.store.results / name, self.store._blob_key(self.store.results / name))
             textbook_dir = self.store.textbook_directory()
@@ -827,8 +856,15 @@ def _handler(application: TeamApplication) -> type[BaseHTTPRequestHandler]:
                 path = unquote(urlparse(self.path).path)
                 cancel_match = re.fullmatch(r"/api/jobs/([0-9a-f]{32})/cancel", path)
                 retry_match = re.fullmatch(r"/api/jobs/([0-9a-f]{32})/retry", path)
+                rename_match = re.fullmatch(r"/api/references/([0-9a-f]{32})/display-name", path)
                 if self.path == "/api/references":
                     self._upload_references()
+                elif rename_match:
+                    body = self._json_body()
+                    updated = application.store.rename_textbook_display(
+                        rename_match.group(1), str(body.get("display_name", ""))
+                    )
+                    self._send_json({"message": "표시명을 변경했습니다.", "reference": updated})
                 elif self.path == "/api/manuscripts":
                     self._upload_manuscript()
                 elif self.path == "/api/false-positives":

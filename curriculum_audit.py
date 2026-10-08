@@ -24,7 +24,7 @@ STOPWORDS = {
     "음악", "통해", "대한", "위해", "한다", "있다", "있는", "하며", "하고",
     "다양한", "학생", "학습", "활동", "관한", "따라", "대한", "것을", "에서",
 }
-GOAL_ACTIONS = ("설명", "비교", "분석", "표현", "연주", "부르", "감상", "이해", "파악", "활용", "비평", "토의", "발표", "작성")
+GOAL_ACTIONS = ("설명", "비교", "분석", "표현", "연주", "부르", "부를", "감상", "이해", "파악", "활용", "비평", "토의", "발표", "작성")
 STANDARD_SIGNATURES = {
     "12감비01-01": ("음악 요소", "악곡 구성", "특징", "비교", "분석", "설명", "음색", "선율", "장단", "악기"),
     "12감비01-02": ("시대", "지역", "문화", "공동체", "변화", "발전", "양상"),
@@ -168,10 +168,17 @@ def detect_manuscript_components(pages: list[str]) -> dict[str, Any]:
                 candidate = re.sub(r"\s+", " ", match.group(1)).strip(" ·-–—")
                 learning_goals.append({"page": page_no, "text": candidate + ".", "method": "학습 목표 표제 감지"})
         else:
-            # 표제가 없는 원고는 페이지 상단의 학생 행동 문장만 제한적으로 허용한다.
-            top_text = " ".join(line.strip() for line in raw.splitlines()[:6])
-            top_text = _clean_text(top_text)
-            for match in re.finditer(r"([^.!?]{8,220}?(?:수 있다|수 있도록 한다))\s*[.!?]", top_text):
+            # PDF의 텍스트 흐름은 장식·소제목을 목표보다 먼저 나열할 수 있어, 상단 후보를 넉넉히 본다.
+            top_lines = [line.strip() for line in raw.splitlines()[:24] if line.strip()]
+            for line_index, line in enumerate(top_lines):
+                if not re.search(r"(?:수 있다|수 있도록 한다)\s*[.!?]?\s*$", line):
+                    continue
+                candidate_source = line
+                if not any(action in candidate_source for action in GOAL_ACTIONS) and line_index:
+                    candidate_source = f"{top_lines[line_index - 1]} {line}"
+                match = re.search(r"([^.!?]{8,220}?(?:수 있다|수 있도록 한다))\s*[.!?]?\s*$", candidate_source)
+                if not match:
+                    continue
                 candidate = re.sub(r"\s+", " ", match.group(1)).strip(" ·-–—")
                 if any(action in candidate for action in GOAL_ACTIONS):
                     learning_goals.append({"page": page_no, "text": candidate + ".", "method": "페이지 상단 행동 문장 감지"})
@@ -210,6 +217,24 @@ def detect_manuscript_components(pages: list[str]) -> dict[str, Any]:
         # 문장 단위를 다시 찾는다.
         flattened = re.sub(r"\s*\n\s*", " ", text)
         activity_ending = r"(?:해\s*보자|보자|해\s*봅시다|봅시다|해\s*보세요|보세요)"
+        # 인쇄물의 검은 점 표시는 소제목과 실제 지시 활동을 나누는 강한 경계다.
+        for bullet_chunk in re.split(r"●", flattened)[1:]:
+            match = re.search(rf"([^.!?]{{6,300}}?{activity_ending})\s*[.!?]?", bullet_chunk)
+            if not match:
+                continue
+            body = re.sub(r"\s+", " ", match.group(1)).strip(" ·-–—,")
+            if not re.search(r"보자|해 보|적어|설명|비교|토의|토론|감상|연주|작성|발표|조사|이야기|봅시다|보세요", body):
+                continue
+            key = re.sub(r"\s+", "", body)
+            if any(existing and (existing in key or key in existing) for existing in captured_activity_keys):
+                continue
+            page_activity_number += 1
+            activities.append({
+                "page": page_no, "number": page_activity_number,
+                "text": f"{page_activity_number}. {body}", "method": "글머리표 활동 감지",
+            })
+            captured_activity_keys.add(key)
+
         for match in re.finditer(rf"[^.!?]{{6,300}}?{activity_ending}", flattened):
             body = re.sub(r"\s+", " ", match.group(0)).strip(" ·-–—,")
             body = re.sub(r"^\d{1,2}[.)]\s*", "", body)  # 번호 활동 감지에서 이미 처리된 항목과 중복되지 않도록 번호 접두를 뗀다
@@ -362,14 +387,14 @@ def _review_body_text(pages: list[str], components: dict[str, Any],
         speller_suggestions = speller_adapter.adapter.check_text(suggested)
         if speller_suggestions:
             shift = 0
-            for item in sorted(speller_suggestions, key=lambda x: x["start"]):
-                candidate = item["candidates"][0] if item["candidates"] else None
-                reason = item.get("description") or "표준 표기와 다를 수 있습니다."
+            for suggestion in sorted(speller_suggestions, key=lambda x: x["start"]):
+                candidate = suggestion["candidates"][0] if suggestion["candidates"] else None
+                reason = suggestion.get("description") or "표준 표기와 다를 수 있습니다."
                 if candidate:
                     reason += f" → 추천: {candidate}"
                 issues.append({"type": "맞춤법('바른 한글')", "reason": reason})
                 if candidate:
-                    start, end = item["start"] + shift, item["end"] + shift
+                    start, end = suggestion["start"] + shift, suggestion["end"] + shift
                     if 0 <= start <= end <= len(suggested):
                         suggested = suggested[:start] + candidate + suggested[end:]
                         shift += len(candidate) - (end - start)
@@ -882,6 +907,8 @@ def _render_pages_and_images(manuscript: Path, destination: Path, dpi: int = 144
                 results.append({
                     "page": page_no, "page_image": page_path.relative_to(destination).as_posix(),
                     "width": image.width, "height": image.height, "images": page_items,
+                    "page_width_pt": half_width_pts if is_spread else float(plumber_page.width),
+                    "page_height_pt": float(plumber_page.height),
                 })
     pymupdf_document.close()
     return results
@@ -1353,12 +1380,27 @@ def _recommendations(components: dict[str, Any], alignment: dict[str, Any],
                 f" 원고를 '{genre}' 갈래로 보고, 같은 갈래의 활동 표본을 우선 참고했습니다."
                 if genre and reference_activity.get("genre") == genre else ""
             )
+            reference_location = reference_activity.get("page")
+            reference_source = reference_activity.get("file") or "등록 교과서"
+            reference_citation = (
+                f"{reference_source} {reference_location}쪽"
+                if reference_location is not None else f"{reference_source} 쪽 정보 없음"
+            )
+            # 원고의 기존 활동을 1:1로 다듬는 게 아니라 유형별 새 활동을 제안하는 것이므로
+            # (바로 위 설계 의도 주석 참고) 참고 교과서 구조를 그대로 가져온다. 다만 원고에
+            # 이미 이 순번 자리에 활동이 있다면(활동 1·2·3처럼 화면에 번호로 노출되므로)
+            # "현재 문구"에 원고의 실제 활동을 함께 보여줘 편집자가 비교할 수 있게 하고,
+            # 원고에 활동 자체가 없는 자리만 "[신규]"로 표시해 구분한다.
+            position = len(result["activities"])
+            current_text = current_activities[position] if position < len(current_activities) else None
+            label_note = "" if current_text else "[신규] "
             result["activities"].append({
                 "activity_type": activity_type,
-                "current_text": None,
+                "current_text": current_text,
                 "reason": (
+                    f"{label_note}"
                     f"등록된 기존 교과서의 '{activity_type}' 활동 표본 중 이 교육과정 기준과 가장 관련 있는 문장"
-                    f"('{reference_activity['text']}', {reference_activity['file']} {reference_activity['page']}쪽)"
+                    f"('{reference_activity['text']}', {reference_citation})"
                     "의 구조를 가져와, 대상만 현재 원고 주제로 바꿨습니다."
                     f"{genre_note} 교육과정 원문을 활동 문장에 그대로 옮기지 않았습니다."
                 ),
@@ -1406,9 +1448,25 @@ def _completion_score(components: dict[str, Any], alignment: dict[str, Any],
         _detect_score_material(text, rendered_pages[index].get("images", [])).get("detected")
         for index, text in enumerate(pages) if index < len(rendered_pages)
     )
+    def has_substantial_illustration(page_record: dict[str, Any]) -> bool:
+        page_area = page_record.get("page_width_pt", 0) * page_record.get("page_height_pt", 0)
+        if page_area <= 0:
+            return False
+        for image in page_record.get("images", []):
+            bbox = image.get("bbox", [])
+            if len(bbox) != 4 or image.get("read_status") != "읽음":
+                continue
+            image_area = max(0, bbox[2] - bbox[0]) * max(0, bbox[3] - bbox[1])
+            if image_area / page_area >= .015:
+                return True
+        return False
+
     photo_present = any(
         rendered_pages[index].get("images")
-        and re.search(r"사진|삽화|그림|인물|작곡가|공연|출처", text)
+        and (
+            has_substantial_illustration(rendered_pages[index])
+            or re.search(r"사진|삽화|그림|인물|작곡가|공연|출처", text)
+        )
         for index, text in enumerate(pages) if index < len(rendered_pages)
     )
     body_present = bool(_body_sentences(pages, components))
@@ -2395,6 +2453,7 @@ def audit_manuscript(manuscript: Path, curriculum: Path, output_root: Path,
     result = _apply_ai_adapter(ai_module, result)
     json_path = destination / "audit.json"
     json_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    (destination / "audit.md").write_text(generate_markdown_report(json_path), encoding="utf-8")
     (destination / "audit.html").write_text(_render_html(result), encoding="utf-8")
     return json_path
 
@@ -2491,6 +2550,98 @@ DOCX_SECTIONS = {
     "body_text": "본문 맞춤법 검사",
     "similarity": "기존 교과서 유사도 비교",
 }
+
+
+def generate_markdown_report(json_path: Path) -> str:
+    """audit.json의 판정과 근거를 챗봇 업로드에 적합한 Markdown으로 펼쳐 쓴다."""
+    result = json.loads(Path(json_path).read_text(encoding="utf-8"))
+    manuscript = result.get("manuscript", {})
+    completion = result.get("completion", {})
+    lines = [
+        f"# {manuscript.get('filename') or '원고'} 점검 결과",
+        "",
+        f"- 페이지 수: {manuscript.get('page_count', 0)}",
+        f"- 전체 완성도: {completion.get('percentage', 0)}%",
+        "",
+        "## 완성도 점검",
+    ]
+
+    def add_field(label: str, value: Any) -> None:
+        if value is None:
+            return
+        text = " ".join(str(value).split())
+        if text:
+            lines.append(f"- **{label}:** {text}")
+
+    for detail in completion.get("details", []):
+        earned, maximum = detail.get("earned", 0), detail.get("maximum", 0)
+        status = "충족" if earned >= maximum else "미충족"
+        add_field(detail.get("name") or "항목", f"{status} ({earned}/{maximum}점)")
+        add_field("판정 근거", detail.get("reason"))
+
+    lines.extend(["", "## 페이지별 점검"])
+    for page in result.get("page_audits", []):
+        lines.extend(["", f"### {page.get('page', '?')}쪽"])
+        recommendations = page.get("recommendations") or {}
+
+        standard = recommendations.get("achievement_standard")
+        if standard:
+            lines.extend(["", "#### 성취기준"])
+            add_field("추천", standard.get("suggestion"))
+            add_field("근거", standard.get("reason"))
+
+        goal = recommendations.get("learning_goal")
+        if goal:
+            lines.extend(["", "#### 학습 목표"])
+            add_field("현재 문구", goal.get("current_text"))
+            add_field("추천 문구", goal.get("suggestion"))
+            add_field("근거", goal.get("reason"))
+
+        activities = recommendations.get("activities") or []
+        if activities:
+            lines.extend(["", "#### 활동"])
+            for index, activity in enumerate(activities, start=1):
+                lines.append(f"**활동 {index}**")
+                add_field("현재 문구", activity.get("current_text"))
+                add_field("추천 문구", activity.get("suggestion"))
+                add_field("근거", activity.get("reason"))
+                add_field("교육과정 근거", activity.get("curriculum_basis"))
+
+        body_items = page.get("body_text_review", {}).get("items", [])
+        if body_items:
+            lines.extend(["", "#### 본문 문장 검토"])
+            for item in body_items:
+                add_field("상태", item.get("status"))
+                add_field("문장", item.get("current_text"))
+                for issue in item.get("issues", []):
+                    add_field(issue.get("type") or "검토 사유", issue.get("reason"))
+                add_field("수정 제안", item.get("suggested_text"))
+
+        for section_key, label in (
+            ("textbook_similarity", "기존 교과서 본문 비교"),
+            ("activity_textbook_similarity", "기존 교과서 활동 비교"),
+        ):
+            items = page.get(section_key, {}).get("items", [])
+            if not items:
+                continue
+            lines.extend(["", f"#### {label}"])
+            for item in items:
+                add_field("원고 문장", item.get("manuscript_text"))
+                add_field("판정", item.get("status"))
+                keywords = item.get("shared_keywords") or []
+                add_field("겹치는 핵심어", ", ".join(keywords))
+                match = item.get("match") or {}
+                add_field("참고 자료", match.get("file"))
+                add_field("참고 쪽", match.get("page"))
+                add_field("비교 문장", match.get("text"))
+
+    lines.extend([
+        "",
+        "> 시각 자료(사진·악보·페이지 배치)는 이 텍스트 보고서에 포함되지 않습니다. "
+        "시각적 분석이 필요하면 원고 PDF도 함께 첨부하세요.",
+        "",
+    ])
+    return "\n".join(lines)
 
 
 def generate_docx_report(json_path: Path, sections: set[str] | None = None) -> bytes:
@@ -2862,6 +3013,7 @@ mark{background:#FDE68A;padding:0 2px;border-radius:3px}
     <div class="export-actions">
       <button type="button" class="export-btn" id="export-print" data-mode="print">인쇄·PDF로 저장</button>
       <button type="button" class="export-btn" id="export-docx" data-mode="docx">DOCX로 내보내기</button>
+            <button type="button" class="export-btn" id="export-markdown">AI용 Markdown</button>
     </div>
   </div>
 </div>
@@ -3433,6 +3585,12 @@ function openExportModal(mode){
 function closeExportModal(){$('export-modal-backdrop').classList.remove('open')}
 $('export-print').onclick=()=>openExportModal('print');
 $('export-docx').onclick=()=>openExportModal('docx');
+$('export-markdown').onclick=()=>{
+    const link=document.createElement('a');
+    link.href='audit.md';
+    link.download=`${data.manuscript.filename.replace(/\\.[^.]+$/,'')}_AI분석.md`;
+    link.click();
+};
 $('export-modal-cancel').onclick=closeExportModal;
 $('export-modal-backdrop').onclick=event=>{if(event.target.id==='export-modal-backdrop')closeExportModal()};
 $('export-modal-confirm').onclick=()=>{

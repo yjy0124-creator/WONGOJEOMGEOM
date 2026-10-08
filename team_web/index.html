@@ -139,6 +139,9 @@
     .file-info{flex:1;min-width:0}
     .file-info b{font-size:13px;font-weight:600;line-height:1.3;color:var(--ink);display:block}
     .file-info span{font-size:10.5px;color:var(--muted);display:block;margin-top:2px}
+    .file-actions{display:flex;align-items:center;gap:5px;flex:none}
+    .file-rename{padding:4px 7px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font:inherit;font-size:10.5px;cursor:pointer}
+    .file-rename:hover,.file-rename:focus{border-color:var(--sky);color:var(--sky)}
     .file-delete{
       width:22px;height:22px;padding:0;flex:none;border-radius:50%;border:none;background:#f1f5f9;
       color:var(--muted);font-size:14px;line-height:1;cursor:pointer;
@@ -424,12 +427,32 @@ function updateStepsBar(){
 document.getElementById('school-level-select').addEventListener('change',updateSubjectOptions);
 document.getElementById('subject-select').addEventListener('change',updateSubSubjectOptions);
 document.getElementById('sub-subject-select').addEventListener('change',updateCurriculumAvailability);
+const jobProgressSamples=new Map();
+function formatRemainingTime(seconds){
+  const rounded=Math.max(1,Math.ceil(seconds/10)*10);
+  if(rounded<60)return `약 ${rounded}초 남음`;
+  const minutes=Math.floor(rounded/60),remainder=rounded%60;
+  return `약 ${minutes}분${remainder?` ${remainder}초`:''} 남음`;
+}
 function jobProgressHtml(x){
   if((x.status!=='running'&&x.status!=='cancelling')||!x.total_page)return '';
-  const percent=Math.min(100,Math.round((x.current_page/x.total_page)*100));
-  return `<div class="job-progress"><div class="job-progress-track"><div class="job-progress-fill" style="width:${percent}%"></div></div><span class="job-progress-text">${x.current_page}/${x.total_page}쪽 · ${percent}%</span></div>`;
+  const now=Date.now(),current=Number(x.current_page)||0,total=Number(x.total_page);
+  let sample=jobProgressSamples.get(x.id);
+  if(!sample){sample={page:current,at:now,secondsPerPage:null};jobProgressSamples.set(x.id,sample)}
+  else if(current>sample.page){
+    const elapsed=(now-sample.at)/1000,advanced=current-sample.page;
+    if(elapsed>0){
+      const observed=elapsed/advanced;
+      sample.secondsPerPage=sample.secondsPerPage===null?observed:sample.secondsPerPage*.7+observed*.3;
+    }
+    sample.page=current;sample.at=now;
+  }
+  if(jobProgressSamples.size>200)jobProgressSamples.delete(jobProgressSamples.keys().next().value);
+  const percent=Math.min(100,Math.round((current/total)*100));
+  const eta=current>=total?'마무리 중':sample.secondsPerPage?formatRemainingTime((total-current)*sample.secondsPerPage):'남은 시간 계산 중';
+  return `<div class="job-progress"><div class="job-progress-track"><div class="job-progress-fill" style="width:${percent}%"></div></div><span class="job-progress-text">${current}/${total}쪽 · ${percent}% · ${eta}</span></div>`;
 }
-function referenceHtml(items){if(!items.length)return '<div class="empty">아직 등록되지 않았습니다.</div>';return items.map(x=>`<div class="file-row"><div class="file-icon">${pdfIconSvg}</div><div class="file-info"><b>${esc(x.original_name)}</b><span>${size(x.size_bytes)}</span></div><button class="file-delete" type="button" data-reference-id="${esc(x.id)}" data-reference-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 삭제" title="이 파일 삭제">×</button></div>`).join('')}
+function referenceHtml(items){if(!items.length)return '<div class="empty">아직 등록되지 않았습니다.</div>';return items.map(x=>{const title=x.display_name||x.original_name,original=x.display_name&&x.display_name!==x.original_name?`실제 파일명: ${esc(x.original_name)} · `:'';return `<div class="file-row"><div class="file-icon">${pdfIconSvg}</div><div class="file-info"><b>${esc(title)}</b><span>${original}${size(x.size_bytes)}</span></div><div class="file-actions">${x.kind==='textbook'?`<button class="file-rename" type="button" data-reference-id="${esc(x.id)}" data-reference-name="${esc(title)}" title="목록 표시명 수정">이름 수정</button>`:''}<button class="file-delete" type="button" data-reference-id="${esc(x.id)}" data-reference-name="${esc(title)}" aria-label="${esc(title)} 삭제" title="이 파일 삭제">×</button></div></div>`}).join('')}
 async function load(){const response=await fetch('/api/dashboard',{cache:'no-store'});const data=await response.json();dashboardLimits={...dashboardLimits,...(data.limits||{})};serverStorage={...serverStorage,...(data.storage||{})};curriculumTaxonomy=data.curricula||{};populateCurriculumSelectors();renderStorage(serverStorage.used_bytes,serverStorage.capacity_bytes,'서버 PDF 저장 공간');for(const kind of Object.keys(labels))document.getElementById(kind+'-state').innerHTML=referenceHtml(data.references[kind]||[]);document.getElementById('upload-limit-banner').innerHTML=`<b>PDF 업로드 제한</b><br>서버 전체 저장 용량 ${size(serverStorage.capacity_bytes)} · 파일 1개당 최대 ${dashboardLimits.reference_file_mb}MB · 원고 최대 ${dashboardLimits.manuscript_pages}쪽 · PDF 파일만 등록할 수 있습니다.`;const rows=data.jobs.map(x=>`<div class="job"><div class="job-main"><b>${esc(x.original_name)}</b><div class="job-actions"><span class="status ${esc(x.status)}">${esc(statusLabels[x.status]||x.status)}</span>${(x.status==='queued'||x.status==='running')?`<button class="job-cancel" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 분석 취소">취소</button>`:''}${x.status==='cancelling'?`<button class="job-cancel is-cancelling" type="button" disabled>취소 중…</button>`:''}${x.status==='cancelled'?`<button class="job-retry" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" title="이 원고 다시 분석 시작">다시 분석 시작</button>`:''}${(x.status==='completed'||x.status==='failed'||x.status==='cancelled')?`<button class="file-delete job-delete" type="button" data-job-id="${esc(x.id)}" data-job-name="${esc(x.original_name)}" aria-label="${esc(x.original_name)} 분석 이력 삭제" title="이 분석 이력 삭제">×</button>`:''}</div></div>${jobProgressHtml(x)}<div class="job-meta">${size(x.size_bytes)}${x.work_titles?` · 곡명: ${esc(x.work_titles)}`:''} · ${date(x.created_at)}${x.error?`<br><span style="color:var(--coral)">${esc(x.error)}</span>`:''}</div>${x.status==='completed'?`<div class="job-links"><a class="result" href="/results/${x.id}" target="_blank" rel="noopener">결과 보기</a>${x.diff_path?` · <a class="result" href="/diff/${x.id}" target="_blank" rel="noopener">이전 버전과 비교</a>`:''}</div>`:''}</div>`).join('');document.getElementById('jobs').innerHTML=rows||'<div class="job-empty">분석한 원고가 없습니다.</div>'}
 function validateFiles(files,totalLimitMb){if(!files.length)throw new Error('PDF 파일을 선택해 주세요.');const oneLimit=dashboardLimits.reference_file_mb*1048576;for(const file of files){if(file.size>oneLimit)throw new Error(`${file.name}: 파일 1개 제한 ${dashboardLimits.reference_file_mb}MB를 초과했습니다.`);if(!file.name.toLowerCase().endsWith('.pdf'))throw new Error(`${file.name}: PDF 파일만 등록할 수 있습니다.`)}const total=files.reduce((sum,file)=>sum+file.size,0);if(total>totalLimitMb*1048576)throw new Error(`선택한 파일의 전체 용량이 ${totalLimitMb}MB를 초과했습니다.`);if(total>serverStorage.remaining_bytes)throw new Error(`서버 저장 공간이 부족합니다. 현재 남은 용량은 ${size(serverStorage.remaining_bytes)}입니다.`);return total}
 function renderStorage(used,capacity,title){const percent=capacity?Math.min(100,Math.round(used/capacity*100)):0,remaining=Math.max(0,capacity-used);document.getElementById('upload-progress-bar').style.background=`conic-gradient(var(--sky) 0 ${percent}%, rgba(37,99,235,.14) ${percent}% 100%)`;document.getElementById('upload-progress-percent').textContent=percent+'%';document.getElementById('upload-progress-title').textContent=title;document.getElementById('upload-progress-detail').textContent=`업로드된 용량 ${size(used)} / 총 ${size(capacity)} · 남은 용량 ${size(remaining)}`}
@@ -466,6 +489,7 @@ manuscriptDropzoneClear.addEventListener('click',event=>{
   event.preventDefault();event.stopPropagation();
   manuscriptFileInput.value='';updateDropzoneText();updateStepsBar();
 });
+document.addEventListener('click',async event=>{const button=event.target.closest('.file-rename');if(!button)return;const displayName=prompt('목록에 표시할 이름을 입력하세요. 실제 PDF 파일명은 변경되지 않습니다.',button.dataset.referenceName);if(displayName===null)return;button.disabled=true;try{const response=await fetch(`/api/references/${encodeURIComponent(button.dataset.referenceId)}/display-name`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({display_name:displayName})});const data=await response.json();if(!response.ok)throw new Error(data.error||'표시명 변경 실패');message('reference-message',data.message);await load()}catch(error){message('reference-message',error.message,true);button.disabled=false}});
 document.addEventListener('click',async event=>{const button=event.target.closest('.file-delete:not(.job-delete)');if(!button)return;const name=button.dataset.referenceName;if(!confirm(`${name} 파일만 삭제할까요? 컴퓨터의 원본 PDF는 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/references/${encodeURIComponent(button.dataset.referenceId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'파일 삭제 실패');message('reference-message',data.message);await load()}catch(error){message('reference-message',error.message,true);button.disabled=false}});
 document.addEventListener('click',async event=>{const button=event.target.closest('.job-delete');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 분석 이력을 삭제할까요? 업로드한 원고 사본과 분석 결과 파일이 함께 삭제됩니다. 컴퓨터의 원본 파일은 삭제되지 않습니다.`))return;button.disabled=true;try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}`,{method:'DELETE'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 이력 삭제 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false}});
 document.addEventListener('click',async event=>{const button=event.target.closest('.job-cancel:not(.is-cancelling)');if(!button)return;const name=button.dataset.jobName;if(!confirm(`${name} 분석을 취소할까요?`))return;button.disabled=true;button.textContent='취소 중…';button.classList.add('is-cancelling');try{const response=await fetch(`/api/jobs/${encodeURIComponent(button.dataset.jobId)}/cancel`,{method:'POST'});const data=await response.json();if(!response.ok)throw new Error(data.error||'분석 취소 실패');message('manuscript-message',data.message);await load()}catch(error){message('manuscript-message',error.message,true);button.disabled=false;button.textContent='취소';button.classList.remove('is-cancelling')}});

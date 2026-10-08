@@ -32,6 +32,41 @@ class TeamAppTests(unittest.TestCase):
             active = store.references()
             self.assertEqual(len([item for item in active if item["kind"] == "textbook"]), 2)
 
+    def test_rename_textbook_changes_display_name_only(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            store = TeamStore(root)
+            pdf = root / "original textbook.pdf"
+            pdf.write_bytes(b"%PDF-1.4\n")
+            reference = store.add_reference(
+                "textbook", pdf.name, pdf, "f" * 64, pdf.stat().st_size, "2022", "음악"
+            )
+
+            renamed = store.rename_textbook_display(reference["id"], "비교용 교과서 1")
+
+            self.assertEqual(renamed["display_name"], "비교용 교과서 1")
+            self.assertEqual(renamed["original_name"], "original textbook.pdf")
+            self.assertEqual(renamed["stored_path"], str(pdf))
+            self.assertTrue(pdf.is_file())
+
+    def test_rename_textbook_rejects_empty_name_and_non_textbook(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            store = TeamStore(root)
+            pdf = root / "reference.pdf"
+            pdf.write_bytes(b"%PDF-1.4\n")
+            textbook = store.add_reference(
+                "textbook", pdf.name, pdf, "a" * 64, pdf.stat().st_size, "", "음악"
+            )
+            curriculum = store.add_reference(
+                "evaluation", pdf.name, pdf, "b" * 64, pdf.stat().st_size, "", "음악"
+            )
+
+            with self.assertRaises(ValueError):
+                store.rename_textbook_display(textbook["id"], "  ")
+            with self.assertRaises(ValueError):
+                store.rename_textbook_display(curriculum["id"], "표시명")
+
     def test_curriculum_file_path_uses_sub_subject_when_present(self):
         root = Path("team_data")
         self.assertEqual(

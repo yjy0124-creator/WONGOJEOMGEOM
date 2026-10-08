@@ -4,6 +4,7 @@ import tempfile
 import unittest
 from collections import Counter
 from pathlib import Path
+from unittest.mock import patch
 
 from curriculum_audit import (
     _activity_semantic_similarity,
@@ -29,6 +30,7 @@ from curriculum_audit import (
     detect_manuscript_components,
     extract_curriculum_standards,
     generate_docx_report,
+    generate_markdown_report,
     match_curriculum,
     similarity,
 )
@@ -53,6 +55,24 @@ class CurriculumAuditTests(unittest.TestCase):
         self.assertEqual(result["learning_goals"]["count"], 1)
         self.assertTrue(result["learning_goals"]["items"][0]["text"].startswith("다양한 뮤지컬"))
 
+    def test_detects_learning_goals_after_text_flow_headings(self):
+        page = "\n".join([
+            "효과적인 가창법", "바른 자세로 호흡하기", "복식 호흡",
+            "1단계에서 손바닥에 느껴지는 호흡을", "4단계까지 유지되도록 연습해 보자.",
+            "날숨", "배와 등이 팽창된 상태를 최대", "한 유지하며 내쉬어 보자.",
+            "들숨", "가슴을 들지 말고 꽃향기를 맡듯", "숨을 깊게 들이마셔 보자.",
+            "공간을 울려 노래 부르기", "두강", "비강", "구강",
+            "바른 호흡, 공간 울림, 정확한 발음으로 음역을 확장하여 노래 부를 수 있다.",
+            "예술가곡의 특징을 이해하고, 시와 음악의 조화를 느끼며 노래 부를 수 있다.",
+        ])
+
+        goals = detect_manuscript_components([page])["learning_goals"]
+
+        self.assertEqual(goals["count"], 2)
+        self.assertTrue(goals["items"][0]["text"].startswith("바른 호흡"))
+        self.assertIn("노래 부를 수 있다", goals["items"][0]["text"])
+        self.assertIn("예술가곡의 특징을 이해하고", goals["items"][1]["text"])
+
     def test_labeled_goal_and_wrapped_activities_do_not_absorb_body(self):
         result = detect_manuscript_components([
             "학습 목표 : 다양한 오페라에 대해 알아보고 대표\n"
@@ -75,6 +95,23 @@ class CurriculumAuditTests(unittest.TestCase):
         result = detect_manuscript_components(pages)
         self.assertEqual(result["activities"]["count"], 2)
         self.assertTrue(all(item["method"] == "지시문 종결형 감지" for item in result["activities"]["items"]))
+
+    def test_bullet_activities_are_separated_from_headings_and_diagram_text(self):
+        page = (
+            "연습하기 / 60초 이상 50초 40초 ● 숨을 깊게 들이마신 후 ‘스’ 발음을 "
+            "얼마나 길게 소리 낼 수 있는지 색칠해 보자. "
+            "하품하듯이 이마의 공간 만들기 소리의 방향은 앞쪽으로 "
+            "● 하품하는 느낌으로 이마의 공간을 만들고, 앞쪽으로 소리를 모아서 노래 불러 보자."
+        )
+
+        activities = detect_manuscript_components([page])["activities"]["items"]
+        bullet_activities = [item for item in activities if item["method"] == "글머리표 활동 감지"]
+
+        self.assertEqual(len(bullet_activities), 2)
+        self.assertIn("색칠해 보자", bullet_activities[0]["text"])
+        self.assertNotIn("연습하기", bullet_activities[0]["text"])
+        self.assertIn("노래 불러 보자", bullet_activities[1]["text"])
+        self.assertNotIn("공간 만들기", bullet_activities[1]["text"])
 
     def test_extracts_wrapped_curriculum_standard(self):
         pages = [
@@ -173,6 +210,65 @@ class CurriculumAuditTests(unittest.TestCase):
             self.assertIn("activity_type", item)
             self.assertIn("새로운 제재곡", item["suggestion"])
 
+    def test_typed_suggestion_shows_existing_activity_at_same_position(self):
+        # 화면에는 제안이 "활동 1·2·3"처럼 순번으로 노출되므로, 원고에 이미 그 순번
+        # 자리의 활동이 있다면(유형이 달라 1:1로 다듬는 건 아니더라도) "현재 문구"에
+        # 원고의 실제 활동을 함께 보여줘야 편집자가 비교할 수 있다. 원고 활동이 있는데도
+        # 무조건 "없음"으로 표시하면 탐지 실패처럼 보인다.
+        pages = [
+            "1. 숨을 깊게 들이마신 후 발음을 길게 소리 내 보자.\n"
+            "2. 하품하는 느낌으로 이마의 공간을 만들고 노래 불러 보자."
+        ]
+        components = detect_manuscript_components(pages)
+        alignment = {"top_matches": [{
+            "code": "12감비01-01", "text": "음악의 특징을 비교하여 설명한다.",
+            "page": 1, "score": .5, "matched_keywords": ["특징"],
+        }]}
+        reference = {"activity_readability": {"examples": [
+            {"file": "교과서.pdf", "page": 2, "text": "악곡의 특징을 파악해 보자."},
+            {"file": "교과서.pdf", "page": 5, "text": "2 악곡에 사용된 음악적 표현을 이해하고 특징을 살려 노래해 보자."},
+        ]}}
+        result = _recommendations(components, alignment, pages, reference=reference)
+        self.assertGreaterEqual(len(result["activities"]), 2)
+        self.assertIn("숨을 깊게 들이마신", result["activities"][0]["current_text"])
+        self.assertFalse(result["activities"][0]["reason"].startswith("[신규]"))
+        self.assertIn("하품하는 느낌", result["activities"][1]["current_text"])
+        self.assertFalse(result["activities"][1]["reason"].startswith("[신규]"))
+
+    def test_typed_suggestion_marks_null_current_text_as_new_proposal(self):
+        # 원고에 이 순번 자리의 활동 자체가 없을 때만(여기선 활동이 아예 없는 원고)
+        # current_text가 None이고, AI 경로(edit_type="add")와 같은 "[신규]" 표시를 단다.
+        components = detect_manuscript_components(["악곡을 감상한다."])
+        alignment = {"top_matches": [{
+            "code": "12감비01-01", "text": "음악의 특징을 비교하여 설명한다.",
+            "page": 1, "score": .5, "matched_keywords": ["특징"],
+        }]}
+        reference = {"activity_readability": {"examples": [
+            {"file": "교과서.pdf", "page": 2, "text": "악곡의 특징을 파악해 보자."},
+        ]}}
+        result = _recommendations(components, alignment, ["효과적인 가창법"], reference=reference)
+        self.assertTrue(result["activities"])
+        for item in result["activities"]:
+            self.assertIsNone(item["current_text"])
+            self.assertTrue(item["reason"].startswith("[신규]"))
+
+    def test_activity_recommendation_survives_missing_reference_page(self):
+        components = detect_manuscript_components(["1. 곡을 감상하고 느낌을 나누어 보자."])
+        alignment = {"top_matches": [{
+            "code": "12감비01-01", "text": "음악을 감상하고 특징을 설명한다.",
+            "page": 1, "score": .5, "matched_keywords": ["감상", "특징"],
+        }]}
+        reference = {"activity_readability": {"examples": [{
+            "file": "교과서.pdf", "text": "곡을 감상하고 느낌을 나누어 보자.",
+        }]}}
+
+        result = _recommendations(
+            components, alignment, ["새로운 제재곡"], reference=reference,
+        )
+
+        self.assertTrue(result["activities"])
+        self.assertIn("쪽 정보 없음", result["activities"][0]["reason"])
+
     def test_activity_rewrite_uses_natural_textbook_flow(self):
         first = _simplify_activity(
             "기타 음색이 주는 분위기를 파악하며 감상하고 포크송의 특징을 조사해보자."
@@ -218,6 +314,21 @@ class CurriculumAuditTests(unittest.TestCase):
         # '교향곡'은 편수자료 공식 용어집에 등재된 표준 용어라 인식돼야 한다.
         self.assertTrue(any(term["term"] == "교향곡" for term in explanation["terminology"]))
 
+    def test_body_review_keeps_source_page_when_speller_returns_suggestions(self):
+        sentence = "이 곡은 악기편성을 설명하는 음악이다."
+        components = detect_manuscript_components([sentence])
+        suggestions = [{
+            "start": 5, "end": 10, "description": "띄어쓰기 확인",
+            "candidates": ["악기 편성"],
+        }]
+
+        with patch("curriculum_audit.speller_adapter.adapter.check_text", return_value=suggestions):
+            result = _review_body_text([sentence], components)
+
+        self.assertEqual(len(result["pages"][1]), 1)
+        self.assertEqual(result["pages"][1][0]["current_text"], sentence)
+        self.assertEqual(result["pages"][1][0]["suggested_text"], "이 곡은 악기 편성을 설명하는 음악이다.")
+
     def test_completion_score_uses_declared_weights(self):
         page = ("[12감비01-01] 음악 특징 비교\n학습 목표: 두 악곡을 비교하여 설명할 수 있다.\n"
                 "1. 두 악곡을 비교해 보자.\n이 곡은 서로 다른 악기와 선율을 비교하는 제재이다.\n"
@@ -229,6 +340,20 @@ class CurriculumAuditTests(unittest.TestCase):
         )
         self.assertEqual(score["percentage"], 100)
         self.assertFalse(score["to_reach_100"])
+
+    def test_completion_score_counts_substantial_image_without_photo_text(self):
+        page = "이 쪽에는 자료를 설명하는 문구가 없습니다."
+        components = detect_manuscript_components([page])
+        rendered_pages = [{
+            "width": 400, "height": 600,
+            "page_width_pt": 200, "page_height_pt": 300,
+            "images": [{"bbox": [20, 40, 120, 140], "read_status": "읽음"}],
+        }]
+
+        score = _completion_score(components, {"top_score": 0}, rendered_pages, [page])
+
+        photo_detail = next(item for item in score["details"] if item["name"] == "참고 사진·삽화")
+        self.assertEqual(photo_detail["earned"], photo_detail["maximum"])
 
     def test_activity_similarity_ignores_generic_boja_ending(self):
         components = detect_manuscript_components(["1. 오페라 카르멘의 아리아를 감상하고 인물의 음색을 비교해 보자."])
@@ -525,6 +650,19 @@ class CurriculumAuditTests(unittest.TestCase):
         self.assertIn("고친 문장", full_text)
         self.assertIn("원문 문장", full_text)
         self.assertIn("연주, 감상", full_text)
+
+    def test_generate_markdown_report_includes_analysis_and_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            json_path = Path(temporary) / "audit.json"
+            json_path.write_text(json.dumps(self._DOCX_FIXTURE, ensure_ascii=False), encoding="utf-8")
+            report = generate_markdown_report(json_path)
+
+        self.assertIn("# 원고.pdf 점검 결과", report)
+        self.assertIn("전체 완성도: 80%", report)
+        self.assertIn("**추천 문구:** 추천 활동", report)
+        self.assertIn("**맞춤법:** 오탈자", report)
+        self.assertIn("**비교 문장:** 원문 문장", report)
+        self.assertIn("원고 PDF도 함께 첨부", report)
 
     def test_generate_docx_report_honors_selected_sections(self):
         # 사용자가 '본문 맞춤법 검사'만 골랐다면 활동·유사도·완성도 요약은 문서에서
